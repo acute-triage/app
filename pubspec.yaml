@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -46,6 +48,8 @@ dependencies:
   envied: ^0.5.3
   dio_http2_adapter: ^2.5.0
   ferry_flutter: ^0.9.0-dev.2
+  slang: ^3.29.0
+  slang_flutter: ^3.29.0
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +67,7 @@ dev_dependencies:
   custom_lint: ^0.6.2
   riverpod_lint: ^2.3.9
   envied_generator: ^0.5.3
+  slang_build_runner: ^3.29.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

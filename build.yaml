@@ -9,3 +9,7 @@ targets:
         enabled: true
         options:
           schema: flutter_starter|lib/common/domain/schema.graphql
+      slang_build_runner:
+        options:
+          base_locale: en
+          string_interpolation: braces

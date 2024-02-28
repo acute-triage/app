@@ -1,0 +1,12 @@
+{
+  "app_name": "Flutter Projekt",
+  "home_page": {
+    "title": "Flutter {whateverYouNameIt}",
+    "pushed_button": {
+      "zero": "Tryk på knappen, hvis du tør",
+      "one": "Du har trykket på knappen en gang",
+      "two": "Du har trykket på knappen to gange",
+      "other": "Du har trykket på knappen {n} gange"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "app_name": "Flutter Project",
+  "home_page": {
+    "title": "Flutter {whateverYouNameIt}",
+    "pushed_button": {
+      "zero": "Press the button, if you dare",
+      "one": "You have pushed the button one time",
+      "two": "You have pushed the button two times",
+      "other": "You have pushed the button {n} times"
+    }
+  }
+}

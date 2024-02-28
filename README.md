@@ -3,7 +3,10 @@
 A new Flutter project.
 
 ## Getting Started
-1. Copy `.env.example` to `.env` and fill in the values (if needed).
+1. Copy `.env.example` to `.env` and fill in the values (if needed)
+2. Run `flutter pub get` to install dependencies
+3. Run `flutter pub run build_runner build --delete-conflicting-outputs` to generate code
+4. Run `flutter run` to start the app (or preferably use your IDE)
 
 ### GraphQL
 Useing [ferry](https://ferrygraphql.com/) for a type-safe GraphQL client for Dart and Flutter.
@@ -14,11 +17,16 @@ Remember to keep your schema in sync (you can use this npm package `npm install 
 get-graphql-schema https://pokeapi.dev > lib/schema.graphql
 ```
 
+### Pluralization (slang)
+We use [slang](https://pub.dev/packages/slang) for pluralization and other string manipulation.
+
+When you add a new word, run `dart run slang`
+
 ## Todo
 - [x] https://github.com/gql-dart/ferry
 - [x] https://fluttergems.dev/packages/riverpod/
-- [ ] https://pub.dev/packages/slang
-- [ ] Autoroute
+- [x] https://pub.dev/packages/slang
+- [ ] AutoRoute (https://pub.dev/packages/auto_route)
 - [ ] Add secure storage provider that can store e.g. auth token
 - [ ] Custom theme file
 - [ ] https://fluttergems.dev/packages/flutter_native_splash/
@@ -29,3 +37,5 @@ get-graphql-schema https://pokeapi.dev > lib/schema.graphql
 - [ ] https://fluttergems.dev/packages/flutter_launcher_icons/
 - [ ] https://fluttergems.dev/packages/rename/
 - [ ] https://pub.dev/packages/flutter_dotenv
+- [ ] Create a local storage provider that uses hive as database
+- [ ] Create a locale provider that stores the current locale and updates the app when it changes

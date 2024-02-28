@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_starter/common/presentation/my_home_page.dart';
+import 'package:flutter_starter/i18n/strings.g.dart';
 
 class MainRootWidget extends StatelessWidget {
   const MainRootWidget({super.key});
@@ -8,7 +10,10 @@ class MainRootWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      locale: TranslationProvider.of(context).flutterLocale, // use provider
+      supportedLocales: AppLocaleUtils.supportedLocales,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      title: t.app_name,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -28,7 +33,7 @@ class MainRootWidget extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
