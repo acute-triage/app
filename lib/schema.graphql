@@ -1,0 +1,1385 @@
+"""Exposes a URL that specifies the behavior of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behavior of this scalar."""
+  url: String!
+) on SCALAR
+
+type AdminModel {
+  id: ID!
+  username: String!
+}
+
+type AegisObservationModel {
+  observations: [[String!]!]!
+  score: Float!
+  category: String!
+}
+
+type AegisReportModel {
+  id: String!
+  score: Float!
+  phoneNumber: String!
+  phoneNumberCountry: String
+  context: String!
+  ipAddress: String!
+  ipCountry: String
+  requestedAt: DateTime!
+  userAgent: String
+  deviceName: String
+  deviceId: String
+  usedAt: DateTime
+  aegisVersion: String!
+  blocked: Boolean!
+  headers: String!
+  stats: [[String!]!]!
+  userId: String
+  executionTime: Float
+  observations: [AegisObservationModel!]!
+}
+
+type AgeDistributionModel {
+  age: String!
+  count: Float!
+}
+
+type AppEventModel {
+  id: String!
+  type: String!
+  data: String!
+}
+
+enum appFeature {
+  INSTAGRAM_IMAGE_PICKER
+  PAYWALL
+  MY_TYPE_FILTER
+  BOOST
+  PHOTO_TEST
+  SWR
+  COMPLIMENT_REACTIONS
+  READ_RECEIPTS
+  CHAT_LINKS
+}
+
+type AppInfoModel {
+  environment: String
+  latestAppVersion: String
+  enforcedAppVersion: String
+  region: String
+  date: DateTime!
+}
+
+type AreaPopulationModel {
+  female: Float!
+  male: Float!
+  nonBinary: Float!
+  waitlist: Float!
+}
+
+type AuditlogModel {
+  id: ID!
+  callerId: String!
+  callerName: String!
+  operationType: String!
+  operation: String!
+  resourceType: String!
+  exception: Boolean!
+  createdAt: DateTime!
+  input: JSON!
+  output: JSON!
+}
+
+type AuthTokensModel {
+  accessToken: String!
+  refreshToken: String!
+}
+
+input AutoCompleteAddressInput {
+  streetName: String
+  streetNumber: String
+  city: String
+  postalCode: String
+  formatted: String
+  neighborhood: String
+  countryCodeISO3: String
+  latitude: Float
+  longitude: Float
+}
+
+type AutoCompleteAddressModel {
+  streetName: String
+  streetNumber: String
+  neighborhood: String
+  formatted: String
+  city: String!
+  postalCode: String
+  countryCodeISO3: String!
+  latitude: Float!
+  longitude: Float!
+}
+
+type BoostModel {
+  id: String!
+  userId: String!
+  type: consumableItemType!
+  trigger: consumableItemTrigger!
+  triggerId: String!
+  createdAt: DateTime!
+  usedAt: DateTime
+  expiresAt: DateTime
+  issuerUserId: String!
+  endsAt: DateTime
+  used: Boolean!
+  jwtToken: String
+  pairedBoost: BoostModel
+  profile: ProfileModel!
+}
+
+input CanChangeProfileFieldArg {
+  field: restrictedProfileField!
+}
+
+type CandidateModel {
+  userId: String!
+  userRegion: String!
+  category: Float
+  potentialDoubbleMatchWith: ProfileModel
+  potentialDoubbleMatchWithUserId: String
+  potentialDoubbleMatchWithUserRegion: String
+  recommendedBy: ProfileModel
+  sharedById: String
+  sharedByRegion: String
+  sharedBy: ProfileModel
+  profile: ProfileModel
+}
+
+input CandidateStatsInput {
+  id: String
+  candidateUserId: String
+  type: candidateStatsType
+  firstImageId: String
+  lastSeenImageId: String
+  mostSeenImageId: String
+  longestSeenImageId: String
+  longestSeenImageSeconds: Float
+  imagesCount: Float
+  imagesSeen: Float
+  imagesSwiped: Float
+  secondsSeen: Float
+  undos: Float = 0
+  like: Boolean
+  data: JSON
+}
+
+enum candidateStatsType {
+  SWIPE_DECK
+  PROFILE_CARD
+  UNLOCK_DOUBBLE_MATCH
+}
+
+type CellModel {
+  cell: String!
+  base: Float!
+  region: region!
+}
+
+type ChatModel {
+  id: ID!
+  region: region!
+  latestMessage: MessageModel @deprecated(reason: "Use messages field instead")
+  typeId: String!
+  type: String
+  createdAt: DateTime!
+  lastSeenAt: DateTime
+  locked: Boolean!
+  matchUsers: [ChatUserModel!]! @deprecated(reason: "Use users instead")
+  messages(take: Float): [MessageModel!]
+
+  """
+  Uses messages() when querying. It's important that messages is the first field
+  in the query as the take parameter in messages() is otherwise not respected
+  """
+  isSeen: Boolean!
+  doubbleMatch: DoubbleMatchModel
+  users: [ChatUserModel!]!
+}
+
+type ChatSeenEventModel {
+  userId: ID!
+  seenAt: DateTime!
+}
+
+type ChatStreamEventModel {
+  message: MessageModel
+  userTyping: String
+  chatId: String!
+  reaction: MessageReactionModel
+  userStoppedTyping: String
+  swipedProfileAttachment: SwipedProfileAttachmentModel
+  isUpdate: Boolean!
+  chatSeen: ChatSeenEventModel
+}
+
+type ChatUserModel {
+  profileId: ID! @deprecated(reason: "Use profile.id instead")
+  displayName: String! @deprecated(reason: "Use profile.name instead")
+  profile: ProfileModel!
+  avatar: String! @deprecated(reason: "Use profile.images instead")
+  lastSeen: DateTime
+  relationship: String!
+  status: chatUserStatus
+  causedByBoost: Boolean
+}
+
+enum chatUserStatus {
+  ACCEPTED
+  PENDING
+  IGNORED
+}
+
+type ComplimentModel {
+  id: String!
+  text: String!
+  emoji: String!
+  type: complimentType
+}
+
+enum complimentType {
+  MORE_FRIENDS
+  FUN_WITH_FRIENDS
+}
+
+type ConsumableItemModel {
+  id: String!
+  userId: String!
+  type: consumableItemType!
+  trigger: consumableItemTrigger!
+  triggerId: String!
+  createdAt: DateTime!
+  usedAt: DateTime
+  expiresAt: DateTime
+  issuerUserId: String!
+}
+
+enum consumableItemTrigger {
+  SUBSCRIPTION
+  PURCHASE
+  PURCHASE_BONUS
+  REWARD
+  GIFT
+}
+
+enum consumableItemType {
+  BOOST
+  GIFTABLE_JOINABLE_BOOST
+  JOINABLE_BOOST
+  SUPER_COMPLIMENT
+  PRIORITY_MESSAGE
+  PHOTO_TEST
+}
+
+type ContactInviteProfileModel {
+  username: String
+  name: String!
+  imageThumbnailUrl: String
+  gender: String
+  language: String
+}
+
+input CreatePlaceInput {
+  name: String!
+  category: String!
+  base64Image: String
+  phoneNumber: String
+  address: AutoCompleteAddressInput!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input DatingProfileInfoInput {
+  name: String
+  gender: gender
+  sexualOrientations: [gender!]
+  birthDate: DateTime
+  bio: String
+  occupation: String
+  school: String
+  maxSuggestionDistance: Float
+  maxSuggestionAge: Int
+  minSuggestionAge: Int
+  height: Int
+  city: AutoCompleteAddressInput
+  algorithm: Float
+  language: locales
+  username: String
+  email: String
+  phone: String
+  profileImageUrls: [String!]
+  matchingActive: Boolean
+  public: Boolean
+  interests: [String!]
+  compliments: [String!]
+  inboxPreference: inboxPreference
+  incognito: Boolean
+}
+
+input DeleteProfileInput {
+  profileId: String!
+  delayed: Boolean! = false
+}
+
+type DoubbleMatchDistributionModel {
+  doubbleMatches: Float!
+  count: Float!
+}
+
+type DoubbleMatchModel {
+  id: ID!
+  createdAt: DateTime @deprecated(reason: "Use chat.createdAt instead")
+  doubbleChatId: String!
+  userId: String!
+  matchId: String!
+  teamMateId: String!
+  matchTeamMateId: String!
+  lastSeenAt: DateTime
+  isSeen: Boolean
+  latestMessageAt: DateTime
+  expireAt: DateTime
+  match: ProfileModel!
+  users: [ChatUserModel!]!
+}
+
+input EditPlaceInput {
+  id: String!
+  name: String
+  category: String
+  base64Image: String
+  phoneNumber: String
+  address: AutoCompleteAddressInput
+}
+
+type ExpiringDoubbleMatchesModel {
+  count: Float!
+  image: ImageModel
+}
+
+enum FeedbackType {
+  FEEDBACK
+  DELETING_PROFILE
+  DEACTIVATED_PROFILE
+}
+
+enum filter {
+  FOR_YOU
+  MY_TYPE
+  ACTIVE_TODAY
+  NEARBY
+}
+
+enum gender {
+  MALE
+  FEMALE
+  NON_BINARY
+  Male
+  Female
+  NonBinary
+}
+
+type GenderDistributionModel {
+  gender: String!
+  count: Float!
+}
+
+input GetSuspensionsInput {
+  userId: String!
+  phoneNumber: String!
+}
+
+type ImageModel {
+  id: String
+  imageUrl: String
+  thumbnailUrl: String
+  blurhash: String
+  tinyUrl: String! @deprecated(reason: "use blurhash instead")
+  height: Float
+  width: Float
+  order: Float
+  createdAt: DateTime
+}
+
+enum inboxPreference {
+  DIRECT
+  REQUEST
+}
+
+type InstagramMediaModel {
+  id: ID!
+  caption: String
+
+  """Only available for reels"""
+  isSharedToFeed: Boolean
+  mediaType: String!
+  mediaUrl: String!
+  permalink: String!
+
+  """Only available for videos"""
+  thumbnailUrl: String
+  timestamp: String!
+  username: String!
+}
+
+type InterestModel {
+  name: String!
+  id: String!
+  category: String!
+}
+
+type InviteCodeModel {
+  code: String!
+  userId: String!
+  description: String
+  isUnlock: Boolean!
+  autoInvite: Boolean!
+  phoneNumber: String
+}
+
+type InviteModel {
+  inviteCode: String
+  autoInvite: Boolean!
+  profile: ContactInviteProfileModel!
+  match: ContactInviteProfileModel
+  friends: [ContactInviteProfileModel!]!
+}
+
+enum inviteResponse {
+  Reject
+  Accept
+}
+
+type InvitesDataModel {
+  lastReceivedAt: DateTime
+  count: Float!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type LikedMeModel {
+  id: ID!
+  profile: ProfileModel!
+  createdAt: DateTime
+  isDisliked: Boolean!
+}
+
+enum likedMeType {
+  ALL
+  NEW
+  DISLIKED
+}
+
+type LikesAndDislikesModel {
+  likes: Float!
+  dislikes: Float!
+  likeToDislikeRatio: Float!
+}
+
+enum locales {
+  DA
+  EN
+  SV
+  NO
+  NL
+  da
+  en
+  sv
+  no
+  nl
+}
+
+type LocationModel {
+  location: PointModel!
+  cells: CellModel!
+  withinSupportedRegion: Boolean
+  onWaitlist: Boolean
+  didChangeRegion: Boolean!
+
+  """Distance moved in kilometers"""
+  distanceMoved: Float
+  jwtToken: String
+  countryCode: String
+}
+
+input LogoutInput {
+  refreshToken: String!
+}
+
+type MatchModel {
+  createdAt: DateTime
+  userId: String!
+  matchId: String!
+  match: ProfileModel!
+}
+
+enum messageAttachmentKind {
+  REACTION
+  REPLY
+  CONTEXT
+  PROFILE
+  PROFILE_SWIPE
+  IMAGE
+  GIF
+  VIDEO
+  AUDIO
+  FILE
+  COMPLIMENT
+}
+
+type MessageAttachmentModel {
+  id: ID!
+  data: String!
+  kind: messageAttachmentKind!
+  userId: String
+}
+
+type MessageModel {
+  id: ID!
+  content: String
+  type: String
+  createdAt: DateTime
+  attachments: [MessageAttachmentModel!]!
+  userId: String
+  senderId: String
+  chatId: String
+  sender: ChatUserModel!
+  chat: ChatModel!
+}
+
+type MessageReactionModel {
+  emoji: String
+  userId: String
+}
+
+type Mutation {
+  requestUserCreation(phoneNumber: String!, isRetry: Boolean = false): OtpRequestModel!
+  requestUserCreationV2(phoneNumber: String!): OtpRequestModel! @deprecated(reason: "Use requestUserCreation instead")
+  verifyAndCreateUser(otpId: String!, otpCode: String!, phoneNumber: String, locale: String! = "EN", referralUserId: String, inviteCode: String, autoInvite: Boolean = false): AuthTokensModel!
+  editUser(language: locales, username: String, email: String, phone: String): UserModel!
+  waitingList(region: String, countryCode: String, city: String, latitude: Float, longitude: Float): Boolean!
+  refreshAuthTokens(refreshAuthTokensInput: RefreshAuthTokensInput!): AuthTokensModel!
+  refreshAuthTokensV2(refreshAuthTokensInput: RefreshAuthTokensInput!): AuthTokensModel! @deprecated(reason: "Use refreshAuthTokens instead")
+  logout(logoutInput: LogoutInput!): Boolean!
+  requestEmailLogin(email: String!): Boolean!
+  handleLoginLinkToken(token: String!): AuthTokensModel!
+  requestLoginV2(phoneNumber: String!, isRetry: Boolean = false): OtpRequestModel!
+  login(id: String!, token: String!, phoneNumber: String!): AuthTokensModel!
+  loginV2(id: String!, token: String!, phoneNumber: String!): AuthTokensModel! @deprecated(reason: "Use login instead")
+  requestNumberChange(phoneNumber: String!): OtpRequestModel!
+  changeNumber(id: String!, token: String!, phoneNumber: String!): String!
+  createProfile(email: String!, username: String!, info: ProfileInfoInput!): ProfileModel!
+  createDatingProfile(email: String!, username: String!, info: DatingProfileInfoInput!): ProfileModel! @deprecated(reason: "Use createProfile instead")
+  editProfile(info: ProfileInfoInput!): ProfileModel!
+  editDatingProfile(info: DatingProfileInfoInput!): ProfileModel! @deprecated(reason: "Use editProfile instead")
+  updateActivity: Boolean!
+  removeImageFromProfile(imageUrl: String!): Boolean!
+  setLocation(latitude: Float!, longitude: Float!): LocationModel!
+  setMatchingStatus(status: Boolean!): Boolean!
+  deleteAccount(feedback: UserFeedbackInput): Boolean! @deprecated(reason: "Use deleteAccountV2 instead")
+  cancelAccountDeletion: Boolean!
+  deleteAccountV2(feedback: UserFeedbackInput): Boolean!
+  sendFeedback(feedback: UserFeedbackInput): Boolean!
+  adminDeleteAccount(deleteInput: DeleteProfileInput!): Boolean!
+
+  """Removes name/gender limit"""
+  removeUpdateLimit(userId: String!): Boolean!
+
+  """Updates wait list status"""
+  updateWaitListStatus(userId: String!, onWaitList: Boolean!): Boolean!
+
+  """Enables paywall for user"""
+  enablePaywall(userId: String!): Boolean!
+  adminRemoveProfileImage(imageUrl: String!, userId: String!): Boolean!
+  withinSupportedRegion(region: String, countryCode: String, city: String, latitude: Float, longitude: Float): Boolean!
+  saveCandidateStats(input: CandidateStatsInput!): String!
+  updateCandidateStats(input: CandidateStatsInput!): Boolean!
+  saveProfileContacts(contactInformationInputs: [ProfileContactInformationInput!]! = []): Boolean!
+  ignoreTeammateSuggestion(profileToIgnore: String!): Boolean!
+  removeTeammate(teammateId: String!): Boolean!
+  sendCompliment(complimentId: String!, userId: String, phoneNumber: String, pollUsers: [PollUserData!]!): ProfileComplimentModel!
+  likeCompliment(complimentId: String!, complimenterUserId: String!, like: Boolean!): Boolean!
+  replyToCompliment(complimentId: String!, complimenterUserId: String!, message: String!): Boolean!
+  skipCompliment(complimentId: String!): Boolean!
+  seenCompliment(complimentId: String!, userId: String!): Boolean!
+  authenticateInstagram(code: String!): Boolean!
+  createPlace(createPlaceInput: CreatePlaceInput!): PlaceModel!
+  deletePlace(placeId: String!): PlaceModel!
+  editPlace(input: EditPlaceInput!): PlaceModel!
+  suggestPlace(suggestion: PlaceSuggestionInput!): Boolean!
+  deletePlaceSuggestions(suggestionIds: [String!]! = []): Boolean!
+  swipe(userId: String!, category: Float!, like: Boolean!): SwipeModel!
+  like(profileId: String!, category: Float): SwipeModel! @deprecated(reason: "Use swipe instead")
+  dislike(profileId: String!, category: Float): Boolean! @deprecated(reason: "Use swipe instead.")
+  unmatch(userId: String!): Boolean!
+  undoLikeOrDislike(swipedId: String!): Boolean!
+  grantUnlimitedLikes: Boolean! @deprecated(reason: "Might be relevant for client-only invite actions (e.g. Snap) in the future. TODO: Remove after 01-05-2023 if not used.")
+  unmatchDoubbleMatch(doubbleMatchId: String!): Boolean!
+  seenNotification(id: String!, opened: Boolean! = false): Boolean!
+  changeNotificationsOptions(token: String!, notificationOptions: [NotificationOptionInput!]!): [NotificationOptionModel!]!
+  addNotificationToken(token: String!): Boolean!
+  disableNotificationToken(token: String!): Boolean!
+  dismissContactChat(chatId: String!): Boolean!
+  unlockChat(chatId: String!): Boolean!
+  acceptChatRequest(chatId: String!): Boolean!
+  ignoreChatRequest(chatId: String!): Boolean!
+  isTyping(chatId: String!): Boolean!
+  stoppedTyping(chatId: String!): Boolean!
+  sendMessage(input: SendMessageInput!): MessageModel!
+  shareProfile(input: ShareProfileInput!): [MessageModel!]!
+  sendMessageV2(input: SendMessageInput!): MessageModel! @deprecated(reason: "Use sendMessage instead")
+  recommendPlace(chatId: String!, placeId: String!): MessageModel!
+  sendGif(chatId: String!, giphyId: String!): MessageModel!
+  swipedSharedProfile(messageId: String!, chatId: String!, liked: Boolean!): Boolean!
+  reactToMessage(emoji: String, messageId: String!, chatId: String!): Boolean!
+  pingToAddFriends(userId: String!): Boolean!
+  messageSeen(chatId: String): DateTime!
+  reportContent(report: ReportInput!): Boolean!
+
+  """Deletes all reports given to a specific profile"""
+  clearReportsOnUser(userId: String!): Boolean!
+
+  """Creates a warning for a specific profile"""
+  createWarning(userId: String!, reason: String!): Boolean!
+
+  """Ask a reporter for elaboration on a report"""
+  askForElaboration(reportId: String): Boolean!
+  markWarningsAsSeen: Boolean!
+  whitelistPhoneNumber(input: WhitelistPhoneNumberInput!): Boolean!
+  setDeepLinkRemotely(link: String!, userId: String!): Float!
+  setSuspension(suspensionInput: SuspensionInput!): SuspensionModel!
+  revokeSuspension(revokeInput: RevokeSuspensionInput!): Boolean!
+  getSuspensions(query: GetSuspensionsInput!): Boolean!
+  saveDeviceInfo(input: SaveDeviceInfoArgs!): Boolean!
+  cancelInvite(invitedId: String!): Boolean!
+  inviteContact(phoneNumber: String!, inviteCode: String): PhoneNumberInviteModel!
+  inviteProfileV2(username: String!): Boolean! @deprecated(reason: "use inviteProfile instead")
+  inviteProfile(id: String!): Boolean!
+  respondToInvite(inviterId: String!, response: inviteResponse!): ProfileModel
+  createInviteCode(phoneNumber: String, autoInvite: Boolean, description: String, unlockMatchId: String, sharedProfileId: String): InviteCodeModel!
+  ignoreContact(phoneNumber: String!): Boolean!
+  startPhotoTest(input: StartPhotoTestInput!): PhotoTestModel!
+  revealPhotoTest(photoTestId: String!): PhotoTestModel!
+  fakeInvite(username: String): Boolean!
+  fakeConversation(amountOfMessages: Float!, chatId: String, typeId: String, userId: String, chatType: String!): Boolean!
+  fakeDoubbleMatch: Boolean!
+  fakeQueue: Boolean!
+  fakeMatch: Boolean!
+  fakeMatchWithId(matchId: String!): Boolean!
+  fakeMatchBetweenSwipers(id1: String!, id2: String!): Boolean!
+  fakePhotoTest: PhotoTestModel!
+  fakeCompletedPhotoTest(revealed: Boolean): PhotoTestModel!
+  fakeRandomCandidateStats: String!
+  fakeCompliment(fromFriend: Boolean, userId: String, complimentId: String): Boolean!
+  testNotification(type: String!, data: String): TestNotificationModel!
+  grantConsumable(type: consumableItemType!, expiresAt: String): Boolean!
+  testNotificationToken(token: String!): Boolean!
+  startBoost(
+    """Friend ID (if any) to also gift a boost to"""
+    friendId: String
+  ): BoostModel!
+  inviteFriendToBoost(friendId: String!): BoostModel!
+  acceptGiftedBoostInvitation(
+    """Consumable Item ID to accept"""
+    id: String!
+  ): BoostModel!
+}
+
+input NotificationOptionInput {
+  allowed: Boolean!
+  type: String!
+}
+
+type NotificationOptionModel {
+  type: String!
+  allowed: Boolean!
+}
+
+type OtpRequestModel {
+  id: String!
+  code: String
+}
+
+type PaginatedAuditlogModelResponse {
+  items: [AuditlogModel!]!
+  total: Int
+  hasMore: Boolean
+}
+
+type PaginatedChatModelResponse {
+  items: [ChatModel!]!
+  total: Int
+  hasMore: Boolean
+}
+
+type PaginatedImageModelResponse {
+  items: [ImageModel!]!
+  total: Int
+  hasMore: Boolean
+}
+
+type PaginatedInstagramMediaModelCursorResponse {
+  items: [InstagramMediaModel!]!
+  cursor: String
+}
+
+type PaginatedMessageModelResponse {
+  items: [MessageModel!]!
+  total: Int
+  hasMore: Boolean
+}
+
+type PaginatedPhotoTestModelResponse {
+  items: [PhotoTestModel!]!
+  total: Int
+  hasMore: Boolean
+}
+
+type PaginatedPlaceModelResponse {
+  items: [PlaceModel!]!
+  total: Int
+  hasMore: Boolean
+}
+
+type PaginatedPlaceSuggestionModelResponse {
+  items: [PlaceSuggestionModel!]!
+  total: Int
+  hasMore: Boolean
+}
+
+type PaginatedProfileModelResponse {
+  items: [ProfileModel!]!
+  total: Int
+  hasMore: Boolean
+}
+
+type PaginatedReportedProfileModelResponse {
+  items: [ReportedProfileModel!]!
+  total: Int
+  hasMore: Boolean
+}
+
+type PaginatedReportModelResponse {
+  items: [ReportModel!]!
+  total: Int
+  hasMore: Boolean
+}
+
+type PhoneNumberInviteModel {
+  id: String
+  inviteCode: String
+  createdAt: DateTime
+  name: String
+  referenceId: String
+  phoneNumber: String!
+  phoneNumberScore: Float
+  commonFriends: Float!
+}
+
+type PhotoTestImageModel {
+  createdAt: DateTime!
+  image: ImageModel
+  score: Float
+}
+
+type PhotoTestModel {
+  id: ID!
+  status: PhotoTestStatus!
+  createdAt: DateTime!
+  progress: Float
+  images: [PhotoTestImageModel!]
+}
+
+enum PhotoTestStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+  REVEALED
+}
+
+type PlaceDistanceModel {
+  distance: Float!
+  place: PlaceModel!
+}
+
+type PlaceModel {
+  id: ID!
+  name: String!
+  category: String!
+  image: ImageModel
+  phoneNumber: String
+  address: AutoCompleteAddressModel!
+  statistics: PlaceStatisticModel
+}
+
+type PlaceStatisticModel {
+  recommendedCount: Float
+}
+
+input PlaceSuggestionInput {
+  text: String!
+}
+
+type PlaceSuggestionModel {
+  id: ID!
+  name: String!
+  cleanName: String!
+
+  """Ids of other suggestions matching this place suggestion"""
+  ids: [String!]!
+  count: Float!
+  userIds: [String!]!
+  latestSuggestedAt: DateTime!
+  createdAt: DateTime!
+  profiles: [ProfileModel!]!
+}
+
+type PointModel {
+  coordinates: [Float!]!
+}
+
+type PollGameModel {
+  compliments: [ComplimentModel!]!
+  users: [PollUserModel!]!
+  complimentsPerDay: Float!
+}
+
+input PollUserData {
+  id: String!
+  relation: pollUserRelation!
+}
+
+type PollUserModel {
+  name: String!
+  description: String!
+  userId: String
+  relation: String!
+  weight: Float
+  avatar: ImageModel
+  hasAnyCompliments: Boolean
+  relevantCompliments: [String!]!
+}
+
+enum pollUserRelation {
+  FRIEND
+  FRIEND_SUGGESTION
+  INVITEABLE_CONTACT
+}
+
+type PolygonModel {
+  coordinates: [[[Float!]!]!]!
+}
+
+type PotentialDoubbleMatchesWithModel {
+  friend: ProfileModel!
+  matches: [ProfileModel!]!
+}
+
+enum premiumEntitlement {
+  UNDO
+  UNLIMITED_LIKES
+  MATCH_CHAT
+  LIKED_ME
+  PRIORITY_LIKES
+  FILTERS
+  INCOGNITO
+  WEEKLY_FREE_BOOST
+  WEEKLY_FREE_PHOTO_TEST
+  READ_RECEIPTS
+}
+
+type ProfileComplimentModel {
+  complimentId: String
+  compliment: ComplimentModel
+  complimenter: ProfileModel
+  complimenterId: String
+  complimented: ProfileModel
+  complimentedUserId: String
+  liked: Boolean
+  seenAt: DateTime
+  createdAt: DateTime
+}
+
+input ProfileContactInformationInput {
+  phoneNumber: String!
+  name: String!
+  firstName: String
+  lastName: String
+  hasEmail: Boolean = false
+  company: String
+  birthDate: String
+  referenceId: String
+  hasPhoto: Boolean
+}
+
+input ProfileInfoInput {
+  name: String
+  gender: gender
+  sexualOrientations: [gender!]
+  birthDate: DateTime
+  bio: String
+  occupation: String
+  school: String
+  maxSuggestionDistance: Float
+  maxSuggestionAge: Int
+  minSuggestionAge: Int
+  height: Int
+  city: AutoCompleteAddressInput
+  algorithm: Float
+  language: locales
+  username: String
+  email: String
+  phone: String
+  profileImageUrls: [String!]
+  matchingActive: Boolean
+  public: Boolean
+  interests: [String!]
+  compliments: [String!]
+  inboxPreference: inboxPreference
+  incognito: Boolean
+}
+
+type ProfileLocationModel {
+  g: String
+  c: [Float!]!
+  h: Float!
+}
+
+type ProfileModel {
+  id: ID
+  userId: ID @deprecated(reason: "Use id instead")
+  name: String
+  username: String
+  lastActive: DateTime
+  gender: String
+  sexualOrientations: [String!]
+  birthDate: DateTime
+  createdAt: DateTime
+  deletedAt: DateTime
+  updatedAt: DateTime
+  bio: String
+  occupation: String
+  school: String
+  city: String
+  matchingActive: Boolean
+  public: Boolean!
+  images: [ImageModel!]!
+  avatar: ImageModel
+  compliments: [ProfileComplimentModel!]!
+  maxSuggestionDistance: Float
+  maxSuggestionAge: Int
+  minSuggestionAge: Int
+  height: Int
+  inboxPreference: inboxPreference
+  incognito: Boolean
+  potentialDoubbleMatchesWith: [PotentialDoubbleMatchesWithModel!]!
+  language: String
+  cell: String!
+  userRegion: region
+  hasLocation: Boolean!
+  isCommonTeamMate: Boolean!
+  inContacts: Boolean!
+  potentialDoubbleMatchesCount: Float!
+  numberOfTeammates: Float
+  distance: Float
+  commonTeamMatesCount: Float!
+  friendChatId: String
+  matchChatId: String
+  causedByBoost: Boolean!
+  teamMates: [ProfileModel!]!
+  doubbleMatches(useTTQ: Boolean = true): [DoubbleMatchModel!]! @deprecated(reason: "Fetch from doubble-match resolver instead")
+
+  """
+  Fetches amount of matches _together_ with this profile. TOD: When querying
+  self, instead of returning 0, you could fetch amount of matches you have with "yourself"
+  """
+  numberOfMatches: Float!
+  potentialDoubbleMatches(useTTQ: Boolean = true): [ProfileModel!]!
+  email: String
+  hasPaywall: Boolean! @deprecated(reason: "Use appFeatures instead")
+  appFeatures: [appFeature!]!
+  appVersion: String!
+  operatingSystem: String!
+  deviceType: String!
+  ipAddress: String!
+  devicePlatform: String!
+  phoneNumber: String!
+  supportVerificationHash: String
+  phoneExtension: Float!
+  interests: [InterestModel!]!
+  suspension: SuspensionModel
+  warnings: [ProfileWarningModel!]
+  suspensions: [SuspensionModel!]!
+  logs: [UserLogModel!]!
+  reports: [ReportModel!]
+  country: String
+  area: String
+  onWaitlist: Boolean!
+  withinSupportedRegion: Boolean!
+}
+
+type ProfileWarningModel {
+  reason: String
+  userSeen: Boolean!
+  createdAt: DateTime!
+  callerId: String
+}
+
+type Query {
+  supportedRegions: [SupportedRegionModel!]!
+  emailInUse(email: String!): Boolean!
+  usernameSuggestions(email: String, name: String): [String!]!
+  usernameInUse(username: String!): Boolean!
+  waitingListArea: String
+  getCloudflareAUD(token: String!): [String!]!
+  appInfo: AppInfoModel!
+  whoAdminI: AdminModel!
+  currentProfile: ProfileModel!
+  usernameSearch(searchString: String!): [UsernameSearchModel!]!
+  canChangeProfileField(input: CanChangeProfileFieldArg!): Boolean!
+  profile(userId: String): ProfileModel!
+  potentialDoubbleMatchesWith(userId: ID!): [PotentialDoubbleMatchesWithModel!]!
+  profiles(skip: Int! = 0, take: Int! = 10, onlyWaitListed: Boolean = false): PaginatedProfileModelResponse!
+  searchUsers(query: String!): PaginatedProfileModelResponse!
+  adminGetUser(userId: String, profileId: String): ProfileModel!
+  guessGender(name: String!, countryCode: String): gender
+  guessName(email: String, countryCode: String): String
+  profileLocations(page: Float!): [ProfileLocationModel!]!
+  onWaitlist(region: String, countryCode: String, city: String, latitude: Float, longitude: Float): Boolean!
+  trueUsers(usernames: String! = ""): [TrueUserModel!]!
+  suggestedTeammates(ttq: Boolean! = true): [ProfileModel!]!
+  profileContacts: UserContactsModel!
+  interests: [InterestModel!]!
+  teammates: [ProfileModel!]!
+  teammatesV3: [ProfileModel!]! @deprecated(reason: "Use teammates instead")
+  pollGame(ttq: Boolean! = true): PollGameModel!
+  profileCompliment(complimentId: String!, complimenterUserId: String!): ProfileComplimentModel!
+  myCompliments(take: Int! = 10, cursor: DateTime = null): [ProfileComplimentModel!]!
+  myTopCompliments: [ComplimentModel!]!
+  unseenCompliments: Float!
+  canSeeComplimentsUntil: DateTime
+  instagramPhotos(cursor: String, take: Float = 50): PaginatedInstagramMediaModelCursorResponse!
+  placesWithoutDistance(skip: Int! = 0, take: Int! = 10): PaginatedPlaceModelResponse!
+  places(maxDistance: Int! = 200000, cursor: Int! = 0, take: Int! = 1000): [PlaceDistanceModel!]!
+  placeSuggestions(skip: Int! = 0, take: Int! = 10): PaginatedPlaceSuggestionModelResponse!
+  geocode(onlyCities: Int! = 0, query: String!, take: Int! = 1000): [AutoCompleteAddressModel!]!
+  adminGeocode(onlyCities: Int! = 0, query: String!, take: Int! = 1000): [AutoCompleteAddressModel!]!
+  topLockedMatches: [ProfileModel!]!
+  recentlyLiked(take: Float): [ProfileModel!]!
+  likedMeCount(type: likedMeType, since: DateTime, filter: filter): Int!
+  likedMe(cursor: DateTime = null, take: Int! = 10, type: likedMeType, since: DateTime, filter: filter): [LikedMeModel!]!
+  lastSwipeDate: DateTime
+  matches(cursor: DateTime = null, take: Int! = 10, filter: filter): [MatchModel!]!
+  swipeDeck(
+    excludeIds: [String!] = []
+    swipeCount: Int = 0
+
+    """
+    If set to true, candidates returned may be stale (over max cache period) -
+    if so the isStale will be true and client should refetch
+    """
+    preferStale: Boolean! = true
+    take: Int! = 10
+    filter: filter
+
+    """Fetch current profile with TTQ for SwipeDeck"""
+    ttq: Boolean = true
+  ): SwipeDeckModel!
+  recommendedCandidates(fromInviteCode: String, specificCandidate: String): [CandidateModel!]!
+  stockProfiles(take: Float!): [ProfileModel!]!
+  candidatesByIds(candidateIds: [String!]!, sharedById: String): [CandidateModel!]!
+  doubbleMatches(cursor: DateTime = null, take: Int! = 10, teamMateId: String, matchId: String, groupByMatch: Boolean! = false, filter: filter): [DoubbleMatchModel!]!
+  doubbleMatchesCount: Float!
+  notificationOptions(token: String!): [NotificationOptionModel!]!
+  chats(cursor: DateTime = null, take: Int! = 10, expiringSoon: Boolean! = false, withoutMessages: Boolean! = false, query: String! = "", teamMateId: String, matchId: String, filter: filter): PaginatedChatModelResponse! @deprecated(reason: "Use chatsV3 instead")
+  chatsV2(cursor: DateTime = null, take: Int! = 10, expiringSoon: Boolean! = false, withoutMessages: Boolean! = false, query: String! = "", teamMateId: String, matchId: String, filter: filter): PaginatedChatModelResponse! @deprecated(reason: "Use chatsV3 instead")
+  chatsV3(cursor: DateTime = null, take: Int! = 10, expiringSoon: Boolean! = false, withoutMessages: Boolean! = false, query: String! = "", teamMateId: String, matchId: String, filter: filter): PaginatedChatModelResponse!
+  chatRequests(cursor: DateTime = null, take: Int! = 10, ignored: Boolean!): PaginatedChatModelResponse!
+  chat(chatId: String!): ChatModel!
+  unreadChatCount: Float!
+  unreadChatCountV2: Float! @deprecated(reason: "Use unreadChatCount instead")
+  expiringDoubbleMatches: ExpiringDoubbleMatchesModel!
+  chatMessageSuggestions(chatId: String!): [String!]!
+  whosTyping(chatId: String!): [String!]!
+  messages(chatId: String!, cursor: DateTime = null, take: Int! = 10): PaginatedMessageModelResponse!
+  getReportedChat(chatId: String!): ReportedChatModel!
+
+  """Warnings that the user have not yet seen"""
+  nonSeenWarnings: [ProfileWarningModel!]!
+  allReports(skip: Int! = 0, take: Int! = 10): PaginatedReportModelResponse! @deprecated(reason: "For old admin")
+  reportedProfiles(skip: Int! = 0, take: Int! = 10): PaginatedReportedProfileModelResponse!
+  aegisReports(take: Int! = 100, page: Int! = 1, minScore: Int = 0, maxScore: Int = 100, blocked: Boolean, used: Boolean, ip: String, phoneNumber: String): [AegisReportModel!]!
+  totalProfileCount: Float!
+  genderDistribution: [GenderDistributionModel!]!
+  ageDistribution: [AgeDistributionModel!]!
+  averageTeammatesPrUser: Float!
+  teammatesDistribution: [TeammatesDistributionModel!]!
+  totalDoubbleMatchesCount: Float!
+  doubbleMatchDistribution: [DoubbleMatchDistributionModel!]!
+  totalMatchesCount: Float!
+  matchesNotPartOfDoubbleMatchCount: Float!
+  likesAndDislikesCount: LikesAndDislikesModel!
+  oneSidedLikes: Float!
+  auditlogs(skip: Int! = 0, take: Int! = 10): PaginatedAuditlogModelResponse!
+  inviteData: InvitesDataModel!
+  invitingProfiles: [ProfileModel!]!
+  invitedProfiles: [ProfileModel!]!
+  invitedProfileIds: [String!]!
+  invite(inviteCode: String!): InviteModel!
+  inviteCode(code: String!): InviteCodeModel!
+  inviteableContacts(page: Float! = 1, startCursor: String = ""): [PhoneNumberInviteModel!]!
+  invitedContacts: [PhoneNumberInviteModel!]!
+  profilesThroughContacts: [ProfileModel!]!
+  imagesForPhotoTest: [ImageModel!]!
+  paginatedImagesForPhotoTest(cursor: DateTime = null, take: Int! = 10): PaginatedImageModelResponse!
+  photoTests(cursor: DateTime = null, take: Int! = 10): PaginatedPhotoTestModelResponse!
+  photoTest(photoTestId: String!): PhotoTestModel!
+  subscriptionStatus: Boolean!
+  tokenEntitlements: [premiumEntitlement!]!
+  consumableItems(type: consumableItemType): [ConsumableItemModel!]!
+  consumableItem(id: String!): ConsumableItemModel!
+  activeBoost: BoostModel
+  currentBoost: BoostModel
+}
+
+input RefreshAuthTokensInput {
+  refreshToken: String!
+}
+
+enum region {
+  EUROPE_WEST
+  US_EAST
+  US_WEST
+}
+
+type ReportedChatModel {
+  chat: ChatModel!
+  messages: [MessageModel!]!
+  profiles: [ProfileModel!]!
+}
+
+type ReportedProfileModel {
+  count: Float!
+  reportsSinceWarning: Float!
+  lastReportedAt: DateTime!
+  userId: String!
+  profile: ProfileModel!
+  reports: [ReportModel!]!
+}
+
+input ReportInput {
+  message: String
+  offendingElementId: String!
+  type: ReportType!
+}
+
+type ReportModel {
+  id: ID!
+  reportingUserId: String!
+  creatorOfReportedContentId: String!
+  message: String
+  type: String!
+  content: JSON!
+  reportedElementId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  reporter: ProfileModel
+}
+
+enum ReportType {
+  PROFILE
+  DATING_PROFILE
+  CHAT_MESSAGE
+}
+
+enum restrictedProfileField {
+  NAME
+  BIRTH_DATE
+  GENDER
+}
+
+input RevokeSuspensionInput {
+  suspensionId: String!
+}
+
+input SaveDeviceInfoArgs {
+  data: JSON!
+}
+
+input SendMessageInput {
+  chatId: String!
+  message: String!
+  messageRepliedToId: String
+  contextId: String
+}
+
+input ShareProfileInput {
+  userIds: [String!]!
+  profileId: String!
+  message: String!
+  matchId: String
+}
+
+input StartPhotoTestInput {
+  imageUrls: [String!]!
+}
+
+type Subscription {
+  subscribeToAppEvents: AppEventModel
+  subscribeToChats(chatIds: [String!] = []): ChatStreamEventModel
+}
+
+type SupportedAreaModel {
+  name: String!
+  launched: Boolean!
+  polygon: PolygonModel!
+  target: Float
+  count: AreaPopulationModel!
+}
+
+type SupportedRegionModel {
+  code: String!
+  launched: Boolean!
+  polygon: PolygonModel!
+  target: Float
+  areas: [SupportedAreaModel!]!
+}
+
+input SuspensionInput {
+  userId: String!
+  permanent: Boolean!
+  until: DateTime = null
+  reason: String = null
+}
+
+type SuspensionModel {
+  id: ID!
+  phoneNumber: String!
+  reason: String
+  duration: String!
+  userId: String
+  permanent: Boolean!
+  until: DateTime
+  createdAt: DateTime!
+}
+
+type SwipeDeckModel {
+  candidates: [CandidateModel!]!
+  isStale: Boolean!
+  hasMore: Boolean!
+  location: PointModel
+}
+
+type SwipedProfileAttachmentModel {
+  messageId: String!
+  liked: Boolean
+}
+
+type SwipeModel {
+  swiperUserId: String!
+  swipedUserId: String!
+  like: Boolean!
+  id: String
+  doubbleMatches: [DoubbleMatchModel!]!
+  match: ProfileModel
+  liker: String @deprecated(reason: "deprecated")
+  likerId: String @deprecated(reason: "deprecated")
+  likedId: String @deprecated(reason: "deprecated")
+  verdict: String @deprecated(reason: "deprecated")
+  activeAfter: String @deprecated(reason: "deprecated")
+}
+
+type TeammatesDistributionModel {
+  teammates: Float!
+  count: Float!
+}
+
+type TestNotificationModel {
+  sentNotificationsCount: Float!
+  userId: String!
+  type: String!
+  notification: JSON!
+}
+
+type TrueUserModel {
+  id: ID!
+  username: String!
+  hasBio: Boolean!
+  hasOccupation: Boolean!
+  hasCity: Boolean!
+  hasSchool: Boolean!
+  matchingActive: Boolean!
+  trueUser: Boolean!
+  lastActive: DateTime
+  createdAt: DateTime!
+  swipesCount: Float!
+  friendsCount: Float!
+  matchesCount: Float!
+  doubbleMatchesCount: Float!
+  chatInteractions: Float!
+  sentMessages: Float!
+  experiencesSuggested: Float!
+  averageMessageSentPerChat: Float!
+  interestsCount: Float!
+  profileImagesCount: Float!
+}
+
+type UserContactInformationModel {
+  phoneNumber: String!
+  phoneNumberScore: Float!
+  name: String!
+  userId: String
+  referenceId: String
+  hasPhoto: Boolean
+}
+
+type UserContactsModel {
+  profileId: ID!
+  contacts: [UserContactInformationModel!]!
+}
+
+input UserFeedbackInput {
+  reasons: [String!]
+  description: String
+  type: FeedbackType
+}
+
+type UserLogModel {
+  id: ID!
+  userId: String!
+  action: String!
+  data: String!
+  createdAt: DateTime!
+}
+
+type UserModel {
+  id: ID!
+  phoneNumber: String!
+  email: String
+  username: String
+}
+
+type UsernameSearchModel {
+  id: String!
+  name: String!
+  username: String!
+  thumbnailUrl: String
+}
+
+input WhitelistPhoneNumberInput {
+  phoneNumber: String!
+  description: String!
+}
+
