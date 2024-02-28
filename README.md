@@ -1,6 +1,6 @@
 # flutter_starter
 
-A new Flutter project.
+A very opinionated boilerplate project for Flutter with some of the best packages and practices. This project is meant to be a starting point for new projects and should be customized to fit the needs of the project.
 
 ## Getting Started
 1. Copy `.env.example` to `.env` and fill in the values (if needed)
