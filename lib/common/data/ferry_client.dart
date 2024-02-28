@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_starter/__generated__/schema.schema.gql.dart'
     show possibleTypesMap;
 import 'package:flutter_starter/common/application/dio_provider.dart';
+import 'package:flutter_starter/env.dart';
 import 'package:gql_dio_link/gql_dio_link.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -19,7 +20,7 @@ Future<Client> ferryClient(Ref ref) async {
   final dio = ref.read(dioProvider);
 
   final link = Link.from([
-    DioLink("/graphql", client: dio),
+    DioLink("/${Env.graphqlPath}", client: dio),
   ]);
 
   final client = Client(

@@ -7,85 +7,41 @@ part of 'serializers.gql.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
-      ..add(GAutoCompleteAddressInput.serializer)
-      ..add(GCanChangeProfileFieldArg.serializer)
-      ..add(GCandidateStatsInput.serializer)
-      ..add(GCreatePlaceInput.serializer)
-      ..add(GDateTime.serializer)
-      ..add(GDatingProfileInfoInput.serializer)
-      ..add(GDeleteProfileInput.serializer)
-      ..add(GEditPlaceInput.serializer)
-      ..add(GFeedbackType.serializer)
-      ..add(GGetSuspensionsInput.serializer)
-      ..add(GJSON.serializer)
-      ..add(GLogoutInput.serializer)
-      ..add(GNotificationOptionInput.serializer)
-      ..add(GPhotoTestStatus.serializer)
-      ..add(GPlaceSuggestionInput.serializer)
-      ..add(GPollUserData.serializer)
-      ..add(GProfileContactInformationInput.serializer)
-      ..add(GProfileInfoInput.serializer)
-      ..add(GRefreshAuthTokensInput.serializer)
-      ..add(GReportInput.serializer)
-      ..add(GReportType.serializer)
-      ..add(GRevokeSuspensionInput.serializer)
-      ..add(GSaveDeviceInfoArgs.serializer)
-      ..add(GSendMessageInput.serializer)
-      ..add(GShareProfileInput.serializer)
-      ..add(GStartPhotoTestInput.serializer)
-      ..add(GSuspensionInput.serializer)
-      ..add(GUserFeedbackInput.serializer)
-      ..add(GWhitelistPhoneNumberInput.serializer)
-      ..add(GappFeature.serializer)
-      ..add(GcandidateStatsType.serializer)
-      ..add(GchatUserStatus.serializer)
-      ..add(GcomplimentType.serializer)
-      ..add(GconsumableItemTrigger.serializer)
-      ..add(GconsumableItemType.serializer)
-      ..add(Gfilter.serializer)
-      ..add(Ggender.serializer)
-      ..add(GinboxPreference.serializer)
-      ..add(GinviteResponse.serializer)
-      ..add(GlikedMeType.serializer)
-      ..add(Glocales.serializer)
-      ..add(GmessageAttachmentKind.serializer)
-      ..add(GpollUserRelation.serializer)
-      ..add(GpremiumEntitlement.serializer)
-      ..add(Gregion.serializer)
-      ..add(GrestrictedProfileField.serializer)
+      ..add(FetchPolicy.serializer)
+      ..add(GAllPokemonData.serializer)
+      ..add(GAllPokemonData_pokemons.serializer)
+      ..add(GAllPokemonData_pokemons_results.serializer)
+      ..add(GAllPokemonData_pokemons_results_height.serializer)
+      ..add(GAllPokemonData_pokemons_results_weight.serializer)
+      ..add(GAllPokemonReq.serializer)
+      ..add(GAllPokemonVars.serializer)
+      ..add(GCacheControlScope.serializer)
+      ..add(GNestedFragmentData.serializer)
+      ..add(GNestedFragmentReq.serializer)
+      ..add(GNestedFragmentVars.serializer)
+      ..add(GPokemonCardData.serializer)
+      ..add(GPokemonCardData_height.serializer)
+      ..add(GPokemonCardData_weight.serializer)
+      ..add(GPokemonCardReq.serializer)
+      ..add(GPokemonCardVars.serializer)
+      ..add(GPokemonDetailData.serializer)
+      ..add(GPokemonDetailData_pokemon.serializer)
+      ..add(GPokemonDetailData_pokemon_height.serializer)
+      ..add(GPokemonDetailData_pokemon_stats.serializer)
+      ..add(GPokemonDetailData_pokemon_weight.serializer)
+      ..add(GPokemonDetailReq.serializer)
+      ..add(GPokemonDetailVars.serializer)
+      ..add(GUpload.serializer)
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(Ggender)]),
-          () => new ListBuilder<Ggender>())
+          const FullType(BuiltList, const [
+            const FullType.nullable(GAllPokemonData_pokemons_results)
+          ]),
+          () => new ListBuilder<GAllPokemonData_pokemons_results?>())
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(Ggender)]),
-          () => new ListBuilder<Ggender>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>()))
+          const FullType(BuiltList, const [
+            const FullType.nullable(GPokemonDetailData_pokemon_stats)
+          ]),
+          () => new ListBuilder<GPokemonDetailData_pokemon_stats?>()))
     .build();
 
 // ignore_for_file: deprecated_member_use_from_same_package,type=lint

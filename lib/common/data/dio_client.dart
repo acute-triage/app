@@ -6,6 +6,10 @@ import 'package:flutter_starter/env.dart';
 Dio dioClient(Ref ref) {
   final dio = Dio();
 
+  if (Env.baseUrl != null) {
+    dio.options.baseUrl = Env.baseUrl!;
+  }
+
   dio.interceptors.addAll([
     // authTokenInterceptor(ref),
     // RequestLoggerInterceptor(),
