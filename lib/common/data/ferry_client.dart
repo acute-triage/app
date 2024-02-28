@@ -1,7 +1,7 @@
 import 'package:ferry/ferry.dart';
 import 'package:ferry_hive_store/ferry_hive_store.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_starter/__generated__/schema.schema.gql.dart'
+import 'package:flutter_starter/common/domain/__generated__/schema.schema.gql.dart'
     show possibleTypesMap;
 import 'package:flutter_starter/common/application/dio_provider.dart';
 import 'package:flutter_starter/env.dart';

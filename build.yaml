@@ -4,8 +4,8 @@ targets:
       ferry_generator|graphql_builder:
         enabled: true
         options:
-          schema: flutter_starter|lib/schema.graphql
+          schema: flutter_starter|lib/common/domain/schema.graphql
       ferry_generator|serializer_builder:
         enabled: true
         options:
-          schema: flutter_starter|lib/schema.graphql
+          schema: flutter_starter|lib/common/domain/schema.graphql

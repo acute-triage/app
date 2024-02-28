@@ -5,7 +5,8 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:ferry_exec/ferry_exec.dart' as _i1;
-import 'package:flutter_starter/__generated__/serializers.gql.dart' as _i6;
+import 'package:flutter_starter/common/domain/__generated__/serializers.gql.dart'
+    as _i6;
 import 'package:flutter_starter/features/pokemon/data/graphql/__generated__/pokemon_card_fragment.ast.gql.dart'
     as _i4;
 import 'package:flutter_starter/features/pokemon/data/graphql/__generated__/pokemon_card_fragment.data.gql.dart'

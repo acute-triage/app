@@ -5,7 +5,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart' show StandardJsonPlugin;
 import 'package:ferry_exec/ferry_exec.dart';
-import 'package:flutter_starter/__generated__/schema.schema.gql.dart'
+import 'package:flutter_starter/common/domain/__generated__/schema.schema.gql.dart'
     show GCacheControlScope, GUpload;
 import 'package:flutter_starter/features/pokemon/data/graphql/__generated__/all_pokemon.data.gql.dart'
     show
