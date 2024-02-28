@@ -9,7 +9,7 @@ A new Flutter project.
 4. Run `flutter run` to start the app (or preferably use your IDE)
 
 ### GraphQL
-Useing [ferry](https://ferrygraphql.com/) for a type-safe GraphQL client for Dart and Flutter.
+Using [ferry](https://ferrygraphql.com/) for a type-safe GraphQL client for Dart and Flutter.
 
 Remember to keep your schema in sync (you can use this npm package `npm install -g get-graphql-schema`). When it changes, run:
 
