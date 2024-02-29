@@ -30,8 +30,8 @@ Future<Client> ferryClient(Ref ref) async {
     link: link,
     cache: cache,
     defaultFetchPolicies: {
-      OperationType.query: FetchPolicy.NoCache,
-      OperationType.mutation: FetchPolicy.NoCache,
+      OperationType.query: FetchPolicy.CacheAndNetwork,
+      OperationType.mutation: FetchPolicy.CacheAndNetwork,
     },
   );
 
