@@ -2,17 +2,17 @@ import 'package:ferry/ferry.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_starter/common/presentation/ferry_operation.dart';
+import 'package:flutter_starter/common/presentation/widgets/ferry_operation.dart';
 
 class FerryOperation<TData, TVars> extends ConsumerWidget {
-  final OperationRequest<TData, TVars> operationRequest;
+  final OperationRequest<TData, TVars> request;
   final OperationResponseBuilder<TData, TVars>? builder;
   final Widget Function(TData response)? data;
 
   const FerryOperation({
     super.key,
     this.builder,
-    required this.operationRequest,
+    required this.request,
     this.data,
   }) : assert(builder != null || data != null);
 
@@ -21,10 +21,10 @@ class FerryOperation<TData, TVars> extends ConsumerWidget {
     return FerryClientProvider(
       child: (ferry) => Operation(
         client: ferry,
-        operationRequest: operationRequest,
+        operationRequest: request,
         builder: (context, response, error) {
           if (response == null || response.loading) {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (error != null) {

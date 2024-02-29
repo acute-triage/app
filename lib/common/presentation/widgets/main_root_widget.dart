@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_starter/common/presentation/my_home_page.dart';
+import 'package:flutter_starter/common/application/router.dart';
 import 'package:flutter_starter/i18n/strings.g.dart';
 
 class MainRootWidget extends StatelessWidget {
-  const MainRootWidget({super.key});
+  MainRootWidget({super.key});
+
+  final _appRouter = AppRouter();
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: _appRouter.config(),
       locale: TranslationProvider.of(context).flutterLocale, // use provider
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
@@ -33,7 +36,7 @@ class MainRootWidget extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(),
+      builder: (_, router) => Material(child: router!),
     );
   }
 }

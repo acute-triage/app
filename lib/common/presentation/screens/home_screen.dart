@@ -1,9 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_starter/features/pokemon/presentation/all_pokemons_list.dart';
+import 'package:flutter_starter/common/application/router.gr.dart';
+import 'package:flutter_starter/features/pokemon/presentation/screens/all_pokemons_screen.dart';
 import 'package:flutter_starter/i18n/strings.g.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+@RoutePage()
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -15,10 +18,10 @@ class MyHomePage extends StatefulWidget {
   // always marked "final".
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   int _counter = 0;
 
   void _incrementCounter() {
@@ -85,10 +88,12 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               t.home_page.pushed_button(n: _counter),
             ),
-            const SizedBox(height: 20),
-            const SizedBox(
-              height: 300,
-              child: AllPokemons(),
+            const SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () {
+                context.router.push(const AllPokemonsRoute());
+              },
+              child: const Text('See all pokemons'),
             ),
           ],
         ),

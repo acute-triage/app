@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_starter/common/presentation/main_root_widget.dart';
+import 'package:flutter_starter/common/presentation/widgets/main_root_widget.dart';
 import 'package:flutter_starter/i18n/strings.g.dart';
 
 void main() async {
@@ -9,7 +9,7 @@ void main() async {
 
   runApp(
     TranslationProvider(
-      child: const ProviderScope(
+      child: ProviderScope(
         child: MainRootWidget(),
       ),
     ),
