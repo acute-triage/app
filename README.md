@@ -1,4 +1,4 @@
-# flutter_starter
+# Flutter App Boilerplate
 
 A general purpose boilerplate project for Flutter with some of the best packages and practices. This project is meant to be a starting point for new projects and should be customized to fit the needs of the project.
 
@@ -46,6 +46,13 @@ Container(
 )
 ```
 
+### Splash screen
+We use [flutter_native_splash](https://pub.dev/packages/flutter_native_splash) to generate splash screens for the app.
+
+In addition to the default splash screen, we also have a custom splash screen, that can be used to show a loading screen while the app is initializing and handling any redirect based on the user's authentication status.
+
+If you do not need this, it can be disabled by setting `customSplashScreen` to `false` in `lib/config.dart`.
+
 ### Niddy Griddy
 We have a few niddy griddy (mostly DX) features that may be useful.
 
@@ -80,6 +87,7 @@ A quick way to delay network requests to simulate a slow network.
 - [ ] collection
 - [ ] Scaffold with Appbar / Drawer / BottomNavigationBar
 - [ ] Flavour support
+- [ ] Credit's screen for open source packages
 
 
 ## Known Issues

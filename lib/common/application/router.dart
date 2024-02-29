@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_starter/config.dart';
 
 import 'router.gr.dart';
 
@@ -7,13 +7,15 @@ import 'router.gr.dart';
 class AppRouter extends $AppRouter {
   @override
   List<AutoRoute> get routes => [
-        CustomRoute(
-          page: SplashRoute.page,
-          initial: true,
-        ),
+        if (Config.customSplashScreen)
+          CustomRoute(
+            page: SplashRoute.page,
+            initial: true,
+          ),
         CustomRoute(
           page: HomeRoute.page,
           transitionsBuilder: TransitionsBuilders.fadeIn,
+          initial: !Config.customSplashScreen,
         ),
         AutoRoute(page: AllPokemonsRoute.page),
         AutoRoute(page: ViewPokemonRoute.page),
