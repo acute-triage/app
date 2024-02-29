@@ -4,6 +4,7 @@ import 'package:flutter_starter/common/application/logger.dart';
 import 'package:flutter_starter/common/application/router.gr.dart';
 import 'package:flutter_starter/features/pokemon/presentation/screens/all_pokemons_screen.dart';
 import 'package:flutter_starter/i18n/strings.g.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 @RoutePage()
 class HomeScreen extends StatefulWidget {
@@ -26,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _counter = 0;
 
   void _incrementCounter() {
-    Logger.i('Incrementing counter');
+    Logger.info('Incrementing counter', context: 'HomeScreen');
 
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -97,6 +98,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 context.router.push(const AllPokemonsRoute());
               },
               child: const Text('See all pokemons'),
+            ),
+            const SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => TalkerScreen(talker: talker),
+                ));
+              },
+              child: const Text('Debug console'),
             ),
           ],
         ),

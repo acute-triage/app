@@ -9,7 +9,7 @@ final networkRequestDelayInterceptor = QueuedInterceptorsWrapper(
   onRequest: (options, handler) async {
     const delay = Env.networkRequestDelay;
 
-    if (delay != null) {
+    if (delay != null && delay.isNotEmpty) {
       final delays = delay.split(',');
       final min = int.parse(delays[0]);
       final max = delay.contains(',') ? int.parse(delays[1]) : min;

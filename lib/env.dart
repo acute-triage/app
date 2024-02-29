@@ -21,4 +21,10 @@ final class Env {
   /// Example: 100,3000 will generate a random delay between 100 and 3000 milliseconds
   @EnviedField(varName: 'NETWORK_REQUEST_DELAY', optional: true)
   static const String? networkRequestDelay = _Env.networkRequestDelay;
+
+  @EnviedField(varName: 'LOG_NETWORK_REQUESTS', defaultValue: false)
+  static const bool logNetworkRequests = _Env.logNetworkRequests;
+
+  @EnviedField(varName: 'LOG_FAILED_NETWORK_REQUESTS', defaultValue: true)
+  static const bool logFailedNetworkRequests = _Env.logFailedNetworkRequests;
 }

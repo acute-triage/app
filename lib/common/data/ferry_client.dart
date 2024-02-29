@@ -15,7 +15,10 @@ Future<Client> ferryClient(Ref ref) async {
 
   final store = HiveStore(box);
 
-  final cache = Cache(store: store, possibleTypes: possibleTypesMap);
+  final cache = Cache(
+    store: store,
+    possibleTypes: possibleTypesMap,
+  );
 
   final dio = ref.read(dioProvider);
 
@@ -26,6 +29,10 @@ Future<Client> ferryClient(Ref ref) async {
   final client = Client(
     link: link,
     cache: cache,
+    defaultFetchPolicies: {
+      OperationType.query: FetchPolicy.NoCache,
+      OperationType.mutation: FetchPolicy.NoCache,
+    },
   );
 
   return client;

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_starter/common/application/logger.dart';
 import 'package:flutter_starter/common/application/router.dart';
 import 'package:flutter_starter/i18n/strings.g.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 class MainRootWidget extends StatelessWidget {
   MainRootWidget({super.key});
@@ -12,7 +14,11 @@ class MainRootWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerConfig: _appRouter.config(),
+      routerConfig: _appRouter.config(
+        navigatorObservers: () => [
+          TalkerRouteObserver(talker),
+        ],
+      ),
       locale: TranslationProvider.of(context).flutterLocale, // use provider
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,

@@ -52,8 +52,9 @@ dependencies:
   slang_flutter: ^3.29.0
   auto_route: ^7.8.4
   awesome_flutter_extensions: ^1.2.0
-  logger: ^2.0.2+1
   collection: ^1.18.0
+  talker_flutter: ^4.0.2
+  talker_dio_logger: ^4.0.2
 
 dev_dependencies:
   flutter_test:
