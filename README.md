@@ -27,12 +27,15 @@ When you add a new word, run `dart run slang`
 - [x] https://fluttergems.dev/packages/riverpod/
 - [x] https://pub.dev/packages/slang
 - [ ] AutoRoute (https://pub.dev/packages/auto_route)
-- [ ] Add secure storage provider that can store e.g. auth token
 - [ ] Custom theme file
 - [ ] https://fluttergems.dev/packages/flutter_native_splash/
 - [ ] https://fluttergems.dev/packages/freezed/
 - [ ] Error reporting (Firebase Crashalytics?)
 - [ ] Performance monitoring (Firebase Performance?)
+- [ ] Setup firebase authentication
+- [ ] RevenueCat for in-app purchases
+- [ ] Enable app-check boolean for network requests
+- [ ] In-App messaging (store tokens in firestore or supabase)
 - [ ] https://fluttergems.dev/packages/convenient_test/
 - [ ] https://fluttergems.dev/packages/flutter_launcher_icons/
 - [ ] https://fluttergems.dev/packages/rename/
