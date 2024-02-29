@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_starter/common/application/logger.dart';
 import 'package:flutter_starter/common/application/router.gr.dart';
 import 'package:flutter_starter/features/pokemon/presentation/screens/all_pokemons_screen.dart';
 import 'package:flutter_starter/i18n/strings.g.dart';
@@ -25,6 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int _counter = 0;
 
   void _incrementCounter() {
+    Logger.i('Incrementing counter');
+
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
