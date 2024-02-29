@@ -60,9 +60,11 @@ A quick way to delay network requests to simulate a slow network.
 - [x] https://github.com/gql-dart/ferry
 - [x] https://fluttergems.dev/packages/riverpod/
 - [x] https://pub.dev/packages/slang
-- [ ] AutoRoute (https://pub.dev/packages/auto_route)
-- [ ] Custom theme file
+- [x] AutoRoute (https://pub.dev/packages/auto_route)
+- [x] Generic Debugging / Logging tools
 - [ ] https://fluttergems.dev/packages/flutter_native_splash/
+- [ ] Dark theme support
+- [ ] Custom theme file
 - [ ] https://fluttergems.dev/packages/freezed/
 - [ ] Error reporting (Firebase Crashalytics?)
 - [ ] Performance monitoring (Firebase Performance?)
@@ -74,13 +76,10 @@ A quick way to delay network requests to simulate a slow network.
 - [ ] https://fluttergems.dev/packages/rename/
 - [ ] https://pub.dev/packages/flutter_dotenv
 - [ ] Toast / Notifications
-- [ ] Dark theme support
-- [ ] swipeable_page_route (?)
-- [ ] Generic Debugging / Logging tools
-- [ ] flutter_animate for easy animations
+- [ ] flutter_animate for easy animations (including base extensions for animation e.g. ListView builder)
 - [ ] collection
 - [ ] Scaffold with Appbar / Drawer / BottomNavigationBar
-- [ ] Some base animations, e.g. animated list view, etc
+- [ ] Flavour support
 
 
 ## Known Issues
