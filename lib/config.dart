@@ -1,3 +1,3 @@
 final class Config {
-  static const bool customSplashScreen = true;
+  static const bool customSplashScreen = false;
 }

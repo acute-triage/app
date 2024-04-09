@@ -33,7 +33,7 @@ class _AllShowsScreenState extends State<AllShowsScreen> {
         data: (response) => GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, // 2 columns
-            childAspectRatio: 0.6,
+            childAspectRatio: 0.65,
           ),
           itemCount: response.shows?.length ?? 0,
           itemBuilder: (context, index) {
