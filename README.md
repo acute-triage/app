@@ -16,7 +16,7 @@ Using [ferry](https://ferrygraphql.com/) for a type-safe GraphQL client for Dart
 Remember to keep your schema in sync (you can use this npm package `npm install -g get-graphql-schema`). When it changes, run:
 
 ```bash
-get-graphql-schema https://pokeapi.dev > lib/schema.graphql
+get-graphql-schema http://localhost:8787/graphql > lib/common/domain/schema.graphql
 ```
 
 ### Pluralization (slang)

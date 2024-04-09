@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_starter/common/application/logger.dart';
 import 'package:flutter_starter/common/application/router.gr.dart';
-import 'package:flutter_starter/features/pokemon/presentation/screens/all_pokemons_screen.dart';
 import 'package:flutter_starter/i18n/strings.g.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -95,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
-                context.router.push(const AllPokemonsRoute());
+                context.router.push(const AllShowsRoute());
               },
               child: const Text('See all pokemons'),
             ),

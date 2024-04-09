@@ -17,7 +17,7 @@ class AppRouter extends $AppRouter {
           transitionsBuilder: TransitionsBuilders.fadeIn,
           initial: !Config.customSplashScreen,
         ),
-        AutoRoute(page: AllPokemonsRoute.page),
-        AutoRoute(page: ViewPokemonRoute.page),
+        AutoRoute(page: AllShowsRoute.page),
+        AutoRoute(page: ViewShowRoute.page),
       ];
 }

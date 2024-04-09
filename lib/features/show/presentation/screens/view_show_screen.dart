@@ -4,33 +4,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_starter/common/application/ferry_provider.dart';
 import 'package:flutter_starter/common/presentation/widgets/ferry_client_provider_widget.dart';
-import 'package:flutter_starter/features/pokemon/data/graphql/__generated__/pokemon_detail.data.gql.dart';
-import 'package:flutter_starter/features/pokemon/data/graphql/__generated__/pokemon_detail.req.gql.dart';
+import 'package:flutter_starter/features/show/data/graphql/__generated__/view_show.data.gql.dart';
+import 'package:flutter_starter/features/show/data/graphql/__generated__/view_show.req.gql.dart';
 
 @RoutePage()
-class ViewPokemonScreen extends ConsumerStatefulWidget {
-  final int id;
-  final String? pokemonName;
+class ViewShowScreen extends ConsumerStatefulWidget {
+  final String id;
+  final String? title;
 
-  const ViewPokemonScreen({
+  const ViewShowScreen({
     super.key,
     required this.id,
-    this.pokemonName,
+    this.title,
   });
 
   @override
-  ConsumerState<ViewPokemonScreen> createState() => _ViewPokemonScreenState();
+  ConsumerState<ViewShowScreen> createState() => _ViewPokemonScreenState();
 }
 
-class _ViewPokemonScreenState extends ConsumerState<ViewPokemonScreen> {
-  late GPokemonDetailReq req;
-  GPokemonDetailData_pokemon? pokemon;
+class _ViewPokemonScreenState extends ConsumerState<ViewShowScreen> {
+  late GViewShowReq req;
+  GViewShowData_show? show;
 
   @override
   initState() {
     super.initState();
 
-    req = GPokemonDetailReq(
+    req = GViewShowReq(
       (b) => b..vars.id = widget.id.toString(),
     );
 
@@ -40,13 +40,13 @@ class _ViewPokemonScreenState extends ConsumerState<ViewPokemonScreen> {
   listenForResponse() async {
     final ferry = await ref.read(ferryProvider.selectAsync((value) => value));
 
-    final pokemon = await ferry
+    final show = await ferry
         .request(req)
         .firstWhere((response) => response.dataSource != DataSource.Optimistic)
-        .then((response) => response.data!.pokemon!);
+        .then((response) => response.data!.show!);
 
     setState(() {
-      this.pokemon = pokemon;
+      this.show = show;
     });
   }
 
@@ -54,20 +54,18 @@ class _ViewPokemonScreenState extends ConsumerState<ViewPokemonScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(pokemon?.name ?? widget.pokemonName ?? 'View Pokemon'),
+        title: Text(show?.title ?? widget.title ?? 'View Pokemon'),
       ),
       body: FerryOperation(
         request: req,
         data: (response) {
-          final pokemon = response.pokemon!;
+          final show = response.show!;
 
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Name: ${pokemon.name}'),
-                Text('Height: ${pokemon.height!.in_meter}'),
-                Text('Weight: ${pokemon.weight!.in_kg}'),
+                Text('Name: ${show.title}'),
               ],
             ),
           );
