@@ -7,7 +7,7 @@ import 'package:flutter_starter/common/presentation/widgets/ferry_operation.dart
 class FerryOperation<TData, TVars> extends ConsumerWidget {
   final OperationRequest<TData, TVars> request;
   final OperationResponseBuilder<TData, TVars>? builder;
-  final Widget Function(TData response)? data;
+  final Widget Function(TData response, Client client)? data;
 
   const FerryOperation({
     super.key,
@@ -40,7 +40,7 @@ class FerryOperation<TData, TVars> extends ConsumerWidget {
           }
 
           if (data != null && response.data != null) {
-            return data!(response.data as TData);
+            return data!(response.data as TData, ferry);
           }
 
           if (builder == null) {

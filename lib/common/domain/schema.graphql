@@ -6,6 +6,7 @@ directive @specifiedBy(
 
 type Genre {
   name: String!
+  shows: [Show!]
 }
 
 type ImdbRating {
@@ -26,6 +27,7 @@ enum Quality {
 type Query {
   shows(countryCodes: [String!]!, serviceNames: [String!]!, page: Int!): [Show]
   show(id: ID!): Show
+  genres(countryCodes: [String!]!, serviceNames: [String!]!, page: Int!): [Genre]
 }
 
 enum RoleType {

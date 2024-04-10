@@ -1,0 +1,10 @@
+# import 'show_card_fragment.graphql'
+
+query ShowsByGenre($countryCodes: [String!]!, $serviceNames: [String!]!, $page: Int!) {
+  genres(countryCodes: $countryCodes, serviceNames: $serviceNames, page: $page) {
+    name
+    shows {
+      ...ShowCard
+    }
+  }
+}

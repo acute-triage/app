@@ -6,6 +6,10 @@ import 'package:flutter_starter/common/presentation/widgets/text_typography.dart
 import '../../data/graphql/__generated__/show_card_fragment.data.gql.dart';
 
 class ShowCard extends StatelessWidget {
+  static const double width = 125;
+  static const double height = 200;
+  static const double leftMargin = 6;
+
   final GShowCard show;
 
   const ShowCard({super.key, required this.show});
@@ -13,42 +17,48 @@ class ShowCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: InkWell(
+      margin: EdgeInsets.zero,
+      child: GestureDetector(
         onTap: () => context.router.push(
           ViewShowRoute(
             id: show.id,
             title: show.title,
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                height: 200,
-                width: 200,
-                child: Image.network(
-                  show.posterUrl!,
-                  errorBuilder: (context, error, stacktrace) {
-                    return Text(
-                      "error loading image ${show.posterUrl}: $error",
-                    );
-                  },
-                  fit: BoxFit.fitHeight,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            // Zoom in the image
+            Transform.scale(
+              scale: 1.1,
+              child: Image.network(
+                show.posterUrl!,
+                errorBuilder: (context, error, stacktrace) {
+                  return Text(
+                    "error loading image ${show.posterUrl}: $error",
+                  );
+                },
+                fit: BoxFit.cover,
+                height: height,
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topRight,
+                  colors: [
+                    Colors.black.withOpacity(0.4),
+                    Colors.transparent,
+                  ],
                 ),
               ),
-              const SizedBox(height: 8),
-              Column(
+            ),
+            Positioned(
+              bottom: 4,
+              left: 4,
+              child: Column(
                 children: [
-                  TextTypography.bodyLarge(
-                    show.title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    center: true,
-                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -57,15 +67,17 @@ class ShowCard extends StatelessWidget {
                         color: Colors.yellow[600],
                         size: 20,
                       ),
+                      const SizedBox(width: 4),
                       const TextTypography.bodySmall(
                         '9.7',
+                        color: Colors.white,
                       ),
                     ],
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

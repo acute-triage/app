@@ -30,10 +30,12 @@ class _AllShowsScreenState extends State<AllShowsScreen> {
       ),
       body: FerryOperation(
         request: req,
-        data: (response) => GridView.builder(
+        data: (response, _) => GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, // 2 columns
             childAspectRatio: 0.65,
+            crossAxisSpacing: 4,
+            mainAxisSpacing: 4,
           ),
           itemCount: response.shows?.length ?? 0,
           itemBuilder: (context, index) {

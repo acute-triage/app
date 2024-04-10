@@ -96,7 +96,14 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 context.router.push(const AllShowsRoute());
               },
-              child: const Text('See all pokemons'),
+              child: const Text('See all shows'),
+            ),
+            const SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () {
+                context.router.push(const ShowsByGenreRoute());
+              },
+              child: const Text('Shows by genre'),
             ),
             const SizedBox(height: 30),
             ElevatedButton(

@@ -58,7 +58,7 @@ class _ViewPokemonScreenState extends ConsumerState<ViewShowScreen> {
       ),
       body: FerryOperation(
         request: req,
-        data: (response) {
+        data: (response, _) {
           final show = response.show!;
 
           return Center(

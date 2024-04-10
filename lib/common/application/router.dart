@@ -19,5 +19,6 @@ class AppRouter extends $AppRouter {
         ),
         AutoRoute(page: AllShowsRoute.page),
         AutoRoute(page: ViewShowRoute.page),
+        AutoRoute(page: ShowsByGenreRoute.page),
       ];
 }
