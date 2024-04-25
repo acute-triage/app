@@ -13,3 +13,5 @@ targets:
         options:
           base_locale: en
           string_interpolation: braces
+          input_directory: lib/i18n
+          # output_directory: lib/i18n # defaulting to lib/gen if input is outside of lib/

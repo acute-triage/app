@@ -8,5 +8,14 @@
       "two": "Du har trykket på knappen to gange",
       "other": "Du har trykket på knappen {n} gange"
     }
+  },
+  "common": {
+    "something_went_wrong": "Uups! Noget gik galt",
+    "retry": "Prøv igen",
+    "contact_support": "Contact Support"
+  },
+  "error_handler": {
+    "title": "Something went wrong",
+    "content": "Pleasr try again, or contacts support"
   }
 }

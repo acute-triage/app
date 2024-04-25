@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 2
-/// Strings: 12 (6 per locale)
+/// Strings: 22 (11 per locale)
 ///
-/// Built on 2024-04-09 at 15:16 UTC
+/// Built on 2024-04-10 at 17:51 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -150,6 +150,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	// Translations
 	String get app_name => 'Flutter Project';
 	late final _StringsHomePageEn home_page = _StringsHomePageEn._(_root);
+	late final _StringsCommonEn common = _StringsCommonEn._(_root);
+	late final _StringsErrorHandlerEn error_handler = _StringsErrorHandlerEn._(_root);
 }
 
 // Path: home_page
@@ -166,6 +168,29 @@ class _StringsHomePageEn {
 		two: 'You have pushed the button two times',
 		other: 'You have pushed the button ${n} times',
 	);
+}
+
+// Path: common
+class _StringsCommonEn {
+	_StringsCommonEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get something_went_wrong => 'Ooups! Something went wrong';
+	String get retry => 'Try again';
+	String get contact_support => 'Contact Support';
+}
+
+// Path: error_handler
+class _StringsErrorHandlerEn {
+	_StringsErrorHandlerEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Something went wrong';
+	String get content => 'Pleasr try again, or contacts support';
 }
 
 // Path: <root>
@@ -194,6 +219,8 @@ class _StringsDa implements Translations {
 	// Translations
 	@override String get app_name => 'Flutter Projekt';
 	@override late final _StringsHomePageDa home_page = _StringsHomePageDa._(_root);
+	@override late final _StringsCommonDa common = _StringsCommonDa._(_root);
+	@override late final _StringsErrorHandlerDa error_handler = _StringsErrorHandlerDa._(_root);
 }
 
 // Path: home_page
@@ -212,6 +239,29 @@ class _StringsHomePageDa implements _StringsHomePageEn {
 	);
 }
 
+// Path: common
+class _StringsCommonDa implements _StringsCommonEn {
+	_StringsCommonDa._(this._root);
+
+	@override final _StringsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get something_went_wrong => 'Uups! Noget gik galt';
+	@override String get retry => 'Prøv igen';
+	@override String get contact_support => 'Contact Support';
+}
+
+// Path: error_handler
+class _StringsErrorHandlerDa implements _StringsErrorHandlerEn {
+	_StringsErrorHandlerDa._(this._root);
+
+	@override final _StringsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Something went wrong';
+	@override String get content => 'Pleasr try again, or contacts support';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 
@@ -226,6 +276,11 @@ extension on Translations {
 				two: 'You have pushed the button two times',
 				other: 'You have pushed the button ${n} times',
 			);
+			case 'common.something_went_wrong': return 'Ooups! Something went wrong';
+			case 'common.retry': return 'Try again';
+			case 'common.contact_support': return 'Contact Support';
+			case 'error_handler.title': return 'Something went wrong';
+			case 'error_handler.content': return 'Pleasr try again, or contacts support';
 			default: return null;
 		}
 	}
@@ -242,6 +297,11 @@ extension on _StringsDa {
 				two: 'Du har trykket på knappen to gange',
 				other: 'Du har trykket på knappen ${n} gange',
 			);
+			case 'common.something_went_wrong': return 'Uups! Noget gik galt';
+			case 'common.retry': return 'Prøv igen';
+			case 'common.contact_support': return 'Contact Support';
+			case 'error_handler.title': return 'Something went wrong';
+			case 'error_handler.content': return 'Pleasr try again, or contacts support';
 			default: return null;
 		}
 	}

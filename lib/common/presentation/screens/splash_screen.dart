@@ -30,6 +30,8 @@ class _SplashScreenState extends State<SplashScreen>
 
   static const homeRoute = HomeRoute();
 
+  static const debugging = false;
+
   @override
   void initState() {
     super.initState();
@@ -52,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen>
       }
     });
 
-    if (!Config.customSplashScreen) {
+    if (!Config.customSplashScreen && !debugging) {
       context.router.replace(homeRoute);
     }
   }
@@ -62,8 +64,11 @@ class _SplashScreenState extends State<SplashScreen>
 
     await Future.delayed(const Duration(milliseconds: 50));
 
-    if (mounted) {
+    if (mounted && !debugging) {
       context.router.replace(homeRoute);
+    } else if (debugging) {
+      // start over
+      _controller.forward(from: 0.0);
     }
   }
 
@@ -77,7 +82,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).scaffoldBackgroundColor,
       child: AnimatedBuilder(
           animation: _scaleAnimation,
           builder: (context, child) {
@@ -91,6 +96,7 @@ class _SplashScreenState extends State<SplashScreen>
                     ..duration = composition.duration
                     ..forward();
                 },
+                fit: BoxFit.contain,
               ),
             );
           }),

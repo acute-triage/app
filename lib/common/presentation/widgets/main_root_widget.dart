@@ -24,7 +24,9 @@ class MainRootWidget extends StatelessWidget {
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
       title: t.app_name,
-      theme: AppTheme.themeData,
+      theme: AppTheme.lightThemeData,
+      darkTheme: AppTheme.darkThemeData,
+      themeMode: ThemeMode.dark,
       builder: (_, router) => Material(child: router!),
     );
   }

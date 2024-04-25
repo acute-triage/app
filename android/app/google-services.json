@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "24999585835",
+    "project_id": "popcornpals",
+    "storage_bucket": "popcornpals.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24999585835:android:613f019bc98b443b83626e",
+        "android_client_info": {
+          "package_name": "com.example.flutter_starter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDExtGG-3CY_OEVIg2NAxDrPQOeJlbtM50"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

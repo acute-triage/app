@@ -27,4 +27,10 @@ final class Env {
 
   @EnviedField(varName: 'LOG_FAILED_NETWORK_REQUESTS', defaultValue: true)
   static const bool logFailedNetworkRequests = _Env.logFailedNetworkRequests;
+
+  @EnviedField(varName: 'SLOW_TRACE_SLOW_REQUESTS', defaultValue: true)
+  static const bool showTraceSlowRequests = _Env.showTraceSlowRequests;
+
+  @EnviedField(varName: 'MIXPANEL_TOKEN', optional: true)
+  static const String? mixpanelToken = _Env.mixpanelToken;
 }

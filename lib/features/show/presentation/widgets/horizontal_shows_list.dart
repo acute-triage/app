@@ -1,18 +1,25 @@
+import 'package:ferry/ferry.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_starter/common/presentation/widgets/text_typography.dart';
 import 'package:flutter_starter/common/util/debouncer.dart';
+import 'package:flutter_starter/features/paginated_list/presentation/widgets/list_header.dart';
+import 'package:flutter_starter/features/paginated_list/presentation/widgets/paginated_list.dart';
+import 'package:flutter_starter/features/paginated_list/presentation/widgets/sliver_skeleton_loader.dart';
 import 'package:flutter_starter/features/show/data/graphql/__generated__/show_card_fragment.data.gql.dart';
 import 'package:flutter_starter/features/show/presentation/widgets/show_card.dart';
 
-class HorizontalListOfShows extends StatefulWidget {
+class HorizontalListOfShows<TData, TVars> extends StatefulWidget {
   final String title;
   final List<GShowCard> shows;
   final Function(GShowCard show)? onTap;
+  final OperationRequest<TData, TVars> request;
+  final VoidCallback loadMore;
 
   const HorizontalListOfShows({
     super.key,
     required this.title,
     required this.shows,
+    required this.request,
+    required this.loadMore,
     this.onTap,
   });
 
@@ -57,10 +64,8 @@ class _HorizontalListOfShowsState extends State<HorizontalListOfShows> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: ShowCard.leftMargin),
-          child: TextTypography.headlineMedium(widget.title),
-        ),
+        ListHeader(widget.title),
+        const SizedBox(height: 8),
         SizedBox(
           height: 218,
           // decoration: BoxDecoration(
@@ -85,59 +90,57 @@ class _HorizontalListOfShowsState extends State<HorizontalListOfShows> {
                   (BuildContext context, int index) {
                     final show = widget.shows[index];
 
-                    final item = GestureDetector(
+                    return GestureDetector(
                       onTap: () => widget.onTap?.call(show),
-                      child: SizedBox(
-                        width: ShowCard.width,
+                      child: _ListItemPadding(
                         child: ShowCard(
                           show: show,
                         ),
                       ),
                     );
-
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                        right: 0.0,
-                        left: ShowCard.leftMargin,
-                        // left: index == 0 ? 12.0 : 0.0,
-                      ),
-                      child: item,
-                    );
                   },
                 ),
               ),
-              // if (widget.provider != null)
-              //   SliverSkeletonLoader(
-              //     keyPrefix: '${widget.title}_${widget.subtitle}',
-              //     provider: widget.provider!,
-              //     variant: PaginatedListVariant.Horizontal,
-              //     trackerKey: widget.trackerKey,
-              //     count: widget.skeletonCount,
-              //     trackLoadFromInit: true,
-              //     skeletonBuilder: (index, _) {
-              //       if (listProfiles.length == 0 && index == 0) {
-              //         return Padding(
-              //           padding: const EdgeInsets.only(right: 10.0),
-              //           child: SizedBox(
-              //             width: HorizontalProfilesListWithLargeImage.CARD_SIZE,
-              //             child: const SkeletonProfileWithLargeImage(),
-              //           ),
-              //         );
-              //       }
-
-              //       return Padding(
-              //         padding: EdgeInsets.only(right: 10.0),
-              //         child: SizedBox(
-              //           width: HorizontalProfilesListWithLargeImage.CARD_SIZE,
-              //           child: const SkeletonProfileWithLargeImage(),
-              //         ),
-              //       );
-              //     },
-              //   ),
+              SliverSkeletonLoader(
+                // TODO: make key prefix more unique
+                keyPrefix: widget.title,
+                trackerKey: '${toString()}_${widget.title}',
+                request: widget.request,
+                // provider: widget.provider!,
+                variant: PaginatedListVariant.horizontal,
+                // trackerKey: widget.trackerKey,
+                // count: widget.skeletonCount,
+                trackLoadFromInit: true,
+                loadMore: widget.loadMore,
+                skeletonBuilder: (index, _) {
+                  return const _ListItemPadding(
+                    child: ShowCard.skeleton(),
+                  );
+                },
+              ),
             ],
           ),
         ),
       ],
+    );
+  }
+}
+
+class _ListItemPadding extends StatelessWidget {
+  const _ListItemPadding({
+    required this.child,
+  });
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        right: 0.0,
+        left: ShowCard.leftMargin,
+      ),
+      child: child,
     );
   }
 }
