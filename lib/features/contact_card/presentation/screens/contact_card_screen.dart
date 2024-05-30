@@ -199,68 +199,56 @@ class ChooseSymptomsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        IntrinsicHeight(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    category.name,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                          height: 1.5,
-                        ),
-                  ),
-                ),
-              ),
-              ...category.symptoms.map(
-                (sympton) => Expanded(
-                  child: FilledButton(
-                    onPressed: () {
-                      onChooseSympton(sympton);
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        sympton.code.color,
-                      ),
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                category.name,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                      height: 1.5,
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Text(
-                        sympton.description,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ),
               ),
-              Expanded(
-                child: FilledButton(
-                  onPressed: () {
-                    onChooseSympton(null);
-                  },
-                  child: const Text('Ingen af ovenstående'),
-                ),
-              ),
-            ]
-                .expand(
-                  (element) => [
-                    element,
-                    const SizedBox(
-                      height: 16.0,
-                    ),
-                  ],
-                )
-                .toList(),
+            ),
           ),
-        ),
-      ],
+          ...category.symptoms.map(
+            (sympton) => Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: FilledButton(
+                onPressed: () {
+                  onChooseSympton(sympton);
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                    sympton.code.color,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text(
+                    sympton.description,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: FilledButton(
+              onPressed: () {
+                onChooseSympton(null);
+              },
+              child: const Text('Ingen af ovenstående'),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
