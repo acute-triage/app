@@ -3,7 +3,7 @@ import 'package:flutter_starter/features/contact_card/domain/contact_reason_card
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
 
-const vaertraekningsbesvaer = ContactReasonCard(
+const contactCard23 = ContactReasonCard(
   title: 'Vejrtrækningsbesvær',
   number: 23,
   symptomCategories: [
