@@ -140,44 +140,47 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
             },
           ),
         ),
-        body: Center(
-          child: !isDone
-              ? ChooseSymptomsWidget(
-                  category: currentSymptomCategory!,
-                  onChooseSympton: onChooseSympton,
-                )
-              : DefaultTextStyle(
-                  style: TextStyle(
-                    color: currentCode.contrastColor,
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Center(
+            child: !isDone
+                ? ChooseSymptomsWidget(
+                    category: currentSymptomCategory!,
+                    onChooseSympton: onChooseSympton,
+                  )
+                : DefaultTextStyle(
+                    style: TextStyle(
+                      color: currentCode.contrastColor,
+                    ),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 8.0),
+                        Text(
+                          'Barnet triageres ${currentCode.name} på baggrund af det udfyldte kontaktårsagskort',
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 16.0),
+                        // heading
+                        Text(
+                          'Behandlingstid: ${currentCode.maxWaitTime.inMinutes == 0 ? 'Omgående' : '0-${currentCode.maxWaitTime.inMinutes} minutter'}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(
+                                color: currentCode.contrastColor,
+                              ),
+                        ),
+                        const SizedBox(height: 16.0),
+                        ElevatedButton(
+                          onPressed: () {
+                            context.router.maybePop();
+                          },
+                          child: const Text('Gem resultat'),
+                        ),
+                      ],
+                    ),
                   ),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 8.0),
-                      Text(
-                        'Barnet triageres ${currentCode.name} på baggrund af det udfyldte kontaktårsagskort',
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 16.0),
-                      // heading
-                      Text(
-                        'Behandlingstid: ${currentCode.maxWaitTime.inMinutes == 0 ? 'Omgående' : '0-${currentCode.maxWaitTime.inMinutes} minutter'}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(
-                              color: currentCode.contrastColor,
-                            ),
-                      ),
-                      const SizedBox(height: 16.0),
-                      ElevatedButton(
-                        onPressed: () {
-                          context.router.maybePop();
-                        },
-                        child: const Text('Gem resultat'),
-                      ),
-                    ],
-                  ),
-                ),
+          ),
         ),
       ),
     );
