@@ -28,6 +28,7 @@ type Query {
   shows(countryCodes: [String!]!, serviceNames: [String!]!, page: Int!): [Show]
   show(id: ID!): Show
   genres(countryCodes: [String!]!, serviceNames: [String!]!, page: Int!): [Genre]
+  services(countryCodes: [String!]): [StreamingService]
 }
 
 enum RoleType {
@@ -76,6 +77,7 @@ type StreamingDetail {
 
 type StreamingService {
   name: String!
+  logo: String!
 }
 
 enum StreamingType {

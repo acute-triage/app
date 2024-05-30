@@ -9,6 +9,9 @@
       "other": "Du har trykket på knappen {n} gange"
     }
   },
+  "choose": {
+    "title": "hasdasd"
+  },
   "common": {
     "something_went_wrong": "Uups! Noget gik galt",
     "retry": "Prøv igen",

@@ -1,43 +1,139 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_starter/common/application/logger.dart';
 import 'package:flutter_starter/common/application/router.gr.dart';
-import 'package:flutter_starter/i18n/strings.g.dart';
-import 'package:talker_flutter/talker_flutter.dart';
+import 'package:flutter_starter/features/contact_card/data/contact_card_10.dart';
+import 'package:flutter_starter/features/contact_card/data/contact_card_23.dart';
+import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
+
+const List<ContactReasonCard> contactCards = [
+  ContactReasonCard(
+    title: 'Allergisk reaktion',
+    number: 1,
+    symptomCategories: [],
+  ),
+  ContactReasonCard(
+    title: 'Træthed og bleghed (anæmi)',
+    number: 2,
+    symptomCategories: [],
+  ),
+  ContactReasonCard(
+    title: 'Bevægeapparatsymptomer',
+    number: 3,
+    symptomCategories: [],
+  ),
+  ContactReasonCard(
+    title: 'Besvimelse',
+    number: 4,
+    symptomCategories: [],
+  ),
+  ContactReasonCard(
+    title: 'Bevidsthedspåvirkning',
+    number: 5,
+    symptomCategories: [],
+  ),
+  ContactReasonCard(
+    title: 'Brystsmerter',
+    number: 6,
+    symptomCategories: [],
+  ),
+  ContactReasonCard(
+    title: 'Cyanose i sygehistorie',
+    number: 7,
+    symptomCategories: [],
+  ),
+  ContactReasonCard(
+    title: 'Dehydrering',
+    number: 8,
+    symptomCategories: [],
+  ),
+  ContactReasonCard(
+    title: 'Diabetes mellitus',
+    number: 9,
+    symptomCategories: [],
+  ),
+  contactCard10,
+  ContactReasonCard(
+    title: 'Feber',
+    number: 11,
+    symptomCategories: [],
+  ),
+  ContactReasonCard(
+    title: 'Forgiftning',
+    number: 12,
+    symptomCategories: [],
+  ),
+  ContactReasonCard(
+    title: 'Gastrointestinal blødning',
+    number: 13,
+    symptomCategories: [],
+  ),
+  ContactReasonCard(
+    title: 'Hovedpine',
+    number: 14,
+    symptomCategories: [],
+  ),
+  ContactReasonCard(
+    title: 'Hovedtraume',
+    number: 15,
+    symptomCategories: [],
+  ),
+  ContactReasonCard(
+    title: 'Hudsymptomer (udslæt)',
+    number: 16,
+    symptomCategories: [],
+  ),
+  ContactReasonCard(
+    title: 'Kramper nu ophørt',
+    number: 17,
+    symptomCategories: [],
+  ),
+  ContactReasonCard(
+    title: 'Mavesmerter (skrigeture)',
+    number: 18,
+    symptomCategories: [],
+  ),
+  ContactReasonCard(
+    title: 'Mistanke om overgreb',
+    number: 19,
+    symptomCategories: [],
+  ),
+  ContactReasonCard(
+    title: 'Spiseproblemer, vægttab',
+    number: 20,
+    symptomCategories: [],
+  ),
+  ContactReasonCard(
+    title: 'Underlivssmerter',
+    number: 21,
+    symptomCategories: [],
+  ),
+  ContactReasonCard(
+    title: 'Urinvejssymptomer',
+    number: 22,
+    symptomCategories: [],
+  ),
+  vaertraekningsbesvaer,
+  ContactReasonCard(
+    title: 'Frakturer',
+    number: 24,
+    symptomCategories: [],
+  ),
+  ContactReasonCard(
+    title: 'Passer ikke til noget',
+    number: 25,
+    symptomCategories: [],
+  ),
+];
 
 @RoutePage()
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    Logger.info('Incrementing counter', context: 'HomeScreen');
-
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -48,80 +144,59 @@ class _HomeScreenState extends State<HomeScreen> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(t.home_page.title(whateverYouNameIt: "Boilerplate")),
+        title: const Text("Kontaktsårsagskort"),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: AppLocale.values
-                  .map(
-                    (locale) => ElevatedButton(
-                      onPressed: () {
-                        LocaleSettings.setLocale(locale);
-                      },
-                      child: Text(locale.name),
-                    ),
-                  )
-                  .toList(),
-            ),
-            Text(
-              t.home_page.pushed_button(n: _counter),
-            ),
-            const SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: () {
-                context.router.push(const AllShowsRoute());
-              },
-              child: const Text('See all shows'),
-            ),
-            const SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: () {
-                context.router.push(const ShowsByGenreRoute());
-              },
-              child: const Text('Shows by genre'),
-            ),
-            const SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => TalkerScreen(talker: talker),
-                ));
-              },
-              child: const Text('Debug console'),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GridView.count(
+            crossAxisCount: 2,
+            childAspectRatio: 3,
+            crossAxisSpacing: 16.0, // Adjust as needed
+            children: contactCards.reversed
+                .map(
+                  (contactReasonCard) => Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        child: FilledButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                // 5px rounded borders
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                            ),
+                            textStyle: MaterialStateProperty.all(
+                              const TextStyle(
+                                // fontSize: 16.0,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ),
+                          onPressed:
+                              contactReasonCard.symptomCategories.isNotEmpty
+                                  ? () {
+                                      AutoRouter.of(context).push(
+                                        ContactCardRoute(
+                                          contactCard: contactReasonCard,
+                                        ),
+                                      );
+                                    }
+                                  : null,
+                          child: Text(
+                            '${contactReasonCard.number} ${contactReasonCard.title}',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+                .toList(),
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

@@ -9,6 +9,9 @@
       "other": "You have pushed the button {n} times"
     }
   },
+  "choose": {
+    "title": "hasdasd"
+  },
   "common": {
     "something_went_wrong": "Ooups! Something went wrong",
     "retry": "Try again",

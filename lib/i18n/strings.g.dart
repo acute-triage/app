@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 2
-/// Strings: 22 (11 per locale)
+/// Strings: 24 (12 per locale)
 ///
-/// Built on 2024-04-10 at 17:51 UTC
+/// Built on 2024-05-30 at 13:03 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -150,6 +150,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	// Translations
 	String get app_name => 'Flutter Project';
 	late final _StringsHomePageEn home_page = _StringsHomePageEn._(_root);
+	late final _StringsChooseEn choose = _StringsChooseEn._(_root);
 	late final _StringsCommonEn common = _StringsCommonEn._(_root);
 	late final _StringsErrorHandlerEn error_handler = _StringsErrorHandlerEn._(_root);
 }
@@ -168,6 +169,16 @@ class _StringsHomePageEn {
 		two: 'You have pushed the button two times',
 		other: 'You have pushed the button ${n} times',
 	);
+}
+
+// Path: choose
+class _StringsChooseEn {
+	_StringsChooseEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'hasdasd';
 }
 
 // Path: common
@@ -219,6 +230,7 @@ class _StringsDa implements Translations {
 	// Translations
 	@override String get app_name => 'Flutter Projekt';
 	@override late final _StringsHomePageDa home_page = _StringsHomePageDa._(_root);
+	@override late final _StringsChooseDa choose = _StringsChooseDa._(_root);
 	@override late final _StringsCommonDa common = _StringsCommonDa._(_root);
 	@override late final _StringsErrorHandlerDa error_handler = _StringsErrorHandlerDa._(_root);
 }
@@ -237,6 +249,16 @@ class _StringsHomePageDa implements _StringsHomePageEn {
 		two: 'Du har trykket på knappen to gange',
 		other: 'Du har trykket på knappen ${n} gange',
 	);
+}
+
+// Path: choose
+class _StringsChooseDa implements _StringsChooseEn {
+	_StringsChooseDa._(this._root);
+
+	@override final _StringsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'hasdasd';
 }
 
 // Path: common
@@ -276,6 +298,7 @@ extension on Translations {
 				two: 'You have pushed the button two times',
 				other: 'You have pushed the button ${n} times',
 			);
+			case 'choose.title': return 'hasdasd';
 			case 'common.something_went_wrong': return 'Ooups! Something went wrong';
 			case 'common.retry': return 'Try again';
 			case 'common.contact_support': return 'Contact Support';
@@ -297,6 +320,7 @@ extension on _StringsDa {
 				two: 'Du har trykket på knappen to gange',
 				other: 'Du har trykket på knappen ${n} gange',
 			);
+			case 'choose.title': return 'hasdasd';
 			case 'common.something_went_wrong': return 'Uups! Noget gik galt';
 			case 'common.retry': return 'Prøv igen';
 			case 'common.contact_support': return 'Contact Support';
