@@ -6,6 +6,15 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 const contactCard5 = ContactReasonCard(
   title: 'Bevidsthedspåvirkning',
   number: 5,
+  searchTerms: [
+    'stoffer',
+    'forgiftning',
+    'euforiserende',
+    'hovedtraume',
+    'vejrtrækningsbesvær',
+    'diabetes',
+    'feber',
+  ],
   symptomCategories: [
     SymptomCategory(
       name: 'Hovedtraume og faldende bevidsthedsniveau',

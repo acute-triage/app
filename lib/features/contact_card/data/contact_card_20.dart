@@ -6,6 +6,7 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 const contactCard20 = ContactReasonCard(
   title: 'Spiseproblemer, vægttab og anorexi',
   number: 20,
+  searchTerms: [],
   // TODO: Add support for multiple choice
   symptomCategories: [],
   // symptomCategories: [

@@ -6,6 +6,12 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 const contactCard21 = ContactReasonCard(
   title: 'Underlivssmerter (US) ± vaginal blødning hos teenagepige',
   number: 21,
+  searchTerms: [
+    'mavesmerter',
+    'graviditet',
+    'vaginal blødning',
+    'brok',
+  ],
   symptomCategories: [
     SymptomCategory(
       name: 'US eller mavesmerter hos potentielt gravid (tag graviditetstest)',

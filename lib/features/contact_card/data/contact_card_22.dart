@@ -5,6 +5,11 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 
 const contactCard22 = ContactReasonCard(
   title: 'Urinvejssymptomer',
+  searchTerms: [
+    'ødemer',
+    'makroskopisk hæmaturi',
+    'feber',
+  ],
   number: 22,
   symptomCategories: [
     SymptomCategory(

@@ -34,7 +34,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   contactCard.title.toLowerCase().contains(
                         _controller.text.toLowerCase(),
                       ) ||
-                  contactCard.number.toString().contains(_controller.text),
+                  contactCard.number.toString().contains(_controller.text) ||
+                  contactCard.searchTerms.any(
+                    (searchTerm) => searchTerm.contains(
+                      _controller.text.toLowerCase(),
+                    ),
+                  ),
             )
             .toList();
       });
@@ -79,8 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Expanded(
                 child: GridView.count(
-                  crossAxisCount: 2,
-                  childAspectRatio: 3,
+                  crossAxisCount: 1,
+                  childAspectRatio: 7,
                   crossAxisSpacing: 16.0, // Adjust as needed
                   children: filteredContactCards
                       .map(

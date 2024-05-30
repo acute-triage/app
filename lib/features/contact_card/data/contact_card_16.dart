@@ -6,6 +6,19 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 const contactCard16 = ContactReasonCard(
   title: 'Hudsymptomer (udslæt)',
   number: 16,
+  searchTerms: [
+    'petekkier',
+    'hudblødning',
+    'mikropetekkier',
+    'blærer',
+    'hudløsning',
+    'periorbital',
+    'rødme',
+    'infektion',
+    'udslæt',
+    'smerter',
+    'nakkerygstivhed',
+  ],
   symptomCategories: [
     SymptomCategory(
       name: 'Petekkier eller større hudblødninger (svinder ikke for tryk)',

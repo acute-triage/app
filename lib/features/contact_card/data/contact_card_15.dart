@@ -6,6 +6,17 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 const contactCard15 = ContactReasonCard(
   title: 'Hovedtraume',
   number: 15,
+  searchTerms: [
+    'bevidsthedsniveau',
+    'neologisk',
+    'højenergitraume',
+    'kramper',
+    'bevidstløs',
+    'kraniefraktur',
+    'vold',
+    'fontanelle',
+    'opkastninger',
+  ],
   symptomCategories: [
     SymptomCategory(
       name: 'Faldende bevidsthedsniveau (uanset normale pupiller)',

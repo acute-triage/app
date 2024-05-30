@@ -6,6 +6,15 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 const contactCard17 = ContactReasonCard(
   title: 'Kramper (nu ophørt)',
   number: 17,
+  searchTerms: [
+    'bevidsthedsniveau',
+    'neurologisk',
+    'hovedtraume',
+    'vold',
+    'hovedpine',
+    'affekt',
+    'breathholding',
+  ],
   symptomCategories: [
     SymptomCategory(
       name: 'Neurologiske udfald (nedsat kraft, dobbeltsyn, talebesvær)',

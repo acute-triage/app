@@ -5,6 +5,14 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 
 const contactCard9 = ContactReasonCard(
   title: 'Diabetes mellitus (DM)',
+  searchTerms: [
+    'hyperglykæmi',
+    'hypoglykæmi',
+    'sukkersyge',
+    'ketoacidose',
+    'koma',
+    'blodsukker',
+  ],
   number: 9,
   symptomCategories: [
     SymptomCategory(

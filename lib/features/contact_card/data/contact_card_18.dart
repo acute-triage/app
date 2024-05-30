@@ -5,6 +5,25 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 
 const contactCard18 = ContactReasonCard(
   title: 'Mavesmerter (skrigeture)',
+  searchTerms: [
+    'traume',
+    'abdominalomfang',
+    'galdefarvede',
+    'blodige',
+    'slim',
+    'opkastninger',
+    'afføring',
+    'immundefekt',
+    'feber',
+    'magneter',
+    'knapbatteri',
+    'petekkier',
+    'kussmaul',
+    'brok',
+    'graviditet',
+    'skrotum',
+    'scrotum',
+  ],
   number: 18,
   symptomCategories: [
     SymptomCategory(

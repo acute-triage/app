@@ -6,6 +6,15 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 const contactCard14 = ContactReasonCard(
   title: 'Hovedpine',
   number: 14,
+  searchTerms: [
+    'neurologisk',
+    'hjertesygdom',
+    'nakkerygstivhed',
+    'forhøjet blodtryk',
+    'hovedtraume',
+    'migræne',
+    'feber',
+  ],
   symptomCategories: [
     SymptomCategory(
       name: 'Neurologisk udfald (nedsat kraft, dobbeltsyn, talebesvær)',

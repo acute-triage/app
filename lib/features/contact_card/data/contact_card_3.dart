@@ -6,6 +6,14 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 const contactCard3 = ContactReasonCard(
   title: 'Bevægeapparatsymptomer uden skade',
   number: 3,
+  searchTerms: [
+    'ben',
+    'sår',
+    'halten',
+    'gå',
+    'natlige',
+    'smerter',
+  ],
   symptomCategories: [
     SymptomCategory(
       name: 'Tegn på hudinfektion',

@@ -5,6 +5,16 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 
 const contactCard4 = ContactReasonCard(
   title: 'Besvimelse (nu vågen)',
+  searchTerms: [
+    'brystsmerter',
+    'neologiske',
+    'faldskade',
+    'hovedtraume',
+    'epilepsi',
+    'hyperventilation',
+    'hjertesygdom',
+    'hovedpine',
+  ],
   number: 4,
   symptomCategories: [
     SymptomCategory(

@@ -5,6 +5,20 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 
 const contactCard13 = ContactReasonCard(
   title: 'Gastrointestinal blødning',
+  searchTerms: [
+    'opkast',
+    'blodig',
+    'melæna',
+    'slim',
+    'ætsning',
+    'fremmedlegeme',
+    'knapbatteri',
+    'varicer',
+    'immundefekt',
+    'leversyge',
+    'galdefarvet',
+    'invagination',
+  ],
   number: 13,
   symptomCategories: [
     SymptomCategory(

@@ -5,6 +5,19 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 
 const contactCard11 = ContactReasonCard(
   title: 'Feber - temperatur på 38 °C eller derover',
+  searchTerms: [
+    'nakkestivhed',
+    'rygstiv',
+    'nakkerygstiv',
+    'petekkier',
+    'immundefekt',
+    'kirurgi',
+    'urinvejsmisdannelse',
+    'nyresygdom',
+    'bevidsthedspåvirket',
+    'irritabel',
+    'utrøstelig',
+  ],
   number: 11,
   symptomCategories: [
     SymptomCategory(

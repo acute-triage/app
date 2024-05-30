@@ -3,6 +3,7 @@ import 'package:flutter_starter/features/contact_card/domain/contact_reason_card
 const contactCard8 = ContactReasonCard(
   title: 'Dehydrering',
   number: 8,
+  searchTerms: [],
   // TODO: Add support for multiple choice
   symptomCategories: [],
   // symptomCategories: [

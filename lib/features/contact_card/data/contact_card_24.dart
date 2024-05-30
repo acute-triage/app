@@ -5,6 +5,13 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 
 const contactCard24 = ContactReasonCard(
   title: 'Frakturer',
+  searchTerms: [
+    'compartment-syndrom',
+    'smerter',
+    'knogle',
+    'hudperforation',
+    'bleghed',
+  ],
   number: 24,
   symptomCategories: [
     SymptomCategory(

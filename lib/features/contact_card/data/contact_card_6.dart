@@ -5,6 +5,19 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 
 const contactCard6 = ContactReasonCard(
   title: 'Brystsmerter',
+  searchTerms: [
+    'hjertesygdom',
+    'åndenød',
+    'hyperventilation',
+    'hjertebanken',
+    'besvimelse',
+    'familiær disposition',
+    'dvt',
+    'smerter',
+    'feber',
+    'kawasakisyndrom',
+    'højenergitraume',
+  ],
   number: 6,
   symptomCategories: [
     SymptomCategory(

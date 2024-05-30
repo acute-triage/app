@@ -6,6 +6,19 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 const contactCard2 = ContactReasonCard(
   title: 'Træthed og bleghed (anæmi)',
   number: 2,
+  searchTerms: [
+    'træthed',
+    'bleghed',
+    'anæmi',
+    'næseblod',
+    'næseblødninger',
+    'åndenød',
+    'halten',
+    'smerter',
+    'vægttab',
+    'feber',
+    'petekkier',
+  ],
   symptomCategories: [
     SymptomCategory(
       name: 'Petekkier',

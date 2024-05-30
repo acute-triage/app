@@ -5,6 +5,27 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 
 const contactCard10 = ContactReasonCard(
   title: 'Diarré og opkastning',
+  searchTerms: [
+    'diarré',
+    'opkastning',
+    'blodig',
+    'slim',
+    'galdefarvede',
+    'immundefekt',
+    'feber',
+    'petekkier',
+    'bleghed',
+    'irritabilitet',
+    'hus',
+    'kussmaul',
+    'respiration',
+    'halonerede',
+    'vandladning',
+    'våde',
+    'bleer',
+    'hyppighed',
+    'diarreer',
+  ],
   number: 10,
   symptomCategories: [
     SymptomCategory(

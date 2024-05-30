@@ -6,6 +6,22 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 const contactCard12 = ContactReasonCard(
   title: 'Forgiftning, røgforgiftning, forbrænding og el-stød',
   number: 12,
+  searchTerms: [
+    'stridor',
+    'hæshed',
+    'synkebesvær',
+    'medicin',
+    'giftig',
+    'plante',
+    'lampeolie',
+    'klordampe',
+    'euforiserende',
+    'stof',
+    'røg',
+    'elstød',
+    'ætsende',
+    'besvimelse',
+  ],
   symptomCategories: [
     SymptomCategory(
       name:

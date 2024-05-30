@@ -5,6 +5,24 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 
 const contactCard23 = ContactReasonCard(
   title: 'Vejrtrækningsbesvær',
+  searchTerms: [
+    'stridor',
+    'dyspnø',
+    'hævelse',
+    'hoste',
+    'søløvehoste',
+    'hæshed',
+    'fremmedlegeme',
+    'pseudocroup',
+    'lungeemboli',
+    'apnø',
+    'udtrætning',
+    'cyanose',
+    'hypotoni',
+    'lungeemboli',
+    'hæmoptyse',
+    'ekspektoration',
+  ],
   number: 23,
   symptomCategories: [
     SymptomCategory(

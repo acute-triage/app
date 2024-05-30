@@ -6,6 +6,20 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 const contactCard1 = ContactReasonCard(
   title: 'Allergisk reaktion',
   number: 1,
+  searchTerms: [
+    'allergi',
+    'allergisk',
+    'reaktion',
+    'hævelse',
+    'tunge',
+    'læber',
+    'svælg',
+    'hals',
+    'åndenød',
+    'kløe',
+    'urticaria',
+    'nældefeber',
+  ],
   symptomCategories: [
     SymptomCategory(
       name: 'Åndenød',

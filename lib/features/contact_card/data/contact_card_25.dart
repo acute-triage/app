@@ -6,6 +6,7 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 const contactCard25 = ContactReasonCard(
   title: 'Kontaktårsag der ikke passer til noget kort',
   number: 25,
+  searchTerms: [],
   symptomCategories: [
     SymptomCategory(
       name:

@@ -5,6 +5,15 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 
 const contactCard19 = ContactReasonCard(
   title: 'Mistanke om fysisk eller seksuelt overgreb',
+  searchTerms: [
+    'vold',
+    'misbrug',
+    'mishandling',
+    'voldtægt',
+    'seksuelt',
+    'sex',
+    'blåtmærke',
+  ],
   number: 19,
   symptomCategories: [
     SymptomCategory(
