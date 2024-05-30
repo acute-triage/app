@@ -148,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: GridView.count(
             crossAxisCount: 2,
             childAspectRatio: 3,
