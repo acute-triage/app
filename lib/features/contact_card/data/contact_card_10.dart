@@ -25,6 +25,7 @@ const contactCard10 = ContactReasonCard(
     'bleer',
     'hyppighed',
     'diarreer',
+    'tyndskid',
   ],
   number: 10,
   symptomCategories: [
