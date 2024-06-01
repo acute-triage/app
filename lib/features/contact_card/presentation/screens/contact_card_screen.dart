@@ -4,8 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/code.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
+import 'package:flutter_starter/features/contact_card/domain/patient_contact_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
 
 @RoutePage()
 class ContactCardScreen extends ConsumerStatefulWidget {
@@ -22,7 +26,7 @@ class ContactCardScreen extends ConsumerStatefulWidget {
 
 class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
   SymptomCategory? currentSymptomCategory;
-  List<Symptom> selectedSymptoms = [];
+  PatientContactCard patientContactCard = const PatientContactCard();
   Code currentCode = codeGreen;
 
   @override
@@ -33,14 +37,15 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
   }
 
   Code _detectCode() {
-    final selectedCodes = selectedSymptoms.map((e) => e.code).toList();
+    final symptomCodes =
+        patientContactCard.symptoms.map((symptom) => symptom.code).toList();
 
-    if (selectedCodes.isEmpty) {
+    if (symptomCodes.isEmpty) {
       return codeGreen;
     }
 
-    final lowestCode = selectedCodes.reduce((value, element) {
-      return value.number < element.number ? value : element;
+    final lowestCode = symptomCodes.reduce((lastCode, code) {
+      return lastCode.number < code.number ? lastCode : code;
     });
 
     return lowestCode;
@@ -49,7 +54,12 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
   onChooseSympton(Symptom? symptom) {
     // If symptom is not null, add it to the list of selected symptoms
     if (symptom != null) {
-      selectedSymptoms.add(symptom);
+      patientContactCard = patientContactCard.copyWith(
+        findings: {
+          ...patientContactCard.findings,
+          currentSymptomCategory!: symptom,
+        },
+      );
     }
 
     setState(() {
@@ -67,12 +77,6 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
               ? widget.contactCard.symptomCategories[nextIndex]
               : null;
     });
-  }
-
-  _removeLastSelectedSymptom() {
-    if (selectedSymptoms.isNotEmpty) {
-      selectedSymptoms.removeLast();
-    }
   }
 
   bool get isDone => currentSymptomCategory == null;
@@ -111,8 +115,6 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
             color: isDone ? currentCode.contrastColor : null,
             onPressed: () {
               if (isDone) {
-                _removeLastSelectedSymptom();
-
                 setState(() {
                   currentSymptomCategory =
                       widget.contactCard.symptomCategories.last;
@@ -126,8 +128,6 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
                   .indexOf(currentSymptomCategory!);
 
               if (currentSymptomCategoryIndex > 0) {
-                _removeLastSelectedSymptom();
-
                 setState(() {
                   currentSymptomCategory = widget.contactCard
                       .symptomCategories[currentSymptomCategoryIndex - 1];
@@ -148,40 +148,73 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
                     category: currentSymptomCategory!,
                     onChooseSympton: onChooseSympton,
                   )
-                : DefaultTextStyle(
-                    style: TextStyle(
-                      color: currentCode.contrastColor,
-                    ),
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 8.0),
-                        Text(
-                          'Barnet triageres ${currentCode.name} på baggrund af det udfyldte kontaktårsagskort',
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 16.0),
-                        // heading
-                        Text(
-                          'Behandlingstid: ${currentCode.maxWaitTime.inMinutes == 0 ? 'Omgående' : '0-${currentCode.maxWaitTime.inMinutes} minutter'}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(
-                                color: currentCode.contrastColor,
-                              ),
-                        ),
-                        const SizedBox(height: 16.0),
-                        ElevatedButton(
-                          onPressed: () {
-                            context.router.maybePop();
-                          },
-                          child: const Text('Gem resultat'),
-                        ),
-                      ],
-                    ),
-                  ),
+                : TriageFinished(code: currentCode),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class PrintableTriage extends StatelessWidget {
+  const PrintableTriage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
+class TriageFinished extends StatelessWidget {
+  const TriageFinished({
+    super.key,
+    required this.code,
+  });
+
+  final Code code;
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTextStyle(
+      style: TextStyle(
+        color: code.contrastColor,
+      ),
+      child: Column(
+        children: [
+          const SizedBox(height: 8.0),
+          Text(
+            'Barnet triageres ${code.name} på baggrund af det udfyldte kontaktårsagskort',
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16.0),
+          // heading
+          Text(
+            'Behandlingstid: ${code.maxWaitTime.inMinutes == 0 ? 'Omgående' : '0-${code.maxWaitTime.inMinutes} minutter'}',
+            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                  color: code.contrastColor,
+                ),
+          ),
+          const SizedBox(height: 16.0),
+          ElevatedButton(
+            onPressed: () async {
+              final doc = pw.Document();
+
+              doc.addPage(pw.Page(
+                  pageFormat: PdfPageFormat.a4,
+                  build: (pw.Context context) {
+                    return pw.Center(
+                      child: pw.Text('Hello World'),
+                    ); // Center
+                  })); // Page
+
+              await Printing.layoutPdf(
+                onLayout: (PdfPageFormat format) async => doc.save(),
+              );
+              // context.router.maybePop();
+            },
+            child: const Text('Gem resultat'),
+          ),
+        ],
       ),
     );
   }

@@ -76,6 +76,7 @@ class _SplashScreenState extends State<SplashScreen>
   void dispose() {
     _controller.dispose();
     _scaleController.dispose();
+
     super.dispose();
   }
 
