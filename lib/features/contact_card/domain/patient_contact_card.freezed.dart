@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PatientContactCard {
   String? get name => throw _privateConstructorUsedError;
   String? get cprNumber => throw _privateConstructorUsedError;
+  ContactReasonCard get contactReasonCard => throw _privateConstructorUsedError;
   Map<SymptomCategory, Symptom?> get findings =>
       throw _privateConstructorUsedError;
 
@@ -35,6 +36,7 @@ abstract class $PatientContactCardCopyWith<$Res> {
   $Res call(
       {String? name,
       String? cprNumber,
+      ContactReasonCard contactReasonCard,
       Map<SymptomCategory, Symptom?> findings});
 }
 
@@ -53,6 +55,7 @@ class _$PatientContactCardCopyWithImpl<$Res, $Val extends PatientContactCard>
   $Res call({
     Object? name = freezed,
     Object? cprNumber = freezed,
+    Object? contactReasonCard = null,
     Object? findings = null,
   }) {
     return _then(_value.copyWith(
@@ -64,6 +67,10 @@ class _$PatientContactCardCopyWithImpl<$Res, $Val extends PatientContactCard>
           ? _value.cprNumber
           : cprNumber // ignore: cast_nullable_to_non_nullable
               as String?,
+      contactReasonCard: null == contactReasonCard
+          ? _value.contactReasonCard
+          : contactReasonCard // ignore: cast_nullable_to_non_nullable
+              as ContactReasonCard,
       findings: null == findings
           ? _value.findings
           : findings // ignore: cast_nullable_to_non_nullable
@@ -83,6 +90,7 @@ abstract class _$$PatientContactCardImplCopyWith<$Res>
   $Res call(
       {String? name,
       String? cprNumber,
+      ContactReasonCard contactReasonCard,
       Map<SymptomCategory, Symptom?> findings});
 }
 
@@ -99,6 +107,7 @@ class __$$PatientContactCardImplCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? cprNumber = freezed,
+    Object? contactReasonCard = null,
     Object? findings = null,
   }) {
     return _then(_$PatientContactCardImpl(
@@ -110,6 +119,10 @@ class __$$PatientContactCardImplCopyWithImpl<$Res>
           ? _value.cprNumber
           : cprNumber // ignore: cast_nullable_to_non_nullable
               as String?,
+      contactReasonCard: null == contactReasonCard
+          ? _value.contactReasonCard
+          : contactReasonCard // ignore: cast_nullable_to_non_nullable
+              as ContactReasonCard,
       findings: null == findings
           ? _value._findings
           : findings // ignore: cast_nullable_to_non_nullable
@@ -124,6 +137,7 @@ class _$PatientContactCardImpl extends _PatientContactCard {
   const _$PatientContactCardImpl(
       {this.name,
       this.cprNumber,
+      required this.contactReasonCard,
       final Map<SymptomCategory, Symptom?> findings =
           const <SymptomCategory, Symptom>{}})
       : _findings = findings,
@@ -133,6 +147,8 @@ class _$PatientContactCardImpl extends _PatientContactCard {
   final String? name;
   @override
   final String? cprNumber;
+  @override
+  final ContactReasonCard contactReasonCard;
   final Map<SymptomCategory, Symptom?> _findings;
   @override
   @JsonKey()
@@ -144,7 +160,7 @@ class _$PatientContactCardImpl extends _PatientContactCard {
 
   @override
   String toString() {
-    return 'PatientContactCard(name: $name, cprNumber: $cprNumber, findings: $findings)';
+    return 'PatientContactCard(name: $name, cprNumber: $cprNumber, contactReasonCard: $contactReasonCard, findings: $findings)';
   }
 
   @override
@@ -155,12 +171,14 @@ class _$PatientContactCardImpl extends _PatientContactCard {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.cprNumber, cprNumber) ||
                 other.cprNumber == cprNumber) &&
+            (identical(other.contactReasonCard, contactReasonCard) ||
+                other.contactReasonCard == contactReasonCard) &&
             const DeepCollectionEquality().equals(other._findings, _findings));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, name, cprNumber,
-      const DeepCollectionEquality().hash(_findings));
+      contactReasonCard, const DeepCollectionEquality().hash(_findings));
 
   @JsonKey(ignore: true)
   @override
@@ -174,6 +192,7 @@ abstract class _PatientContactCard extends PatientContactCard {
   const factory _PatientContactCard(
           {final String? name,
           final String? cprNumber,
+          required final ContactReasonCard contactReasonCard,
           final Map<SymptomCategory, Symptom?> findings}) =
       _$PatientContactCardImpl;
   const _PatientContactCard._() : super._();
@@ -182,6 +201,8 @@ abstract class _PatientContactCard extends PatientContactCard {
   String? get name;
   @override
   String? get cprNumber;
+  @override
+  ContactReasonCard get contactReasonCard;
   @override
   Map<SymptomCategory, Symptom?> get findings;
   @override

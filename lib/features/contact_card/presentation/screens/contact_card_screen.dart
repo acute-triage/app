@@ -1,6 +1,9 @@
+import 'dart:typed_data';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_starter/common/presentation/widgets/ui/text_typography.dart';
 import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/code.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
@@ -10,6 +13,7 @@ import 'package:flutter_starter/features/contact_card/domain/sympton_category.da
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+import 'package:screenshot/screenshot.dart';
 
 @RoutePage()
 class ContactCardScreen extends ConsumerStatefulWidget {
@@ -26,12 +30,16 @@ class ContactCardScreen extends ConsumerStatefulWidget {
 
 class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
   SymptomCategory? currentSymptomCategory;
-  PatientContactCard patientContactCard = const PatientContactCard();
+  late PatientContactCard patientContactCard;
   Code currentCode = codeGreen;
 
   @override
   initState() {
     super.initState();
+
+    patientContactCard = PatientContactCard(
+      contactReasonCard: widget.contactCard,
+    );
 
     currentSymptomCategory = widget.contactCard.symptomCategories.first;
   }
@@ -53,14 +61,12 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
 
   onChooseSympton(Symptom? symptom) {
     // If symptom is not null, add it to the list of selected symptoms
-    if (symptom != null) {
-      patientContactCard = patientContactCard.copyWith(
-        findings: {
-          ...patientContactCard.findings,
-          currentSymptomCategory!: symptom,
-        },
-      );
-    }
+    patientContactCard = patientContactCard.copyWith(
+      findings: {
+        ...patientContactCard.findings,
+        currentSymptomCategory!: symptom,
+      },
+    );
 
     setState(() {
       currentCode = _detectCode();
@@ -140,15 +146,32 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
             },
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Center(
-            child: !isDone
-                ? ChooseSymptomsWidget(
-                    category: currentSymptomCategory!,
-                    onChooseSympton: onChooseSympton,
-                  )
-                : TriageFinished(code: currentCode),
+        body: SingleChildScrollView(
+          // always
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Center(
+              child: !isDone
+                  ? ChooseSymptomsWidget(
+                      category: currentSymptomCategory!,
+                      onChooseSympton: onChooseSympton,
+                    )
+                  : Column(
+                      // mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TriageFinished(
+                          code: currentCode,
+                          contactCard: patientContactCard,
+                        ),
+                        const SizedBox(height: 16.0),
+                        TriageResult(
+                          contactCard: patientContactCard,
+                          forPrint: false,
+                        ),
+                      ],
+                    ),
+            ),
           ),
         ),
       ),
@@ -156,42 +179,125 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
   }
 }
 
-class PrintableTriage extends StatelessWidget {
-  const PrintableTriage({super.key});
+class TriageResult extends StatelessWidget {
+  final bool forPrint;
+
+  final PatientContactCard contactCard;
+  const TriageResult({
+    super.key,
+    required this.contactCard,
+    this.forPrint = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    final categoryHeaderStyle = forPrint
+        ? Theme.of(context).textTheme.bodyLarge
+        : Theme.of(context).textTheme.headlineMedium!;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (forPrint) ...[
+          const Placeholder(
+            fallbackHeight: 40,
+          ),
+          const SizedBox(height: 16.0),
+          const TextTypography.headline(
+            'Kontaktårsagskort',
+          ),
+          const SizedBox(height: 16.0),
+        ],
+        TextTypography.headlineSmall(
+          '${contactCard.contactReasonCard.number} - ${contactCard.contactReasonCard.title}',
+        ),
+        const SizedBox(height: 16.0),
+        ...contactCard.findings.entries.map(
+          (entry) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  entry.key.name,
+                  style: categoryHeaderStyle,
+                ),
+                const SizedBox(height: 8.0),
+                Row(
+                  children: [
+                    Container(
+                      width: 16.0,
+                      height: 16.0,
+                      decoration: BoxDecoration(
+                        color: entry.value?.code.color ?? codeGreen.color,
+                        borderRadius: BorderRadius.circular(8.0),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 1.0,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8.0),
+                    Expanded(
+                      child: Text(
+                        entry.value?.description ?? 'Ingen symptomer valgt',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16.0),
+              ],
+            );
+          },
+        ),
+      ],
+    );
   }
 }
 
-class TriageFinished extends StatelessWidget {
+class TriageFinished extends StatefulWidget {
+  final PatientContactCard contactCard;
+
   const TriageFinished({
     super.key,
     required this.code,
+    required this.contactCard,
   });
 
   final Code code;
 
   @override
+  State<TriageFinished> createState() => _TriageFinishedState();
+}
+
+class _TriageFinishedState extends State<TriageFinished> {
+  //Create an instance of ScreenshotController
+  ScreenshotController screenshotController = ScreenshotController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
       style: TextStyle(
-        color: code.contrastColor,
+        color: widget.code.contrastColor,
       ),
       child: Column(
         children: [
           const SizedBox(height: 8.0),
           Text(
-            'Barnet triageres ${code.name} på baggrund af det udfyldte kontaktårsagskort',
+            'Barnet triageres ${widget.code.name} på baggrund af det udfyldte kontaktårsagskort',
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16.0),
           // heading
           Text(
-            'Behandlingstid: ${code.maxWaitTime.inMinutes == 0 ? 'Omgående' : '0-${code.maxWaitTime.inMinutes} minutter'}',
+            'Behandlingstid: ${widget.code.maxWaitTime.inMinutes == 0 ? 'Omgående' : '0-${widget.code.maxWaitTime.inMinutes} minutter'}',
             style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                  color: code.contrastColor,
+                  color: widget.code.contrastColor,
                 ),
           ),
           const SizedBox(height: 16.0),
@@ -199,16 +305,26 @@ class TriageFinished extends StatelessWidget {
             onPressed: () async {
               final doc = pw.Document();
 
-              doc.addPage(pw.Page(
-                  pageFormat: PdfPageFormat.a4,
-                  build: (pw.Context context) {
+              screenshotController
+                  .captureFromWidget(
+                TriageResult(
+                  contactCard: widget.contactCard,
+                  forPrint: true,
+                ),
+              )
+                  .then(
+                (capturedImage) async {
+                  doc.addPage(pw.Page(build: (pw.Context context) {
+                    final image = pw.MemoryImage(capturedImage);
                     return pw.Center(
-                      child: pw.Text('Hello World'),
+                      child: pw.Image(image),
                     ); // Center
                   })); // Page
 
-              await Printing.layoutPdf(
-                onLayout: (PdfPageFormat format) async => doc.save(),
+                  await Printing.layoutPdf(
+                    onLayout: (PdfPageFormat format) async => doc.save(),
+                  );
+                },
               );
               // context.router.maybePop();
             },
