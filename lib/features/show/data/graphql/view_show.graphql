@@ -1,7 +1,0 @@
-# import './show_card_fragment.graphql'
-
-query ViewShow($id: ID!) {
-  show(id: $id) {
-    ...ShowCard
-  }
-}

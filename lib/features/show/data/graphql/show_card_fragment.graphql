@@ -1,9 +1,0 @@
-fragment NestedFragment on Show {
-  id
-  title
-  posterUrl
-}
-
-fragment ShowCard on Show {
-  ...NestedFragment
-}

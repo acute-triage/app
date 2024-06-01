@@ -18,8 +18,5 @@ class AppRouter extends $AppRouter {
           initial: !Config.customSplashScreen,
         ),
         AutoRoute(page: ContactCardRoute.page),
-        AutoRoute(page: AllShowsRoute.page),
-        AutoRoute(page: ViewShowRoute.page),
-        AutoRoute(page: ShowsByGenreRoute.page),
       ];
 }
