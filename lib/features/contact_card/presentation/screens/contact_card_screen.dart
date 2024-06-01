@@ -300,6 +300,7 @@ class TriageFinished extends StatefulWidget {
 }
 
 class _TriageFinishedState extends State<TriageFinished> {
+  bool loading = false;
   //Create an instance of ScreenshotController
   ScreenshotController screenshotController = ScreenshotController();
 
@@ -333,35 +334,55 @@ class _TriageFinishedState extends State<TriageFinished> {
           ),
           const SizedBox(height: 16.0),
           ElevatedButton(
-            onPressed: () async {
-              playHapticFeedback();
+            onPressed: loading
+                ? null
+                : () async {
+                    playHapticFeedback();
 
-              final doc = pw.Document();
+                    setState(() {
+                      loading = true;
+                    });
 
-              screenshotController
-                  .captureFromWidget(
-                TriageResult(
-                  contactCard: widget.contactCard,
-                  forPrint: true,
-                ),
-              )
-                  .then(
-                (capturedImage) async {
-                  doc.addPage(pw.Page(build: (pw.Context context) {
-                    final image = pw.MemoryImage(capturedImage);
-                    return pw.Center(
-                      child: pw.Image(image),
-                    ); // Center
-                  })); // Page
+                    final doc = pw.Document();
 
-                  await Printing.layoutPdf(
-                    onLayout: (PdfPageFormat format) async => doc.save(),
-                  );
-                },
-              );
-              // context.router.maybePop();
-            },
-            child: const Text('Print resultat'),
+                    final capturedImage =
+                        await screenshotController.captureFromWidget(
+                      TriageResult(
+                        contactCard: widget.contactCard,
+                        forPrint: true,
+                      ),
+                    );
+
+                    doc.addPage(pw.Page(build: (pw.Context context) {
+                      final image = pw.MemoryImage(capturedImage);
+                      return pw.Center(
+                        child: pw.Image(image),
+                      ); // Center
+                    })); // Page
+
+                    await Printing.layoutPdf(
+                      onLayout: (PdfPageFormat format) async => doc.save(),
+                    );
+
+                    setState(() {
+                      loading = false;
+                    });
+                    // context.router.maybePop();
+                  },
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (loading) ...[
+                  const SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(),
+                  ),
+                  const SizedBox(width: 8.0),
+                ],
+                const Text('Udskriv kontaktårsagskort'),
+              ],
+            ),
           ),
         ],
       ),
