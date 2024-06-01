@@ -233,18 +233,21 @@ class ChooseSymptomsWidget extends StatelessWidget {
                   child: Text(
                     sympton.description,
                     textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: sympton.code.contrastColor,
+                        ),
                   ),
                 ),
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
+            padding: const EdgeInsets.only(top: 32.0),
             child: FilledButton(
               onPressed: () {
                 onChooseSympton(null);
               },
-              child: const Text('Ingen af ovenstående'),
+              child: const Text('Nej'),
             ),
           ),
         ],
