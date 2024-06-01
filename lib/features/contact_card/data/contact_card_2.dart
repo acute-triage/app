@@ -24,7 +24,7 @@ const contactCard2 = ContactReasonCard(
       name: 'Petekkier',
       symptoms: [
         Symptom(
-          description: 'Temperatur over eller lig 38.0',
+          description: 'Med temperatur over eller lig 38.0',
           code: codeOrange,
         ),
         Symptom(
