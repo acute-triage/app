@@ -26,7 +26,7 @@ class MainRootWidget extends StatelessWidget {
       title: t.app_name,
       theme: AppTheme.lightThemeData,
       darkTheme: AppTheme.darkThemeData,
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       builder: (_, router) => Material(child: router!),
     );
   }
