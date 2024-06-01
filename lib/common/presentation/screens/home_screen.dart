@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_starter/common/application/router.gr.dart';
+import 'package:flutter_starter/common/presentation/widgets/ui/text_typography.dart';
 import 'package:flutter_starter/features/contact_card/data/contact_card_list.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 
@@ -67,69 +68,120 @@ class _HomeScreenState extends State<HomeScreen> {
               TextField(
                 controller: _controller,
                 decoration: InputDecoration(
-                  hintText: 'Søg',
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+                  hintText: 'Søg efter navn, nummer eller symptomer',
                   hintStyle: TextStyle(
                     color: Theme.of(context)
                         .colorScheme
                         .onSurface
                         .withOpacity(0.5),
                   ),
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.clear),
-                    onPressed: () {
-                      _controller.clear();
-                    },
-                  ),
+                  suffixIcon: _controller.text.isNotEmpty
+                      ? IconButton(
+                          icon: const Icon(Icons.clear),
+                          onPressed: () {
+                            _controller.clear();
+                          },
+                        )
+                      : null,
                 ),
               ),
-              Expanded(
-                child: GridView.count(
-                  crossAxisCount: 1,
-                  childAspectRatio: 7,
-                  crossAxisSpacing: 16.0, // Adjust as needed
-                  children: filteredContactCards
-                      .map(
-                        (contactReasonCard) => Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: double.infinity,
-                              child: FilledButton(
-                                style: ButtonStyle(
-                                  shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(
-                                      // 5px rounded borders
-                                      borderRadius: BorderRadius.circular(10.0),
+              filteredContactCards.isEmpty
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 32.0),
+                      child: Column(
+                        children: [
+                          const TextTypography.body(
+                            'Ingen resultater fundet for søgning',
+                          ),
+                          const SizedBox(height: 8.0),
+                          const TextTypography.body(
+                            'Prøv at søge efter et andet ord, nummer eller symptom',
+                            center: true,
+                          ),
+                          const SizedBox(height: 16.0),
+                          // clear results
+                          FilledButton(
+                            onPressed: () {
+                              _controller.clear();
+                            },
+                            child: const Text(
+                              'Nulstil søgning',
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Expanded(
+                      child: ListView.builder(
+                        itemCount: filteredContactCards.length,
+                        itemBuilder: (context, index) => Padding(
+                          padding: EdgeInsets.only(top: index == 0 ? 8.0 : 0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: double.infinity,
+                                child: FilledButton(
+                                  style: ButtonStyle(
+                                    // left align text
+                                    alignment: Alignment.centerLeft,
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        // 5px rounded borders
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                    textStyle: MaterialStateProperty.all(
+                                      const TextStyle(
+                                        // fontSize: 16.0,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
                                   ),
-                                  textStyle: MaterialStateProperty.all(
-                                    const TextStyle(
-                                      // fontSize: 16.0,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                                  onPressed: filteredContactCards[index]
+                                          .symptomCategories
+                                          .isNotEmpty
+                                      ? () {
+                                          AutoRouter.of(context).push(
+                                            ContactCardRoute(
+                                              contactCard:
+                                                  filteredContactCards[index],
+                                            ),
+                                          );
+                                        }
+                                      : null,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                        width: 30,
+                                        child: Text(
+                                          filteredContactCards[index]
+                                              .number
+                                              .toString(),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          filteredContactCards[index].title,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                                onPressed: contactReasonCard
-                                        .symptomCategories.isNotEmpty
-                                    ? () {
-                                        AutoRouter.of(context).push(
-                                          ContactCardRoute(
-                                            contactCard: contactReasonCard,
-                                          ),
-                                        );
-                                      }
-                                    : null,
-                                child: Text(
-                                  '${contactReasonCard.number} ${contactReasonCard.title}',
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      )
-                      .toList(),
-                ),
-              ),
+                      ),
+                    ),
             ],
           ),
         ),
