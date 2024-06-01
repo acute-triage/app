@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_starter/common/presentation/widgets/ui/content_padding.dart';
 import 'package:flutter_starter/common/presentation/widgets/ui/text_typography.dart';
 import 'package:flutter_starter/common/util/haptic_feedback.dart';
 import 'package:flutter_starter/features/contact_card/data/codes.dart';
@@ -183,6 +184,7 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
                           contactCard: patientContactCard,
                           forPrint: false,
                         ),
+                        const SizedBox(height: 32.0),
                       ],
                     ),
             ),
@@ -206,8 +208,16 @@ class TriageResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categoryHeaderStyle = forPrint
-        ? Theme.of(context).textTheme.bodyLarge
+        ? Theme.of(context).textTheme.bodyLarge!.copyWith(
+              fontSize: 11,
+            )
         : Theme.of(context).textTheme.headlineMedium!;
+
+    final symptomStyle = forPrint
+        ? Theme.of(context).textTheme.bodySmall!.copyWith(
+              fontSize: 8,
+            )
+        : Theme.of(context).textTheme.bodyMedium;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,7 +238,7 @@ class TriageResult extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 16.0),
+          SizedBox(height: forPrint ? 8 : 16.0),
           const TextTypography.headline(
             'Kontaktårsagskort',
           ),
@@ -238,12 +248,12 @@ class TriageResult extends StatelessWidget {
                 ? 'Kræver omgående behandling'
                 : 'Påbegynd behandling indenfor: ${contactCard.treatmentTime}',
           ),
-          const SizedBox(height: 16.0),
+          SizedBox(height: forPrint ? 4 : 8.0),
         ],
         TextTypography.headlineSmall(
           '${contactCard.contactReasonCard.number} - ${contactCard.contactReasonCard.title}',
         ),
-        const SizedBox(height: 16.0),
+        const SizedBox(height: 8.0),
         ...contactCard.findingsOrderedByPriority.entries.map(
           (entry) {
             return Column(
@@ -253,12 +263,12 @@ class TriageResult extends StatelessWidget {
                   entry.key.name,
                   style: categoryHeaderStyle,
                 ),
-                const SizedBox(height: 8.0),
+                SizedBox(height: forPrint ? 0 : 8.0),
                 Row(
                   children: [
                     Container(
-                      width: 16.0,
-                      height: 16.0,
+                      width: forPrint ? 8 : 16.0,
+                      height: forPrint ? 8 : 16.0,
                       decoration: BoxDecoration(
                         color: entry.value?.code.color ?? codeGreen.color,
                         borderRadius: BorderRadius.circular(8.0),
@@ -268,16 +278,16 @@ class TriageResult extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 8.0),
+                    SizedBox(width: forPrint ? 4 : 8.0),
                     Expanded(
                       child: Text(
                         entry.value?.description ?? 'Ingen symptomer valgt',
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        style: symptomStyle,
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 16.0),
+                SizedBox(height: forPrint ? 8 : 16.0),
               ],
             );
           },
@@ -317,74 +327,89 @@ class _TriageFinishedState extends State<TriageFinished> {
       style: TextStyle(
         color: code.contrastColor,
       ),
-      child: Column(
-        children: [
-          const SizedBox(height: 8.0),
-          Text(
-            'Barnet triageres ${code.name} på baggrund af det udfyldte kontaktårsagskort',
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 16.0),
-          // heading
-          Text(
-            widget.contactCard.treatmentTime,
-            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                  color: code.contrastColor,
-                ),
-          ),
-          const SizedBox(height: 16.0),
-          ElevatedButton(
-            onPressed: loading
-                ? null
-                : () async {
-                    playHapticFeedback();
-
-                    setState(() {
-                      loading = true;
-                    });
-
-                    final doc = pw.Document();
-
-                    final capturedImage =
-                        await screenshotController.captureFromWidget(
-                      TriageResult(
-                        contactCard: widget.contactCard,
-                        forPrint: true,
-                      ),
-                    );
-
-                    doc.addPage(pw.Page(build: (pw.Context context) {
-                      final image = pw.MemoryImage(capturedImage);
-                      return pw.Center(
-                        child: pw.Image(image),
-                      ); // Center
-                    })); // Page
-
-                    await Printing.layoutPdf(
-                      onLayout: (PdfPageFormat format) async => doc.save(),
-                    );
-
-                    setState(() {
-                      loading = false;
-                    });
-                    // context.router.maybePop();
-                  },
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (loading) ...[
-                  const SizedBox(
-                    height: 20,
-                    width: 20,
-                    child: CircularProgressIndicator(),
-                  ),
-                  const SizedBox(width: 8.0),
-                ],
-                const Text('Udskriv kontaktårsagskort'),
-              ],
+      child: ContentPadding(
+        child: Column(
+          children: [
+            const SizedBox(height: 8.0),
+            Text(
+              'Barnet triageres ${code.name} på baggrund af det udfyldte kontaktårsagskort',
+              textAlign: TextAlign.center,
             ),
-          ),
-        ],
+            const SizedBox(height: 16.0),
+            // heading
+            Text(
+              widget.contactCard.treatmentTime,
+              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                    color: code.contrastColor,
+                  ),
+            ),
+            const SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: loading
+                  ? null
+                  : () async {
+                      playHapticFeedback();
+
+                      setState(() {
+                        loading = true;
+                      });
+
+                      final doc = pw.Document();
+
+                      final capturedImage =
+                          await screenshotController.captureFromWidget(
+                        Container(
+                          child: TriageResult(
+                            contactCard: widget.contactCard,
+                            forPrint: true,
+                          ),
+                        ),
+                      );
+
+                      doc.addPage(
+                        pw.Page(
+                          pageFormat: PdfPageFormat.a4,
+                          clip: false,
+                          build: (pw.Context context) {
+                            final image = pw.MemoryImage(capturedImage);
+                            return pw.Center(
+                              // color: PdfColor.fromInt(code.color.value),
+                              child: pw.Image(
+                                image,
+                                fit: pw.BoxFit.fitHeight,
+                                width: 600,
+                              ),
+                            ); // Center
+                          },
+                        ),
+                      ); // Page
+
+                      await Printing.layoutPdf(
+                        onLayout: (PdfPageFormat format) async => doc.save(),
+                      );
+
+                      setState(() {
+                        loading = false;
+                      });
+                      // context.router.maybePop();
+                    },
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (loading) ...[
+                    const SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(),
+                    ),
+                    const SizedBox(width: 8.0),
+                  ],
+                  const Text('Udskriv kontaktårsagskort'),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
