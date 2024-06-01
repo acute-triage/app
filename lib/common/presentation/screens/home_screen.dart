@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_starter/common/application/router.gr.dart';
 import 'package:flutter_starter/common/presentation/widgets/ui/text_typography.dart';
+import 'package:flutter_starter/common/util/haptic_feedback.dart';
 import 'package:flutter_starter/features/contact_card/data/contact_card_list.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 
@@ -84,6 +85,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ? IconButton(
                           icon: const Icon(Icons.clear),
                           onPressed: () {
+                            playHapticFeedback();
+
                             _controller.clear();
                           },
                         )
@@ -107,6 +110,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           // clear results
                           FilledButton(
                             onPressed: () {
+                              playHapticFeedback();
+
                               _controller.clear();
                             },
                             child: const Text(
@@ -148,6 +153,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           .symptomCategories
                                           .isNotEmpty
                                       ? () {
+                                          playHapticFeedback();
+
                                           AutoRouter.of(context).push(
                                             ContactCardRoute(
                                               contactCard:

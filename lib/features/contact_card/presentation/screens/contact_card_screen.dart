@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_starter/common/presentation/widgets/ui/text_typography.dart';
+import 'package:flutter_starter/common/util/haptic_feedback.dart';
 import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/code.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
@@ -120,6 +121,8 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
             icon: const Icon(Icons.arrow_back),
             color: isDone ? currentCode.contrastColor : null,
             onPressed: () {
+              playHapticFeedback();
+
               if (isDone) {
                 setState(() {
                   currentSymptomCategory =
@@ -151,6 +154,8 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
                 icon: const Icon(Icons.close),
                 color: currentCode.contrastColor,
                 onPressed: () {
+                  playHapticFeedback();
+
                   context.router.maybePop();
                 },
               ),
@@ -329,6 +334,8 @@ class _TriageFinishedState extends State<TriageFinished> {
           const SizedBox(height: 16.0),
           ElevatedButton(
             onPressed: () async {
+              playHapticFeedback();
+
               final doc = pw.Document();
 
               screenshotController
@@ -396,6 +403,8 @@ class ChooseSymptomsWidget extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 16.0),
               child: FilledButton(
                 onPressed: () {
+                  playHapticFeedback();
+
                   onChooseSympton(sympton);
                 },
                 style: ButtonStyle(
@@ -420,6 +429,8 @@ class ChooseSymptomsWidget extends StatelessWidget {
             padding: const EdgeInsets.only(top: 32.0),
             child: FilledButton(
               onPressed: () {
+                playHapticFeedback();
+
                 onChooseSympton(null);
               },
               child: const Text('Nej'),
