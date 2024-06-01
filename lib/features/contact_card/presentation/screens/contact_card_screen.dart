@@ -145,6 +145,16 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
               context.router.maybePop();
             },
           ),
+          actions: [
+            if (isDone)
+              IconButton(
+                icon: const Icon(Icons.close),
+                color: currentCode.contrastColor,
+                onPressed: () {
+                  context.router.maybePop();
+                },
+              ),
+          ],
         ),
         body: SingleChildScrollView(
           // always
@@ -161,7 +171,6 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
                       // mainAxisSize: MainAxisSize.min,
                       children: [
                         TriageFinished(
-                          code: currentCode,
                           contactCard: patientContactCard,
                         ),
                         const SizedBox(height: 16.0),
@@ -199,12 +208,30 @@ class TriageResult extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (forPrint) ...[
-          const Placeholder(
-            fallbackHeight: 40,
+          Container(
+            height: 40,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.black,
+                width: 1.0,
+              ),
+            ),
+            child: const Center(
+              child: TextTypography.body(
+                'Indsæt patientlabel her',
+              ),
+            ),
           ),
           const SizedBox(height: 16.0),
           const TextTypography.headline(
             'Kontaktårsagskort',
+          ),
+          const SizedBox(height: 4.0),
+          TextTypography.body(
+            contactCard.code == codeRed
+                ? 'Kræver omgående behandling'
+                : 'Påbegynd behandling indenfor: ${contactCard.treatmentTime}',
           ),
           const SizedBox(height: 16.0),
         ],
@@ -212,7 +239,7 @@ class TriageResult extends StatelessWidget {
           '${contactCard.contactReasonCard.number} - ${contactCard.contactReasonCard.title}',
         ),
         const SizedBox(height: 16.0),
-        ...contactCard.findings.entries.map(
+        ...contactCard.findingsOrderedByPriority.entries.map(
           (entry) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -260,11 +287,8 @@ class TriageFinished extends StatefulWidget {
 
   const TriageFinished({
     super.key,
-    required this.code,
     required this.contactCard,
   });
-
-  final Code code;
 
   @override
   State<TriageFinished> createState() => _TriageFinishedState();
@@ -281,23 +305,25 @@ class _TriageFinishedState extends State<TriageFinished> {
 
   @override
   Widget build(BuildContext context) {
+    final code = widget.contactCard.code;
+
     return DefaultTextStyle(
       style: TextStyle(
-        color: widget.code.contrastColor,
+        color: code.contrastColor,
       ),
       child: Column(
         children: [
           const SizedBox(height: 8.0),
           Text(
-            'Barnet triageres ${widget.code.name} på baggrund af det udfyldte kontaktårsagskort',
+            'Barnet triageres ${code.name} på baggrund af det udfyldte kontaktårsagskort',
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16.0),
           // heading
           Text(
-            'Behandlingstid: ${widget.code.maxWaitTime.inMinutes == 0 ? 'Omgående' : '0-${widget.code.maxWaitTime.inMinutes} minutter'}',
+            widget.contactCard.treatmentTime,
             style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                  color: widget.code.contrastColor,
+                  color: code.contrastColor,
                 ),
           ),
           const SizedBox(height: 16.0),
@@ -328,7 +354,7 @@ class _TriageFinishedState extends State<TriageFinished> {
               );
               // context.router.maybePop();
             },
-            child: const Text('Gem resultat'),
+            child: const Text('Print resultat'),
           ),
         ],
       ),
