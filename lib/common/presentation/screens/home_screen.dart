@@ -29,21 +29,43 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
 
     _controller.addListener(() {
-      setState(() {
-        filteredContactCards = contactCards
-            .where(
-              (contactCard) =>
-                  contactCard.title.toLowerCase().contains(
-                        _controller.text.toLowerCase(),
-                      ) ||
-                  contactCard.number.toString().contains(_controller.text) ||
-                  contactCard.searchTerms.any(
-                    (searchTerm) => searchTerm.contains(
-                      _controller.text.toLowerCase(),
-                    ),
+      final searchTerm = _controller.text.toLowerCase();
+      List<ContactReasonCard> results = contactCards
+          .where(
+            (contactCard) =>
+                contactCard.title.toLowerCase().contains(
+                      searchTerm,
+                    ) ||
+                contactCard.number.toString().contains(searchTerm) ||
+                contactCard.searchTerms.any(
+                  (term) => term.contains(
+                    searchTerm,
                   ),
-            )
-            .toList();
+                ),
+          )
+          .toList()
+        ..sort(
+          (a, b) {
+            if (a.number.toString().contains(searchTerm) &&
+                !b.number.toString().contains(searchTerm)) {
+              return -1;
+            } else if (!a.number.toString().contains(searchTerm) &&
+                b.number.toString().contains(searchTerm)) {
+              return 1;
+            } else if (a.title.toLowerCase().contains(searchTerm) &&
+                !b.title.toLowerCase().contains(searchTerm)) {
+              return -1;
+            } else if (!a.title.toLowerCase().contains(searchTerm) &&
+                b.title.toLowerCase().contains(searchTerm)) {
+              return 1;
+            } else {
+              return 0;
+            }
+          },
+        );
+
+      setState(() {
+        filteredContactCards = results;
       });
     });
   }
