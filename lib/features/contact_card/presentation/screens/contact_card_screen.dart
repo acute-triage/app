@@ -302,7 +302,7 @@ class TriageResult extends StatelessWidget {
                         color: finding.code.color,
                         borderRadius: BorderRadius.circular(8.0),
                         border: Border.all(
-                          color: Colors.black,
+                          color: Colors.white,
                           width: 1.0,
                         ),
                       ),
