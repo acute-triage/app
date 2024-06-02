@@ -183,10 +183,13 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
                       TriageFinished(
                         contactCard: patientContactCard,
                       ),
-                      const SizedBox(height: 16.0),
-                      TriageResult(
-                        contactCard: patientContactCard,
-                        forPrint: false,
+                      const SizedBox(height: 32.0),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: TriageResult(
+                          contactCard: patientContactCard,
+                          forPrint: false,
+                        ),
                       ),
                       const SizedBox(height: 32.0),
                     ],
