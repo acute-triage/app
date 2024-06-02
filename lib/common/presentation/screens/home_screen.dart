@@ -16,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _controller = TextEditingController();
+  final inputFocusNode = FocusNode();
   List<ContactReasonCard> filteredContactCards = contactCards;
 
   @override
@@ -27,6 +28,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // focus search field
+      inputFocusNode.requestFocus();
+    });
 
     _controller.addListener(() {
       final searchTerm = _controller.text.toLowerCase();
@@ -88,6 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
             // search field with clear input button
             TextField(
               controller: _controller,
+              focusNode: inputFocusNode,
               onSubmitted: (value) {
                 playHapticFeedback();
 
