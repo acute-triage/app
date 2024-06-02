@@ -169,7 +169,7 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
                     title: 'Er du sikker?',
                     content:
                         'Hvis du forlader denne side, vil du miste alle dine valgte symptomer',
-                    shake: true,
+                    shake: !isDone,
                     confirmText: 'Forlad side',
                     dangerConfirm: true,
                   );
