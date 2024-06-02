@@ -113,7 +113,7 @@ class _DialogBoxState extends State<DialogBox>
       elevation: 3,
       actionsPadding: const EdgeInsets.all(0),
       title: widget.title != null
-          ? TextTypography.headline(
+          ? TextTypography.headlineMedium(
               widget.title!,
             )
           : const SizedBox(),
@@ -175,7 +175,7 @@ class _DialogBoxState extends State<DialogBox>
                               bottomLeft: Radius.circular(smallRadius),
                             ),
                             child: Center(
-                              child: TextTypography.bodyLarge(
+                              child: TextTypography.body(
                                 widget.cancelText!,
                                 faded: true,
                               ),
@@ -232,7 +232,7 @@ class _DialogBoxState extends State<DialogBox>
                           child: Center(
                             child: widget.loading
                                 ? const CircularProgressIndicator()
-                                : TextTypography.bodyLarge(
+                                : TextTypography.body(
                                     '${widget.confirmText}${_countdown > 0 ? ' ($_countdown)' : ''}',
                                     textAlign: TextAlign.center,
                                     textStyle: TextStyle(
