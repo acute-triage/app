@@ -61,192 +61,184 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text("Kontaktsårsagskort"),
       ),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Column(
-            children: [
-              // search field with clear input button
-              TextField(
-                controller: _controller,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-                  hintText: 'Søg efter navn, nummer eller symptomer',
-                  fillColor: Theme.of(context).colorScheme.surface,
-                  //background color white
-                  filled: true,
-                  hintStyle: TextStyle(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withOpacity(0.5),
-                  ),
-                  suffixIcon: _controller.text.isNotEmpty
-                      ? IconButton(
-                          icon: const Icon(Icons.clear),
+        child: Column(
+          children: [
+            // search field with clear input button
+            TextField(
+              controller: _controller,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                errorBorder: InputBorder.none,
+                disabledBorder: InputBorder.none,
+                hintText: 'Søg efter navn, nummer eller symptomer',
+                fillColor: Theme.of(context).colorScheme.surface,
+                //background color white
+                filled: true,
+                hintStyle: TextStyle(
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                ),
+                suffixIcon: _controller.text.isNotEmpty
+                    ? IconButton(
+                        icon: const Icon(Icons.clear),
+                        onPressed: () {
+                          playHapticFeedback();
+
+                          _controller.clear();
+                        },
+                      )
+                    : null,
+              ),
+            ),
+            filteredContactCards.isEmpty
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 32.0),
+                    child: Column(
+                      children: [
+                        const TextTypography.body(
+                          'Ingen resultater fundet for søgning',
+                        ),
+                        const SizedBox(height: 8.0),
+                        const TextTypography.body(
+                          'Prøv at søge efter et andet ord, nummer eller symptom',
+                          center: true,
+                        ),
+                        const SizedBox(height: 16.0),
+                        // clear results
+                        FilledButton(
                           onPressed: () {
                             playHapticFeedback();
 
                             _controller.clear();
                           },
-                        )
-                      : null,
-                ),
-              ),
-              filteredContactCards.isEmpty
-                  ? Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 32.0),
-                      child: Column(
-                        children: [
-                          const TextTypography.body(
-                            'Ingen resultater fundet for søgning',
+                          child: const Text(
+                            'Nulstil søgning',
                           ),
-                          const SizedBox(height: 8.0),
-                          const TextTypography.body(
-                            'Prøv at søge efter et andet ord, nummer eller symptom',
-                            center: true,
-                          ),
-                          const SizedBox(height: 16.0),
-                          // clear results
-                          FilledButton(
-                            onPressed: () {
-                              playHapticFeedback();
-
-                              _controller.clear();
-                            },
-                            child: const Text(
-                              'Nulstil søgning',
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  : Expanded(
-                      child: ListView.builder(
-                        itemCount: filteredContactCards.length,
-                        itemBuilder: (context, index) => Padding(
-                          padding: EdgeInsets.only(top: index == 0 ? 8.0 : 0),
-
-                          child: ListTile(
-                            // every second is light grey
-                            tileColor: index.isEven
-                                ? Theme.of(context).colorScheme.surface
-                                : Theme.of(context)
-                                    .colorScheme
-                                    .primary
-                                    .withOpacity(0.15),
-                            // arrow right icon
-                            trailing: Icon(
-                              Icons.chevron_right,
-                              color: Theme.of(context).colorScheme.onSurface,
-                            ),
-                            title: Row(
-                              children: [
-                                SizedBox(
-                                  width: 30,
-                                  child: Text(
-                                    filteredContactCards[index]
-                                        .number
-                                        .toString(),
-                                    // bold
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    filteredContactCards[index].title,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            // subtitle: Text(
-                            //     filteredContactCards[index].number.toString()),
-                            onTap: filteredContactCards[index]
-                                    .symptomCategories
-                                    .isNotEmpty
-                                ? () {
-                                    playHapticFeedback();
-
-                                    AutoRouter.of(context).push(
-                                      ContactCardRoute(
-                                        contactCard:
-                                            filteredContactCards[index],
-                                      ),
-                                    );
-                                  }
-                                : null,
-                          ),
-
-                          // child: Column(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     SizedBox(
-                          //       width: double.infinity,
-                          //       child: FilledButton(
-                          //         style: ButtonStyle(
-                          //           // left align text
-                          //           alignment: Alignment.centerLeft,
-                          //           shape: MaterialStateProperty.all(
-                          //             RoundedRectangleBorder(
-                          //               // 5px rounded borders
-                          //               borderRadius:
-                          //                   BorderRadius.circular(10.0),
-                          //             ),
-                          //           ),
-                          //           textStyle: MaterialStateProperty.all(
-                          //             const TextStyle(
-                          //               // fontSize: 16.0,
-                          //               overflow: TextOverflow.ellipsis,
-                          //             ),
-                          //           ),
-                          //         ),
-                          //         onPressed: filteredContactCards[index]
-                          //                 .symptomCategories
-                          //                 .isNotEmpty
-                          //             ? () {
-                          //                 playHapticFeedback();
-
-                          //                 AutoRouter.of(context).push(
-                          //                   ContactCardRoute(
-                          //                     contactCard:
-                          //                         filteredContactCards[index],
-                          //                   ),
-                          //                 );
-                          //               }
-                          //             : null,
-                          //         child: Row(
-                          //           mainAxisAlignment:
-                          //               MainAxisAlignment.spaceBetween,
-                          //           children: [
-                          //             SizedBox(
-                          //               width: 30,
-                          //               child: Text(
-                          //                 filteredContactCards[index]
-                          //                     .number
-                          //                     .toString(),
-                          //               ),
-                          //             ),
-                          //             Expanded(
-                          //               child: Text(
-                          //                 filteredContactCards[index].title,
-                          //               ),
-                          //             ),
-                          //           ],
-                          //         ),
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
                         ),
+                      ],
+                    ),
+                  )
+                : Expanded(
+                    child: ListView.builder(
+                      itemCount: filteredContactCards.length,
+                      itemBuilder: (context, index) => Padding(
+                        padding: EdgeInsets.only(top: index == 0 ? 8.0 : 0),
+
+                        child: ListTile(
+                          // every second is light grey
+                          tileColor: index.isEven
+                              ? Theme.of(context).colorScheme.surface
+                              : Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withOpacity(0.15),
+                          // arrow right icon
+                          trailing: Icon(
+                            Icons.chevron_right,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                          title: Row(
+                            children: [
+                              SizedBox(
+                                width: 30,
+                                child: Text(
+                                  filteredContactCards[index].number.toString(),
+                                  // bold
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  filteredContactCards[index].title,
+                                ),
+                              ),
+                            ],
+                          ),
+                          // subtitle: Text(
+                          //     filteredContactCards[index].number.toString()),
+                          onTap: filteredContactCards[index]
+                                  .symptomCategories
+                                  .isNotEmpty
+                              ? () {
+                                  playHapticFeedback();
+
+                                  AutoRouter.of(context).push(
+                                    ContactCardRoute(
+                                      contactCard: filteredContactCards[index],
+                                    ),
+                                  );
+                                }
+                              : null,
+                        ),
+
+                        // child: Column(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     SizedBox(
+                        //       width: double.infinity,
+                        //       child: FilledButton(
+                        //         style: ButtonStyle(
+                        //           // left align text
+                        //           alignment: Alignment.centerLeft,
+                        //           shape: MaterialStateProperty.all(
+                        //             RoundedRectangleBorder(
+                        //               // 5px rounded borders
+                        //               borderRadius:
+                        //                   BorderRadius.circular(10.0),
+                        //             ),
+                        //           ),
+                        //           textStyle: MaterialStateProperty.all(
+                        //             const TextStyle(
+                        //               // fontSize: 16.0,
+                        //               overflow: TextOverflow.ellipsis,
+                        //             ),
+                        //           ),
+                        //         ),
+                        //         onPressed: filteredContactCards[index]
+                        //                 .symptomCategories
+                        //                 .isNotEmpty
+                        //             ? () {
+                        //                 playHapticFeedback();
+
+                        //                 AutoRouter.of(context).push(
+                        //                   ContactCardRoute(
+                        //                     contactCard:
+                        //                         filteredContactCards[index],
+                        //                   ),
+                        //                 );
+                        //               }
+                        //             : null,
+                        //         child: Row(
+                        //           mainAxisAlignment:
+                        //               MainAxisAlignment.spaceBetween,
+                        //           children: [
+                        //             SizedBox(
+                        //               width: 30,
+                        //               child: Text(
+                        //                 filteredContactCards[index]
+                        //                     .number
+                        //                     .toString(),
+                        //               ),
+                        //             ),
+                        //             Expanded(
+                        //               child: Text(
+                        //                 filteredContactCards[index].title,
+                        //               ),
+                        //             ),
+                        //           ],
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                       ),
                     ),
-            ],
-          ),
+                  ),
+          ],
         ),
       ),
     );
