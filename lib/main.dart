@@ -10,7 +10,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  LocaleSettings.useDeviceLocale();
+  // LocaleSettings.useDeviceLocale();
+  LocaleSettings.setLocale(AppLocale.da);
 
   if (Config.customSplashScreen) {
     FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);

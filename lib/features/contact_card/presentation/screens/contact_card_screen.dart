@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_starter/common/presentation/widgets/ui/content_padding.dart';
 import 'package:flutter_starter/common/presentation/widgets/ui/text_typography.dart';
 import 'package:flutter_starter/common/util/haptic_feedback.dart';
+import 'package:flutter_starter/features/confirm_dialog/util/show_confirm_dialog.dart';
 import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/code.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
@@ -155,16 +156,31 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
             },
           ),
           actions: [
-            if (isDone)
-              IconButton(
-                icon: const Icon(Icons.close),
-                color: currentCode.contrastColor,
-                onPressed: () {
-                  playHapticFeedback();
+            IconButton(
+              icon: const Icon(Icons.close),
+              color: isDone ? currentCode.contrastColor : null,
+              onPressed: () async {
+                playHapticFeedback();
 
+                if (!isDone && patientContactCard.findings.isNotEmpty) {
+                  // confirm dialog
+                  final confirmed = await showConfirmDialog(
+                    context,
+                    title: 'Er du sikker?',
+                    content:
+                        'Hvis du forlader denne side, vil du miste alle dine valgte symptomer',
+                  );
+
+                  if (!confirmed) {
+                    return;
+                  }
+                }
+
+                if (context.mounted) {
                   context.router.maybePop();
-                },
-              ),
+                }
+              },
+            ),
           ],
         ),
         body: SingleChildScrollView(

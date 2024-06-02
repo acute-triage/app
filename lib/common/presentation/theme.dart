@@ -40,6 +40,7 @@ class AppTheme {
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF387AF2)),
       cardColor: Colors.transparent,
+      dividerColor: Colors.grey[400],
       cardTheme: const CardTheme(
         elevation: 0,
         clipBehavior: Clip.antiAlias,
