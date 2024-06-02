@@ -419,7 +419,7 @@ class _TriageFinishedState extends State<TriageFinished> {
           children: [
             const SizedBox(height: 8.0),
             Text(
-              'Barnet triageres ${code.name} på baggrund af det udfyldte kontaktårsagskort',
+              'Patient triageres ${code.name} jf. kontaktårsagskortet',
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16.0),
