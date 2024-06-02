@@ -170,6 +170,7 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
                     content:
                         'Hvis du forlader denne side, vil du miste alle dine valgte symptomer',
                     shake: true,
+                    confirmText: 'Forlad side',
                     dangerConfirm: true,
                   );
 
@@ -187,7 +188,7 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
         ),
         body: SingleChildScrollView(
           // always
-          physics: const AlwaysScrollableScrollPhysics(),
+          // physics: const AlwaysScrollableScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: !isDone
@@ -196,7 +197,7 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
                     onChooseSympton: onChooseSympton,
                   )
                 : Column(
-                    // mainAxisSize: MainAxisSize.min,
+                    mainAxisSize: MainAxisSize.max,
                     children: [
                       TriageFinished(
                         contactCard: patientContactCard,
