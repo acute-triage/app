@@ -1,47 +1,49 @@
+import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
+import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
+import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
 
 const contactCard8 = ContactReasonCard(
   title: 'Dehydrering',
   number: 8,
   searchTerms: [],
-  // TODO: Add support for multiple choice
-  symptomCategories: [],
-  // symptomCategories: [
-  //   SymptomCategory(
-  //     name: 'Svær dehydrering (ca. 10%)',
-  //     symptoms: [
-  //       Symptom(
-  //         description: '6-8 fund',
-  //         code: codeRed,
-  //       ),
-  //     ],
-  //   ),
-  //   SymptomCategory(
-  //     name: 'Moderat dehydrering (ca. 5%)',
-  //     symptoms: [
-  //       Symptom(
-  //         description: '5 fund',
-  //         code: codeOrange,
-  //       ),
-  //     ],
-  //   ),
-  //   SymptomCategory(
-  //     name: 'Let dehydrering (ca. 3-4%)',
-  //     symptoms: [
-  //       Symptom(
-  //         description: '3-4 fund',
-  //         code: codeYellow,
-  //       ),
-  //     ],
-  //   ),
-  //   SymptomCategory(
-  //     name: 'Ingen eller let dehydrering (under 3%)',
-  //     symptoms: [
-  //       Symptom(
-  //         description: '0-2 fund',
-  //         code: codeGreen,
-  //       ),
-  //     ],
-  //   ),
-  // ],
+  symptomCategories: [
+    SymptomCategory(
+      name: 'Symptomer',
+      type: SymptomCategoryType.multiple,
+      multiSymptomsToCode: {
+        2: codeGreen,
+        4: codeYellow,
+        5: codeOrange,
+        6: codeRed,
+      },
+      symptoms: [
+        Symptom(
+          description: 'Tørstig, træt/sløv eller urolig',
+        ),
+        Symptom(
+          description: 'Takypnø (dvs. gul, orange eller rød på RF)',
+        ),
+        Symptom(
+          description: '3 Takykardi (dvs. gul, orange eller rød på P)',
+        ),
+        Symptom(
+          description: 'Kapillærrespons over 2 s',
+        ),
+        Symptom(
+          description: 'Nedsat tåreproduktion (græder uden tårer)',
+        ),
+        Symptom(
+          description: 'Tørre slimhinder (inkl. klistrede slimhinder)',
+        ),
+        Symptom(
+          description:
+              'Nedsat elasticitet af huden. Trækker sig ikke sammen straks',
+        ),
+        Symptom(
+          description: 'Indsunkne øjne',
+        ),
+      ],
+    ),
+  ],
 );

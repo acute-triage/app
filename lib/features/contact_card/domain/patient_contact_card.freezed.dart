@@ -19,8 +19,7 @@ mixin _$PatientContactCard {
   String? get name => throw _privateConstructorUsedError;
   String? get cprNumber => throw _privateConstructorUsedError;
   ContactReasonCard get contactReasonCard => throw _privateConstructorUsedError;
-  Map<SymptomCategory, Symptom?> get findings =>
-      throw _privateConstructorUsedError;
+  List<Finding> get findings => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PatientContactCardCopyWith<PatientContactCard> get copyWith =>
@@ -37,7 +36,7 @@ abstract class $PatientContactCardCopyWith<$Res> {
       {String? name,
       String? cprNumber,
       ContactReasonCard contactReasonCard,
-      Map<SymptomCategory, Symptom?> findings});
+      List<Finding> findings});
 }
 
 /// @nodoc
@@ -74,7 +73,7 @@ class _$PatientContactCardCopyWithImpl<$Res, $Val extends PatientContactCard>
       findings: null == findings
           ? _value.findings
           : findings // ignore: cast_nullable_to_non_nullable
-              as Map<SymptomCategory, Symptom?>,
+              as List<Finding>,
     ) as $Val);
   }
 }
@@ -91,7 +90,7 @@ abstract class _$$PatientContactCardImplCopyWith<$Res>
       {String? name,
       String? cprNumber,
       ContactReasonCard contactReasonCard,
-      Map<SymptomCategory, Symptom?> findings});
+      List<Finding> findings});
 }
 
 /// @nodoc
@@ -126,7 +125,7 @@ class __$$PatientContactCardImplCopyWithImpl<$Res>
       findings: null == findings
           ? _value._findings
           : findings // ignore: cast_nullable_to_non_nullable
-              as Map<SymptomCategory, Symptom?>,
+              as List<Finding>,
     ));
   }
 }
@@ -138,8 +137,7 @@ class _$PatientContactCardImpl extends _PatientContactCard {
       {this.name,
       this.cprNumber,
       required this.contactReasonCard,
-      final Map<SymptomCategory, Symptom?> findings =
-          const <SymptomCategory, Symptom>{}})
+      final List<Finding> findings = const []})
       : _findings = findings,
         super._();
 
@@ -149,13 +147,13 @@ class _$PatientContactCardImpl extends _PatientContactCard {
   final String? cprNumber;
   @override
   final ContactReasonCard contactReasonCard;
-  final Map<SymptomCategory, Symptom?> _findings;
+  final List<Finding> _findings;
   @override
   @JsonKey()
-  Map<SymptomCategory, Symptom?> get findings {
-    if (_findings is EqualUnmodifiableMapView) return _findings;
+  List<Finding> get findings {
+    if (_findings is EqualUnmodifiableListView) return _findings;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_findings);
+    return EqualUnmodifiableListView(_findings);
   }
 
   @override
@@ -190,11 +188,10 @@ class _$PatientContactCardImpl extends _PatientContactCard {
 
 abstract class _PatientContactCard extends PatientContactCard {
   const factory _PatientContactCard(
-          {final String? name,
-          final String? cprNumber,
-          required final ContactReasonCard contactReasonCard,
-          final Map<SymptomCategory, Symptom?> findings}) =
-      _$PatientContactCardImpl;
+      {final String? name,
+      final String? cprNumber,
+      required final ContactReasonCard contactReasonCard,
+      final List<Finding> findings}) = _$PatientContactCardImpl;
   const _PatientContactCard._() : super._();
 
   @override
@@ -204,7 +201,7 @@ abstract class _PatientContactCard extends PatientContactCard {
   @override
   ContactReasonCard get contactReasonCard;
   @override
-  Map<SymptomCategory, Symptom?> get findings;
+  List<Finding> get findings;
   @override
   @JsonKey(ignore: true)
   _$$PatientContactCardImplCopyWith<_$PatientContactCardImpl> get copyWith =>

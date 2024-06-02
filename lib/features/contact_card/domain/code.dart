@@ -17,4 +17,8 @@ class Code {
     required this.number,
     required this.maxWaitTime,
   });
+
+  int compareTo(Code other) {
+    return number.compareTo(other.number);
+  }
 }

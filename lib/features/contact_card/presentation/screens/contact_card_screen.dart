@@ -9,6 +9,7 @@ import 'package:flutter_starter/common/util/haptic_feedback.dart';
 import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/code.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
+import 'package:flutter_starter/features/contact_card/domain/finding.dart';
 import 'package:flutter_starter/features/contact_card/domain/patient_contact_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
@@ -33,7 +34,6 @@ class ContactCardScreen extends ConsumerStatefulWidget {
 class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
   SymptomCategory? currentSymptomCategory;
   late PatientContactCard patientContactCard;
-  Code currentCode = codeGreen;
 
   @override
   initState() {
@@ -46,33 +46,17 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
     currentSymptomCategory = widget.contactCard.symptomCategories.first;
   }
 
-  Code _detectCode() {
-    final symptomCodes =
-        patientContactCard.symptoms.map((symptom) => symptom.code).toList();
-
-    if (symptomCodes.isEmpty) {
-      return codeGreen;
-    }
-
-    final lowestCode = symptomCodes.reduce((lastCode, code) {
-      return lastCode.number < code.number ? lastCode : code;
-    });
-
-    return lowestCode;
-  }
-
-  onChooseSympton(Symptom? symptom) {
+  onChooseSympton(List<Symptom> symptoms) {
     // If symptom is not null, add it to the list of selected symptoms
     patientContactCard = patientContactCard.copyWith(
-      findings: {
+      findings: [
         ...patientContactCard.findings,
-        currentSymptomCategory!: symptom,
-      },
+        Finding(
+          category: currentSymptomCategory!,
+          symptoms: symptoms,
+        ),
+      ],
     );
-
-    setState(() {
-      currentCode = _detectCode();
-    });
 
     // Go to next symptom category
     final nextIndex =
@@ -85,6 +69,22 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
               ? widget.contactCard.symptomCategories[nextIndex]
               : null;
     });
+  }
+
+  _removeLastFinding() {
+    final findings = patientContactCard.findings;
+
+    if (findings.isNotEmpty) {
+      setState(() {
+        patientContactCard = patientContactCard.copyWith(
+          findings: findings.sublist(0, findings.length - 1),
+        );
+      });
+    }
+  }
+
+  Code get currentCode {
+    return patientContactCard.code;
   }
 
   bool get isDone => currentSymptomCategory == null;
@@ -125,6 +125,8 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
               playHapticFeedback();
 
               if (isDone) {
+                _removeLastFinding();
+
                 setState(() {
                   currentSymptomCategory =
                       widget.contactCard.symptomCategories.last;
@@ -138,6 +140,8 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
                   .indexOf(currentSymptomCategory!);
 
               if (currentSymptomCategoryIndex > 0) {
+                _removeLastFinding();
+
                 setState(() {
                   currentSymptomCategory = widget.contactCard
                       .symptomCategories[currentSymptomCategoryIndex - 1];
@@ -254,13 +258,13 @@ class TriageResult extends StatelessWidget {
           '${contactCard.contactReasonCard.number} - ${contactCard.contactReasonCard.title}',
         ),
         const SizedBox(height: 8.0),
-        ...contactCard.findingsOrderedByPriority.entries.map(
-          (entry) {
+        ...contactCard.findingsOrderedByPriority.map(
+          (finding) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  entry.key.name,
+                  finding.category.name,
                   style: categoryHeaderStyle,
                 ),
                 SizedBox(height: forPrint ? 0 : 8.0),
@@ -270,7 +274,7 @@ class TriageResult extends StatelessWidget {
                       width: forPrint ? 8 : 16.0,
                       height: forPrint ? 8 : 16.0,
                       decoration: BoxDecoration(
-                        color: entry.value?.code.color ?? codeGreen.color,
+                        color: finding.code.color,
                         borderRadius: BorderRadius.circular(8.0),
                         border: Border.all(
                           color: Colors.black,
@@ -281,7 +285,11 @@ class TriageResult extends StatelessWidget {
                     SizedBox(width: forPrint ? 4 : 8.0),
                     Expanded(
                       child: Text(
-                        entry.value?.description ?? 'Ingen symptomer valgt',
+                        finding.symptoms.isNotEmpty
+                            ? finding.symptoms
+                                .map((e) => e.description)
+                                .join('\n\n')
+                            : 'Ingen symptomer valgt',
                         style: symptomStyle,
                       ),
                     ),
@@ -427,7 +435,7 @@ class _TriageFinishedState extends State<TriageFinished> {
 
 class ChooseSymptomsWidget extends StatelessWidget {
   final SymptomCategory category;
-  final void Function(Symptom? symptom) onChooseSympton;
+  final void Function(List<Symptom> symptom) onChooseSympton;
 
   const ChooseSymptomsWidget({
     super.key,
@@ -454,46 +462,138 @@ class ChooseSymptomsWidget extends StatelessWidget {
               ),
             ),
           ),
-          ...category.symptoms.map(
-            (sympton) => Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: FilledButton(
-                onPressed: () {
-                  playHapticFeedback();
+          if (category.type == SymptomCategoryType.single) ...[
+            ...category.symptoms.map(
+              (symptom) => Padding(
+                padding: const EdgeInsets.only(bottom: 16.0),
+                child: FilledButton(
+                  onPressed: () {
+                    playHapticFeedback();
 
-                  onChooseSympton(sympton);
-                },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                    sympton.code.color,
+                    onChooseSympton([symptom]);
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                      symptom.code!.color,
+                    ),
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Text(
-                    sympton.description,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: sympton.code.contrastColor,
-                        ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text(
+                      symptom.description,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: symptom.code!.contrastColor,
+                          ),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 32.0),
-            child: FilledButton(
-              onPressed: () {
-                playHapticFeedback();
+            Padding(
+              padding: const EdgeInsets.only(top: 32.0),
+              child: FilledButton(
+                onPressed: () {
+                  playHapticFeedback();
 
-                onChooseSympton(null);
-              },
-              child: const Text('Nej'),
+                  onChooseSympton([]);
+                },
+                child: const Text('Nej'),
+              ),
             ),
-          ),
+          ],
+          if (category.type == SymptomCategoryType.multiple) ...[
+            _MultipleChoiceSymptoms(
+              category: category,
+              onChooseSymptoms: onChooseSympton,
+            ),
+          ],
         ],
       ),
+    );
+  }
+}
+
+class _MultipleChoiceSymptoms extends StatefulWidget {
+  final void Function(List<Symptom> symptom) onChooseSymptoms;
+
+  const _MultipleChoiceSymptoms({
+    required this.category,
+    required this.onChooseSymptoms,
+  });
+
+  final SymptomCategory category;
+
+  @override
+  State<_MultipleChoiceSymptoms> createState() =>
+      _MultipleChoiceSymptomsState();
+}
+
+class _MultipleChoiceSymptomsState extends State<_MultipleChoiceSymptoms> {
+  List<Symptom> checked = [];
+
+  _onChooseSympton(Symptom? symptom) {
+    playHapticFeedback();
+
+    if (symptom == null) {
+      // onChooseSympton(null);
+      return;
+    }
+
+    if (checked.contains(symptom)) {
+      setState(() {
+        checked.remove(symptom);
+      });
+    } else {
+      setState(() {
+        checked.add(symptom);
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ...widget.category.symptoms.map(
+          (symptom) => Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Checkbox(
+                value: checked.contains(symptom),
+                onChanged: (checked) {
+                  playHapticFeedback();
+
+                  _onChooseSympton(symptom);
+                },
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    playHapticFeedback();
+                    _onChooseSympton(symptom);
+                  },
+                  child: Text(
+                    symptom.description,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 32.0),
+          child: FilledButton(
+            onPressed: () {
+              playHapticFeedback();
+
+              widget.onChooseSymptoms(checked);
+            },
+            child: const Text('Næste'),
+          ),
+        ),
+      ],
     );
   }
 }
