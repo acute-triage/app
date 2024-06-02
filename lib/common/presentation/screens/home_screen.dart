@@ -52,7 +52,14 @@ class _HomeScreenState extends State<HomeScreen> {
           .toList()
         ..sort(
           (a, b) {
-            if (a.number.toString().contains(searchTerm) &&
+            // if title starts with search term, it should be first
+            if (a.title.toLowerCase().startsWith(searchTerm) &&
+                !b.title.toLowerCase().startsWith(searchTerm)) {
+              return -1;
+            } else if (!a.title.toLowerCase().startsWith(searchTerm) &&
+                b.title.toLowerCase().startsWith(searchTerm)) {
+              return 1;
+            } else if (a.number.toString().contains(searchTerm) &&
                 !b.number.toString().contains(searchTerm)) {
               return -1;
             } else if (!a.number.toString().contains(searchTerm) &&
