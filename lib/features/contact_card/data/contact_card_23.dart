@@ -7,6 +7,7 @@ const contactCard23 = ContactReasonCard(
   title: 'Vejrtrækningsbesvær',
   searchTerms: [
     'stridor',
+    'åndenød',
     'dyspnø',
     'hævelse',
     'hoste',
