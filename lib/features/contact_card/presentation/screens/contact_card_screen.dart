@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_starter/common/presentation/widgets/ui/content_padding.dart';
@@ -171,27 +172,25 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
           physics: const AlwaysScrollableScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Center(
-              child: !isDone
-                  ? ChooseSymptomsWidget(
-                      category: currentSymptomCategory!,
-                      onChooseSympton: onChooseSympton,
-                    )
-                  : Column(
-                      // mainAxisSize: MainAxisSize.min,
-                      children: [
-                        TriageFinished(
-                          contactCard: patientContactCard,
-                        ),
-                        const SizedBox(height: 16.0),
-                        TriageResult(
-                          contactCard: patientContactCard,
-                          forPrint: false,
-                        ),
-                        const SizedBox(height: 32.0),
-                      ],
-                    ),
-            ),
+            child: !isDone
+                ? ChooseSymptomsWidget(
+                    category: currentSymptomCategory!,
+                    onChooseSympton: onChooseSympton,
+                  )
+                : Column(
+                    // mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TriageFinished(
+                        contactCard: patientContactCard,
+                      ),
+                      const SizedBox(height: 16.0),
+                      TriageResult(
+                        contactCard: patientContactCard,
+                        forPrint: false,
+                      ),
+                      const SizedBox(height: 32.0),
+                    ],
+                  ),
           ),
         ),
       ),
@@ -445,10 +444,15 @@ class ChooseSymptomsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Container(
+      // min height
+      constraints: BoxConstraints(
+        minHeight: context.sizes.height * 0.8,
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.max,
         children: [
           Center(
             child: Padding(
