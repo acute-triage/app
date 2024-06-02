@@ -369,6 +369,43 @@ class _TriageFinishedState extends State<TriageFinished> {
     });
   }
 
+  _print() async {
+    playHapticFeedback();
+
+    setState(() {
+      loading = true;
+    });
+
+    await imageGenerator;
+
+    final doc = pw.Document();
+
+    doc.addPage(
+      pw.Page(
+        pageFormat: PdfPageFormat.a4,
+        clip: false,
+        build: (pw.Context context) {
+          return pw.Center(
+            // color: PdfColor.fromInt(code.color.value),
+            child: pw.Image(
+              capturedImage!,
+              fit: pw.BoxFit.fitHeight,
+              width: 600,
+            ),
+          ); // Center
+        },
+      ),
+    ); // Page
+
+    await Printing.layoutPdf(
+      onLayout: (PdfPageFormat format) async => doc.save(),
+    );
+
+    setState(() {
+      loading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final code = widget.contactCard.code;
@@ -394,60 +431,31 @@ class _TriageFinishedState extends State<TriageFinished> {
                   ),
             ),
             const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: loading
-                  ? null
-                  : () async {
-                      playHapticFeedback();
-
-                      setState(() {
-                        loading = true;
-                      });
-
-                      await imageGenerator;
-
-                      final doc = pw.Document();
-
-                      doc.addPage(
-                        pw.Page(
-                          pageFormat: PdfPageFormat.a4,
-                          clip: false,
-                          build: (pw.Context context) {
-                            return pw.Center(
-                              // color: PdfColor.fromInt(code.color.value),
-                              child: pw.Image(
-                                capturedImage!,
-                                fit: pw.BoxFit.fitHeight,
-                                width: 600,
-                              ),
-                            ); // Center
-                          },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: loading
+                      ? null
+                      : () async {
+                          _print();
+                        },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (loading) ...[
+                        const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(),
                         ),
-                      ); // Page
-
-                      await Printing.layoutPdf(
-                        onLayout: (PdfPageFormat format) async => doc.save(),
-                      );
-
-                      setState(() {
-                        loading = false;
-                      });
-                      // context.router.maybePop();
-                    },
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (loading) ...[
-                    const SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: CircularProgressIndicator(),
-                    ),
-                    const SizedBox(width: 8.0),
-                  ],
-                  const Text('Udskriv kontaktårsagskort'),
-                ],
-              ),
+                        const SizedBox(width: 8.0),
+                      ],
+                      const Text('Udskriv kontaktårsagskort'),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),
