@@ -200,13 +200,17 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
                       TriageFinished(
                         contactCard: patientContactCard,
                       ),
-                      const SizedBox(height: 32.0),
+                      const SizedBox(height: 16.0),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: TriageResult(
                           contactCard: patientContactCard,
                           forPrint: false,
                         ),
+                      ),
+                      const SizedBox(height: 16.0),
+                      PrintTriage(
+                        contactCard: patientContactCard,
                       ),
                       const SizedBox(height: 32.0),
                     ],
@@ -274,11 +278,9 @@ class TriageResult extends StatelessWidget {
         ],
         TextTypography.headlineSmall(
           '${contactCard.contactReasonCard.number} - ${contactCard.contactReasonCard.title}',
-          textStyle: forPrint
-              ? Theme.of(context).textTheme.headlineSmall!.copyWith(
-                    fontSize: 18,
-                  )
-              : null,
+          textStyle: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                fontSize: forPrint ? 18 : 20,
+              ),
         ),
         const SizedBox(height: 8.0),
         ...contactCard.findingsOrderedByPriority.map(
@@ -328,7 +330,7 @@ class TriageResult extends StatelessWidget {
   }
 }
 
-class TriageFinished extends StatefulWidget {
+class TriageFinished extends StatelessWidget {
   final PatientContactCard contactCard;
 
   const TriageFinished({
@@ -337,10 +339,49 @@ class TriageFinished extends StatefulWidget {
   });
 
   @override
-  State<TriageFinished> createState() => _TriageFinishedState();
+  Widget build(BuildContext context) {
+    final code = contactCard.code;
+
+    return DefaultTextStyle(
+      style: TextStyle(
+        color: code.contrastColor,
+      ),
+      child: ContentPadding(
+        child: Column(
+          children: [
+            const SizedBox(height: 8.0),
+            Text(
+              'Patient triageres ${code.name} jf. kontaktårsagskortet',
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 16.0),
+            // heading
+            Text(
+              contactCard.treatmentTime,
+              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                    color: code.contrastColor,
+                  ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
-class _TriageFinishedState extends State<TriageFinished> {
+class PrintTriage extends StatefulWidget {
+  final PatientContactCard contactCard;
+
+  const PrintTriage({
+    super.key,
+    required this.contactCard,
+  });
+
+  @override
+  State<PrintTriage> createState() => _PrintTriageState();
+}
+
+class _PrintTriageState extends State<PrintTriage> {
   bool loading = false;
   pw.MemoryImage? capturedImage;
   //Create an instance of ScreenshotController
@@ -414,49 +455,24 @@ class _TriageFinishedState extends State<TriageFinished> {
       style: TextStyle(
         color: code.contrastColor,
       ),
-      child: ContentPadding(
-        child: Column(
+      child: ElevatedButton(
+        onPressed: loading
+            ? null
+            : () async {
+                _print();
+              },
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(height: 8.0),
-            Text(
-              'Patient triageres ${code.name} jf. kontaktårsagskortet',
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 16.0),
-            // heading
-            Text(
-              widget.contactCard.treatmentTime,
-              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    color: code.contrastColor,
-                  ),
-            ),
-            const SizedBox(height: 16.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: loading
-                      ? null
-                      : () async {
-                          _print();
-                        },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (loading) ...[
-                        const SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(),
-                        ),
-                        const SizedBox(width: 8.0),
-                      ],
-                      const Text('Udskriv kontaktårsagskort'),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+            if (loading) ...[
+              const SizedBox(
+                height: 20,
+                width: 20,
+                child: CircularProgressIndicator(),
+              ),
+              const SizedBox(width: 8.0),
+            ],
+            const Text('Udskriv kontaktårsagskort'),
           ],
         ),
       ),
@@ -486,6 +502,7 @@ class ChooseSymptomsWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.max,
         children: [
+          SizedBox(height: context.sizes.height * 0.05),
           Center(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -494,10 +511,12 @@ class ChooseSymptomsWidget extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                       height: 1.5,
+                      fontSize: 24,
                     ),
               ),
             ),
           ),
+          SizedBox(height: context.sizes.height * 0.05),
           if (category.type == SymptomCategoryType.single) ...[
             ...category.symptoms.map(
               (symptom) => Padding(
@@ -526,16 +545,13 @@ class ChooseSymptomsWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 32.0),
-              child: FilledButton(
-                onPressed: () {
-                  playHapticFeedback();
+            FilledButton(
+              onPressed: () {
+                playHapticFeedback();
 
-                  onChooseSympton([]);
-                },
-                child: const Text('Nej'),
-              ),
+                onChooseSympton([]);
+              },
+              child: const Text('Nej'),
             ),
           ],
           if (category.type == SymptomCategoryType.multiple) ...[
