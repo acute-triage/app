@@ -162,7 +162,7 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
               onPressed: () async {
                 playHapticFeedback();
 
-                if (!isDone && patientContactCard.findings.isNotEmpty) {
+                if (patientContactCard.findings.isNotEmpty) {
                   // confirm dialog
                   final confirmed = await showConfirmDialog(
                     context,
@@ -170,6 +170,7 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
                     content:
                         'Hvis du forlader denne side, vil du miste alle dine valgte symptomer',
                     shake: true,
+                    dangerConfirm: true,
                   );
 
                   if (!confirmed) {
