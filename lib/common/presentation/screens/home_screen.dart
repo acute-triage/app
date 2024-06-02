@@ -122,6 +122,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 disabledBorder: InputBorder.none,
                 hintText: 'Søg efter navn, nummer eller symptomer',
                 fillColor: Theme.of(context).colorScheme.surface,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 12.0,
+                ),
 
                 //background color white
                 filled: true,
@@ -130,13 +134,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
                 ),
                 suffixIcon: _controller.text.isNotEmpty
-                    ? IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: () {
-                          playHapticFeedback();
+                    ? Padding(
+                        padding: const EdgeInsets.only(right: 12.0),
+                        child: IconButton(
+                          icon: const Icon(Icons.clear),
+                          onPressed: () {
+                            playHapticFeedback();
 
-                          _controller.clear();
-                        },
+                            _controller.clear();
+                          },
+                        ),
                       )
                     : null,
               ),
