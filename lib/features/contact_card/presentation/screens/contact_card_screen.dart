@@ -245,19 +245,23 @@ class TriageResult extends StatelessWidget {
             ),
           ),
           SizedBox(height: forPrint ? 8 : 16.0),
-          const TextTypography.headline(
-            'Kontaktårsagskort',
-          ),
+          TextTypography.headline('Kontaktårsagskort',
+              textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                    fontSize: 24,
+                  )),
           const SizedBox(height: 4.0),
           TextTypography.body(
-            contactCard.code == codeRed
-                ? 'Kræver omgående behandling'
-                : 'Påbegynd behandling indenfor: ${contactCard.treatmentTime}',
+            '${contactCard.code.description} - ${contactCard.code == codeRed ? 'Kræver omgående behandling' : 'Påbegynd behandling indenfor: ${contactCard.treatmentTime}'}',
           ),
           SizedBox(height: forPrint ? 4 : 8.0),
         ],
         TextTypography.headlineSmall(
           '${contactCard.contactReasonCard.number} - ${contactCard.contactReasonCard.title}',
+          textStyle: forPrint
+              ? Theme.of(context).textTheme.headlineSmall!.copyWith(
+                    fontSize: 18,
+                  )
+              : null,
         ),
         const SizedBox(height: 8.0),
         ...contactCard.findingsOrderedByPriority.map(
