@@ -93,130 +93,133 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: Theme.of(context).copyWith(
-        colorScheme: isDone
-            ? ColorScheme.fromSeed(
-                seedColor: currentCode.color,
-                onBackground: currentCode.contrastColor,
-                background: currentCode.color,
-              )
-            : null,
-        textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: isDone ? currentCode.contrastColor : null,
-              displayColor: isDone ? currentCode.contrastColor : null,
-            ),
-        appBarTheme: Theme.of(context).appBarTheme.copyWith(
-            backgroundColor: isDone ? currentCode.color : null,
-            titleTextStyle: isDone
-                ? Theme.of(context).textTheme.headlineMedium!.copyWith(
-                      color: currentCode.contrastColor,
-                    )
-                : Theme.of(context).textTheme.bodyMedium!),
-      ),
-      child: Scaffold(
-        backgroundColor: isDone ? currentCode.color : null,
-        appBar: AppBar(
-          title: !isDone
-              ? Text(widget.contactCard.title)
-              : Text(currentCode.description),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            color: isDone ? currentCode.contrastColor : null,
-            onPressed: () {
-              playHapticFeedback();
-
-              if (isDone) {
-                _removeLastFinding();
-
-                setState(() {
-                  currentSymptomCategory =
-                      widget.contactCard.symptomCategories.last;
-                });
-
-                return;
-              }
-
-              final currentSymptomCategoryIndex = widget
-                  .contactCard.symptomCategories
-                  .indexOf(currentSymptomCategory!);
-
-              if (currentSymptomCategoryIndex > 0) {
-                _removeLastFinding();
-
-                setState(() {
-                  currentSymptomCategory = widget.contactCard
-                      .symptomCategories[currentSymptomCategoryIndex - 1];
-                });
-
-                return;
-              }
-
-              context.router.maybePop();
-            },
-          ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.close),
+    return WillPopScope(
+      onWillPop: () => Future.value(true),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+          colorScheme: isDone
+              ? ColorScheme.fromSeed(
+                  seedColor: currentCode.color,
+                  onBackground: currentCode.contrastColor,
+                  background: currentCode.color,
+                )
+              : null,
+          textTheme: Theme.of(context).textTheme.apply(
+                bodyColor: isDone ? currentCode.contrastColor : null,
+                displayColor: isDone ? currentCode.contrastColor : null,
+              ),
+          appBarTheme: Theme.of(context).appBarTheme.copyWith(
+              backgroundColor: isDone ? currentCode.color : null,
+              titleTextStyle: isDone
+                  ? Theme.of(context).textTheme.headlineMedium!.copyWith(
+                        color: currentCode.contrastColor,
+                      )
+                  : Theme.of(context).textTheme.bodyMedium!),
+        ),
+        child: Scaffold(
+          backgroundColor: isDone ? currentCode.color : null,
+          appBar: AppBar(
+            title: !isDone
+                ? Text(widget.contactCard.title)
+                : Text(currentCode.description),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
               color: isDone ? currentCode.contrastColor : null,
-              onPressed: () async {
+              onPressed: () {
                 playHapticFeedback();
 
-                if (patientContactCard.findings.isNotEmpty) {
-                  // confirm dialog
-                  final confirmed = await showConfirmDialog(
-                    context,
-                    title: 'Er du sikker?',
-                    content:
-                        'Hvis du forlader denne side, vil du miste alle dine valgte symptomer',
-                    shake: !isDone,
-                    confirmText: 'Forlad side',
-                    dangerConfirm: true,
-                  );
+                if (isDone) {
+                  _removeLastFinding();
 
-                  if (!confirmed) {
-                    return;
-                  }
+                  setState(() {
+                    currentSymptomCategory =
+                        widget.contactCard.symptomCategories.last;
+                  });
+
+                  return;
                 }
 
-                if (context.mounted) {
-                  context.router.maybePop();
+                final currentSymptomCategoryIndex = widget
+                    .contactCard.symptomCategories
+                    .indexOf(currentSymptomCategory!);
+
+                if (currentSymptomCategoryIndex > 0) {
+                  _removeLastFinding();
+
+                  setState(() {
+                    currentSymptomCategory = widget.contactCard
+                        .symptomCategories[currentSymptomCategoryIndex - 1];
+                  });
+
+                  return;
                 }
+
+                context.router.maybePop();
               },
             ),
-          ],
-        ),
-        body: SingleChildScrollView(
-          // always
-          // physics: const AlwaysScrollableScrollPhysics(),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: !isDone
-                ? ChooseSymptomsWidget(
-                    category: currentSymptomCategory!,
-                    onChooseSympton: onChooseSympton,
-                  )
-                : Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      TriageFinished(
-                        contactCard: patientContactCard,
-                      ),
-                      const SizedBox(height: 16.0),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: TriageResult(
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.close),
+                color: isDone ? currentCode.contrastColor : null,
+                onPressed: () async {
+                  playHapticFeedback();
+
+                  if (patientContactCard.findings.isNotEmpty) {
+                    // confirm dialog
+                    final confirmed = await showConfirmDialog(
+                      context,
+                      title: 'Er du sikker?',
+                      content:
+                          'Hvis du forlader denne side, vil du miste alle dine valgte symptomer',
+                      shake: !isDone,
+                      confirmText: 'Forlad side',
+                      dangerConfirm: true,
+                    );
+
+                    if (!confirmed) {
+                      return;
+                    }
+                  }
+
+                  if (context.mounted) {
+                    context.router.maybePop();
+                  }
+                },
+              ),
+            ],
+          ),
+          body: SingleChildScrollView(
+            // always
+            // physics: const AlwaysScrollableScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: !isDone
+                  ? ChooseSymptomsWidget(
+                      category: currentSymptomCategory!,
+                      onChooseSympton: onChooseSympton,
+                    )
+                  : Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        TriageFinished(
                           contactCard: patientContactCard,
-                          forPrint: false,
                         ),
-                      ),
-                      const SizedBox(height: 16.0),
-                      PrintTriage(
-                        contactCard: patientContactCard,
-                      ),
-                      const SizedBox(height: 32.0),
-                    ],
-                  ),
+                        const SizedBox(height: 16.0),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: TriageResult(
+                            contactCard: patientContactCard,
+                            forPrint: false,
+                          ),
+                        ),
+                        const SizedBox(height: 16.0),
+                        PrintTriage(
+                          contactCard: patientContactCard,
+                        ),
+                        const SizedBox(height: 32.0),
+                      ],
+                    ),
+            ),
           ),
         ),
       ),
