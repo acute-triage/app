@@ -66,6 +66,18 @@ class _HomeScreenState extends State<HomeScreen> {
             // search field with clear input button
             TextField(
               controller: _controller,
+              onSubmitted: (value) {
+                playHapticFeedback();
+
+                // select top result
+                if (filteredContactCards.isNotEmpty) {
+                  AutoRouter.of(context).push(
+                    ContactCardRoute(
+                      contactCard: filteredContactCards.first,
+                    ),
+                  );
+                }
+              },
               decoration: InputDecoration(
                 border: InputBorder.none,
                 focusedBorder: InputBorder.none,
@@ -74,6 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 disabledBorder: InputBorder.none,
                 hintText: 'Søg efter navn, nummer eller symptomer',
                 fillColor: Theme.of(context).colorScheme.surface,
+
                 //background color white
                 filled: true,
                 hintStyle: TextStyle(
