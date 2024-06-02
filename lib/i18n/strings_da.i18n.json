@@ -15,7 +15,10 @@
   "common": {
     "something_went_wrong": "Uups! Noget gik galt",
     "retry": "Prøv igen",
-    "contact_support": "Contact Support"
+    "contact_support": "Kontakt support",
+    "are_you_sure": "Er du sikker?",
+    "ok": "Okay",
+    "cancel": "Fortryd"
   },
   "error_handler": {
     "title": "Something went wrong",

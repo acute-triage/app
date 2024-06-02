@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 2
-/// Strings: 24 (12 per locale)
+/// Strings: 30 (15 per locale)
 ///
-/// Built on 2024-06-02 at 16:44 UTC
+/// Built on 2024-06-02 at 19:45 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -191,6 +191,9 @@ class _StringsCommonEn {
 	String get something_went_wrong => 'Ooups! Something went wrong';
 	String get retry => 'Try again';
 	String get contact_support => 'Contact Support';
+	String get are_you_sure => 'Are you sure?';
+	String get ok => 'Okay';
+	String get cancel => 'Cancel';
 }
 
 // Path: error_handler
@@ -270,7 +273,10 @@ class _StringsCommonDa implements _StringsCommonEn {
 	// Translations
 	@override String get something_went_wrong => 'Uups! Noget gik galt';
 	@override String get retry => 'Prøv igen';
-	@override String get contact_support => 'Contact Support';
+	@override String get contact_support => 'Kontakt support';
+	@override String get are_you_sure => 'Er du sikker?';
+	@override String get ok => 'Okay';
+	@override String get cancel => 'Fortryd';
 }
 
 // Path: error_handler
@@ -302,6 +308,9 @@ extension on Translations {
 			case 'common.something_went_wrong': return 'Ooups! Something went wrong';
 			case 'common.retry': return 'Try again';
 			case 'common.contact_support': return 'Contact Support';
+			case 'common.are_you_sure': return 'Are you sure?';
+			case 'common.ok': return 'Okay';
+			case 'common.cancel': return 'Cancel';
 			case 'error_handler.title': return 'Something went wrong';
 			case 'error_handler.content': return 'Pleasr try again, or contacts support';
 			default: return null;
@@ -323,7 +332,10 @@ extension on _StringsDa {
 			case 'choose.title': return 'hasdasd';
 			case 'common.something_went_wrong': return 'Uups! Noget gik galt';
 			case 'common.retry': return 'Prøv igen';
-			case 'common.contact_support': return 'Contact Support';
+			case 'common.contact_support': return 'Kontakt support';
+			case 'common.are_you_sure': return 'Er du sikker?';
+			case 'common.ok': return 'Okay';
+			case 'common.cancel': return 'Fortryd';
 			case 'error_handler.title': return 'Something went wrong';
 			case 'error_handler.content': return 'Pleasr try again, or contacts support';
 			default: return null;

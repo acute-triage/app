@@ -15,7 +15,10 @@
   "common": {
     "something_went_wrong": "Ooups! Something went wrong",
     "retry": "Try again",
-    "contact_support": "Contact Support"
+    "contact_support": "Contact Support",
+    "are_you_sure": "Are you sure?",
+    "ok": "Okay",
+    "cancel": "Cancel"
   },
   "error_handler": {
     "title": "Something went wrong",
