@@ -311,12 +311,31 @@ class TriageFinished extends StatefulWidget {
 
 class _TriageFinishedState extends State<TriageFinished> {
   bool loading = false;
+  pw.MemoryImage? capturedImage;
   //Create an instance of ScreenshotController
   ScreenshotController screenshotController = ScreenshotController();
+  Future? imageGenerator;
 
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      imageGenerator = _generateContactCardImage();
+    });
+  }
+
+  Future<void> _generateContactCardImage() async {
+    final raw = await screenshotController.captureFromWidget(
+      TriageResult(
+        contactCard: widget.contactCard,
+        forPrint: true,
+      ),
+    );
+
+    setState(() {
+      capturedImage = pw.MemoryImage(raw);
+    });
   }
 
   @override
@@ -354,28 +373,19 @@ class _TriageFinishedState extends State<TriageFinished> {
                         loading = true;
                       });
 
-                      final doc = pw.Document();
+                      await imageGenerator;
 
-                      final capturedImage =
-                          await screenshotController.captureFromWidget(
-                        Container(
-                          child: TriageResult(
-                            contactCard: widget.contactCard,
-                            forPrint: true,
-                          ),
-                        ),
-                      );
+                      final doc = pw.Document();
 
                       doc.addPage(
                         pw.Page(
                           pageFormat: PdfPageFormat.a4,
                           clip: false,
                           build: (pw.Context context) {
-                            final image = pw.MemoryImage(capturedImage);
                             return pw.Center(
                               // color: PdfColor.fromInt(code.color.value),
                               child: pw.Image(
-                                image,
+                                capturedImage!,
                                 fit: pw.BoxFit.fitHeight,
                                 width: 600,
                               ),
