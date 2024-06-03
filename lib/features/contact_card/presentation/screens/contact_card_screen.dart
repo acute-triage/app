@@ -4,12 +4,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_starter/common/application/router.gr.dart';
 import 'package:flutter_starter/common/presentation/widgets/ui/content_padding.dart';
 import 'package:flutter_starter/common/presentation/widgets/ui/progress_bar.dart';
 import 'package:flutter_starter/common/presentation/widgets/ui/text_typography.dart';
 import 'package:flutter_starter/common/util/haptic_feedback.dart';
 import 'package:flutter_starter/features/confirm_dialog/util/show_confirm_dialog.dart';
 import 'package:flutter_starter/features/contact_card/data/codes.dart';
+import 'package:flutter_starter/features/contact_card/data/contact_card_list.dart';
 import 'package:flutter_starter/features/contact_card/domain/code.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/finding.dart';
@@ -23,11 +25,10 @@ import 'package:screenshot/screenshot.dart';
 
 @RoutePage()
 class ContactCardScreen extends ConsumerStatefulWidget {
-  final ContactReasonCard contactCard;
-
+  final int id;
   const ContactCardScreen({
     super.key,
-    required this.contactCard,
+    @pathParam this.id = 0,
   });
 
   @override
@@ -35,6 +36,7 @@ class ContactCardScreen extends ConsumerStatefulWidget {
 }
 
 class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
+  late ContactReasonCard contactCard;
   SymptomCategory? currentSymptomCategory;
   late PatientContactCard patientContactCard;
 
@@ -42,11 +44,15 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
   initState() {
     super.initState();
 
-    patientContactCard = PatientContactCard(
-      contactReasonCard: widget.contactCard,
+    contactCard = contactCards.firstWhere(
+      (element) => element.number == widget.id,
     );
 
-    currentSymptomCategory = widget.contactCard.symptomCategories.first;
+    patientContactCard = PatientContactCard(
+      contactReasonCard: contactCard,
+    );
+
+    currentSymptomCategory = contactCard.symptomCategories.first;
   }
 
   onChooseSympton(List<Symptom> symptoms) {
@@ -63,14 +69,12 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
 
     // Go to next symptom category
     final nextIndex =
-        widget.contactCard.symptomCategories.indexOf(currentSymptomCategory!) +
-            1;
+        contactCard.symptomCategories.indexOf(currentSymptomCategory!) + 1;
 
     setState(() {
-      currentSymptomCategory =
-          nextIndex < widget.contactCard.symptomCategories.length
-              ? widget.contactCard.symptomCategories[nextIndex]
-              : null;
+      currentSymptomCategory = nextIndex < contactCard.symptomCategories.length
+          ? contactCard.symptomCategories[nextIndex]
+          : null;
     });
   }
 
@@ -127,13 +131,13 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
                     child: ProgressBar(
                       width: context.sizes.width,
                       height: 2,
-                      value: widget.contactCard.symptomCategories
+                      value: contactCard.symptomCategories
                           .indexOf(currentSymptomCategory!),
-                      max: widget.contactCard.symptomCategories.length,
+                      max: contactCard.symptomCategories.length,
                     ),
                   ),
             title: !isDone
-                ? Text(widget.contactCard.title)
+                ? Text(contactCard.title)
                 : Text(currentCode.description),
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
@@ -145,29 +149,30 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
                   _removeLastFinding();
 
                   setState(() {
-                    currentSymptomCategory =
-                        widget.contactCard.symptomCategories.last;
+                    currentSymptomCategory = contactCard.symptomCategories.last;
                   });
 
                   return;
                 }
 
-                final currentSymptomCategoryIndex = widget
-                    .contactCard.symptomCategories
+                final currentSymptomCategoryIndex = contactCard
+                    .symptomCategories
                     .indexOf(currentSymptomCategory!);
 
                 if (currentSymptomCategoryIndex > 0) {
                   _removeLastFinding();
 
                   setState(() {
-                    currentSymptomCategory = widget.contactCard
+                    currentSymptomCategory = contactCard
                         .symptomCategories[currentSymptomCategoryIndex - 1];
                   });
 
                   return;
                 }
 
-                context.router.maybePop();
+                context.router.replaceAll(
+                  [const HomeRoute()],
+                );
               },
             ),
             actions: [
@@ -195,7 +200,9 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
                   }
 
                   if (context.mounted) {
-                    context.router.maybePop();
+                    context.router.replaceAll(
+                      [const HomeRoute()],
+                    );
                   }
                 },
               ),
@@ -264,88 +271,92 @@ class TriageResult extends StatelessWidget {
             )
         : Theme.of(context).textTheme.bodyMedium;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (forPrint) ...[
-          Container(
-            height: 40,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.black,
-                width: 1.0,
-              ),
-            ),
-            child: const Center(
-              child: TextTypography.body(
-                'Indsæt patientlabel her',
-              ),
-            ),
-          ),
-          SizedBox(height: forPrint ? 8 : 16.0),
-          TextTypography.headline('Kontaktårsagskort',
-              textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                    fontSize: 24,
-                  )),
-          const SizedBox(height: 4.0),
-          TextTypography.body(
-            '${contactCard.code.description} - ${contactCard.code == codeRed ? 'Kræver omgående behandling' : 'Påbegynd behandling indenfor: ${contactCard.treatmentTime}'}',
-          ),
-          SizedBox(height: forPrint ? 4 : 8.0),
-        ],
-        TextTypography.headlineSmall(
-          '${contactCard.contactReasonCard.number} - ${contactCard.contactReasonCard.title}',
-          textStyle: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                fontSize: forPrint ? 18 : 20,
-              ),
-        ),
-        const SizedBox(height: 8.0),
-        ...contactCard.findingsOrderedByPriority.map(
-          (finding) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  finding.category.name,
-                  style: categoryHeaderStyle,
+    return Container(
+      color: forPrint ? Colors.white : null,
+      width: forPrint ? 530 : null,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (forPrint) ...[
+            Container(
+              height: 40,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.black,
+                  width: 1.0,
                 ),
-                SizedBox(height: forPrint ? 0 : 8.0),
-                Row(
-                  children: [
-                    Container(
-                      width: forPrint ? 8 : 16.0,
-                      height: forPrint ? 8 : 16.0,
-                      decoration: BoxDecoration(
-                        color: finding.code.color,
-                        borderRadius: BorderRadius.circular(8.0),
-                        border: Border.all(
-                          color: contactCard.code == codeOrange
-                              ? Colors.white
-                              : contactCard.code.contrastColor,
-                          width: 1.0,
+              ),
+              child: const Center(
+                child: TextTypography.body(
+                  'Indsæt patientlabel her',
+                ),
+              ),
+            ),
+            SizedBox(height: forPrint ? 8 : 16.0),
+            TextTypography.headline('Kontaktårsagskort',
+                textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                      fontSize: 24,
+                    )),
+            const SizedBox(height: 4.0),
+            TextTypography.body(
+              '${contactCard.code.description} - ${contactCard.code == codeRed ? 'Kræver omgående behandling' : 'Påbegynd behandling indenfor: ${contactCard.treatmentTime}'}',
+            ),
+            SizedBox(height: forPrint ? 4 : 8.0),
+          ],
+          TextTypography.headlineSmall(
+            '${contactCard.contactReasonCard.number} - ${contactCard.contactReasonCard.title}',
+            textStyle: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                  fontSize: forPrint ? 18 : 20,
+                ),
+          ),
+          const SizedBox(height: 8.0),
+          ...contactCard.findingsOrderedByPriority.map(
+            (finding) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    finding.category.name,
+                    style: categoryHeaderStyle,
+                  ),
+                  SizedBox(height: forPrint ? 0 : 8.0),
+                  Row(
+                    children: [
+                      Container(
+                        width: forPrint ? 8 : 16.0,
+                        height: forPrint ? 8 : 16.0,
+                        decoration: BoxDecoration(
+                          color: finding.code.color,
+                          borderRadius: BorderRadius.circular(8.0),
+                          border: Border.all(
+                            color: contactCard.code == codeOrange
+                                ? Colors.white
+                                : contactCard.code.contrastColor,
+                            width: 1.0,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(width: forPrint ? 4 : 8.0),
-                    Expanded(
-                      child: Text(
-                        finding.symptoms.isNotEmpty
-                            ? finding.symptoms
-                                .map((e) => e.description)
-                                .join('\n\n')
-                            : 'Ingen symptomer valgt',
-                        style: symptomStyle,
+                      SizedBox(width: forPrint ? 4 : 8.0),
+                      Expanded(
+                        child: Text(
+                          finding.symptoms.isNotEmpty
+                              ? finding.symptoms
+                                  .map((e) => e.description)
+                                  .join('\n\n')
+                              : 'Ingen symptomer valgt',
+                          style: symptomStyle,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: forPrint ? 8 : 16.0),
-              ],
-            );
-          },
-        ),
-      ],
+                    ],
+                  ),
+                  SizedBox(height: forPrint ? 8 : 16.0),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }
@@ -404,6 +415,7 @@ class PrintTriage extends StatefulWidget {
 class _PrintTriageState extends State<PrintTriage> {
   bool loading = false;
   pw.MemoryImage? capturedImage;
+  pw.Document doc = pw.Document();
   //Create an instance of ScreenshotController
   ScreenshotController screenshotController = ScreenshotController();
   Future? imageGenerator;
@@ -413,7 +425,27 @@ class _PrintTriageState extends State<PrintTriage> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      imageGenerator = _generateContactCardImage();
+      imageGenerator = _generateContactCardImage().then((_) {
+        doc.addPage(
+          pw.Page(
+            pageTheme: const pw.PageTheme(
+              pageFormat: PdfPageFormat.a4,
+              orientation: pw.PageOrientation.portrait,
+              margin: pw.EdgeInsets.all(14),
+            ),
+            build: (pw.Context context) {
+              return pw.Align(
+                alignment: pw.Alignment.topCenter,
+                child: pw.Image(
+                  capturedImage!,
+                  width: 530,
+                  height: PdfPageFormat.a4.height,
+                ),
+              );
+            },
+          ),
+        ); // Page
+      });
     });
   }
 
@@ -439,25 +471,6 @@ class _PrintTriageState extends State<PrintTriage> {
 
     await imageGenerator;
 
-    final doc = pw.Document();
-
-    doc.addPage(
-      pw.Page(
-        pageFormat: PdfPageFormat.a4,
-        clip: false,
-        build: (pw.Context context) {
-          return pw.Center(
-            // color: PdfColor.fromInt(code.color.value),
-            child: pw.Image(
-              capturedImage!,
-              fit: pw.BoxFit.fitHeight,
-              width: 600,
-            ),
-          ); // Center
-        },
-      ),
-    ); // Page
-
     await Printing.layoutPdf(
       onLayout: (PdfPageFormat format) async => doc.save(),
     );
@@ -471,31 +484,35 @@ class _PrintTriageState extends State<PrintTriage> {
   Widget build(BuildContext context) {
     final code = widget.contactCard.code;
 
-    return DefaultTextStyle(
-      style: TextStyle(
-        color: code.contrastColor,
-      ),
-      child: ElevatedButton(
-        onPressed: loading
-            ? null
-            : () async {
-                _print();
-              },
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (loading) ...[
-              const SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(),
-              ),
-              const SizedBox(width: 8.0),
-            ],
-            const Text('Udskriv kontaktårsagskort'),
-          ],
+    return Column(
+      children: [
+        DefaultTextStyle(
+          style: TextStyle(
+            color: code.contrastColor,
+          ),
+          child: ElevatedButton(
+            onPressed: loading
+                ? null
+                : () async {
+                    _print();
+                  },
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (loading) ...[
+                  const SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(),
+                  ),
+                  const SizedBox(width: 8.0),
+                ],
+                const Text('Udskriv kontaktårsagskort'),
+              ],
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 }

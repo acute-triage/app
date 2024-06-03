@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_starter/common/application/router.gr.dart';
 import 'package:flutter_starter/common/presentation/widgets/ui/text_typography.dart';
 import 'package:flutter_starter/common/util/haptic_feedback.dart';
+import 'package:flutter_starter/features/confirm_dialog/util/show_confirm_dialog.dart';
 import 'package:flutter_starter/features/contact_card/data/contact_card_list.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 
@@ -29,7 +31,17 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (kIsWeb) {
+        await showConfirmDialog(
+          context,
+          title: 'Begrænset funktionalitet',
+          content:
+              'Vær opmærksom på at appen er optimeret til mobil og tablet. Webudgaven er som konsekvens heraf langsommere og kan have visse begrænsninger. For den bedste oplevelse anbefales det at teste appen på en mobil eller tablet.',
+          hideCancel: true,
+        );
+      }
+
       // focus search field
       inputFocusNode.requestFocus();
     });
@@ -109,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (filteredContactCards.isNotEmpty && value.isNotEmpty) {
                   AutoRouter.of(context).push(
                     ContactCardRoute(
-                      contactCard: filteredContactCards.first,
+                      id: filteredContactCards.first.number,
                     ),
                   );
                 }
@@ -224,7 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                   AutoRouter.of(context).push(
                                     ContactCardRoute(
-                                      contactCard: filteredContactCards[index],
+                                      id: filteredContactCards[index].number,
                                     ),
                                   );
                                 }

@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -33,10 +30,7 @@ class DefaultFirebaseOptions {
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -50,19 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDExtGG-3CY_OEVIg2NAxDrPQOeJlbtM50',
-    appId: '1:24999585835:android:613f019bc98b443b83626e',
-    messagingSenderId: '24999585835',
-    projectId: 'popcornpals',
-    storageBucket: 'popcornpals.appspot.com',
+    apiKey: 'AIzaSyBrpp1G9sgSjz0XPFgv8zk__PRjHCzMFmw',
+    appId: '1:90703966559:android:af88578f7e8497d4af06ea',
+    messagingSenderId: '90703966559',
+    projectId: 'acutetriage-app',
+    storageBucket: 'acutetriage-app.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBuwbHazp9kN5dzErM-usnNp_h0iF8ky8o',
-    appId: '1:24999585835:ios:154d359aa721795783626e',
-    messagingSenderId: '24999585835',
-    projectId: 'popcornpals',
-    storageBucket: 'popcornpals.appspot.com',
+    apiKey: 'AIzaSyDd4m1EXg7OwDthzhr8yqm6SfPwsaUtSvM',
+    appId: '1:90703966559:ios:93b3be67843c7580af06ea',
+    messagingSenderId: '90703966559',
+    projectId: 'acutetriage-app',
+    storageBucket: 'acutetriage-app.appspot.com',
     iosBundleId: 'com.example.flutterStarter',
   );
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBcUjlubxHfjmAUT4o3fekghSeY3ZkqUaA',
+    appId: '1:90703966559:web:98ba3b527e6b7430af06ea',
+    messagingSenderId: '90703966559',
+    projectId: 'acutetriage-app',
+    authDomain: 'acutetriage-app.firebaseapp.com',
+    storageBucket: 'acutetriage-app.appspot.com',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyBcUjlubxHfjmAUT4o3fekghSeY3ZkqUaA',
+    appId: '1:90703966559:web:558668ac15b117eeaf06ea',
+    messagingSenderId: '90703966559',
+    projectId: 'acutetriage-app',
+    authDomain: 'acutetriage-app.firebaseapp.com',
+    storageBucket: 'acutetriage-app.appspot.com',
+  );
+
 }

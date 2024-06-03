@@ -16,7 +16,11 @@ class AppRouter extends $AppRouter {
           page: HomeRoute.page,
           transitionsBuilder: TransitionsBuilders.fadeIn,
           initial: !Config.customSplashScreen,
+          path: '/',
         ),
-        AutoRoute(page: ContactCardRoute.page),
+        AutoRoute(
+          page: ContactCardRoute.page,
+          path: '/contact-card/:id',
+        ),
       ];
 }

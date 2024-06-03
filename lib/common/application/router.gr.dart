@@ -14,8 +14,6 @@ import 'package:flutter_starter/common/presentation/screens/home_screen.dart'
     as _i2;
 import 'package:flutter_starter/common/presentation/screens/splash_screen.dart'
     as _i3;
-import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart'
-    as _i6;
 import 'package:flutter_starter/features/contact_card/presentation/screens/contact_card_screen.dart'
     as _i1;
 
@@ -25,12 +23,18 @@ abstract class $AppRouter extends _i4.RootStackRouter {
   @override
   final Map<String, _i4.PageFactory> pagesMap = {
     ContactCardRoute.name: (routeData) {
-      final args = routeData.argsAs<ContactCardRouteArgs>();
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<ContactCardRouteArgs>(
+          orElse: () => ContactCardRouteArgs(
+                  id: pathParams.getInt(
+                'id',
+                0,
+              )));
       return _i4.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i1.ContactCardScreen(
           key: args.key,
-          contactCard: args.contactCard,
+          id: args.id,
         ),
       );
     },
@@ -54,14 +58,15 @@ abstract class $AppRouter extends _i4.RootStackRouter {
 class ContactCardRoute extends _i4.PageRouteInfo<ContactCardRouteArgs> {
   ContactCardRoute({
     _i5.Key? key,
-    required _i6.ContactReasonCard contactCard,
+    int id = 0,
     List<_i4.PageRouteInfo>? children,
   }) : super(
           ContactCardRoute.name,
           args: ContactCardRouteArgs(
             key: key,
-            contactCard: contactCard,
+            id: id,
           ),
+          rawPathParams: {'id': id},
           initialChildren: children,
         );
 
@@ -74,16 +79,16 @@ class ContactCardRoute extends _i4.PageRouteInfo<ContactCardRouteArgs> {
 class ContactCardRouteArgs {
   const ContactCardRouteArgs({
     this.key,
-    required this.contactCard,
+    this.id = 0,
   });
 
   final _i5.Key? key;
 
-  final _i6.ContactReasonCard contactCard;
+  final int id;
 
   @override
   String toString() {
-    return 'ContactCardRouteArgs{key: $key, contactCard: $contactCard}';
+    return 'ContactCardRouteArgs{key: $key, id: $id}';
   }
 }
 

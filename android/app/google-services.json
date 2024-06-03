@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "24999585835",
-    "project_id": "popcornpals",
-    "storage_bucket": "popcornpals.appspot.com"
+    "project_number": "90703966559",
+    "project_id": "acutetriage-app",
+    "storage_bucket": "acutetriage-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:24999585835:android:613f019bc98b443b83626e",
+        "mobilesdk_app_id": "1:90703966559:android:af88578f7e8497d4af06ea",
         "android_client_info": {
           "package_name": "com.example.flutter_starter"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDExtGG-3CY_OEVIg2NAxDrPQOeJlbtM50"
+          "current_key": "AIzaSyBrpp1G9sgSjz0XPFgv8zk__PRjHCzMFmw"
         }
       ],
       "services": {
