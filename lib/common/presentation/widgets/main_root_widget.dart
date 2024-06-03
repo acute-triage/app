@@ -1,12 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_starter/common/application/logger.dart';
 import 'package:flutter_starter/common/application/router.dart';
 import 'package:flutter_starter/common/presentation/theme.dart';
 import 'package:flutter_starter/i18n/strings.g.dart';
 import 'package:flutter_web_frame/flutter_web_frame.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 class MainRootWidget extends StatelessWidget {
   MainRootWidget({super.key});
@@ -23,7 +21,7 @@ class MainRootWidget extends StatelessWidget {
       builder: (context) => MaterialApp.router(
         routerConfig: _appRouter.config(
           navigatorObservers: () => [
-            TalkerRouteObserver(talker),
+            // TalkerRouteObserver(talker),
           ],
         ),
         locale: TranslationProvider.of(context).flutterLocale, // use provider

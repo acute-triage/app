@@ -46,8 +46,6 @@ dependencies:
   slang_flutter: ^3.29.0
   auto_route: ^8.0.3
   awesome_flutter_extensions: ^1.2.0
-  talker_flutter: ^4.0.2
-  talker_dio_logger: ^4.0.2
   auto_size_text: ^3.0.0
   google_fonts: ^6.2.1
   skeletons: ^0.0.3
@@ -58,6 +56,7 @@ dependencies:
   screenshot: ^3.0.0
   flutter_native_splash: ^2.4.0
   flutter_web_frame: ^1.0.0
+  logger: ^2.3.0
 
 dev_dependencies:
   flutter_test:

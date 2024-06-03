@@ -1,9 +1,7 @@
-import 'package:talker_flutter/talker_flutter.dart';
-
-final talker = TalkerFlutter.init();
+import 'package:logger/logger.dart' as logger;
 
 class Logger {
-  static final Talker _logger = talker;
+  static final _logger = logger.Logger();
 
   static String formatMessage(dynamic message, {String? context}) {
     return [
@@ -13,7 +11,7 @@ class Logger {
   }
 
   static void log(
-    LogLevel level,
+    logger.Level level,
     dynamic message, {
     String? context,
     DateTime? time,
@@ -21,9 +19,9 @@ class Logger {
     StackTrace? stackTrace,
   }) {
     _logger.log(
+      level,
       formatMessage(message, context: context),
-      logLevel: level,
-      exception: error,
+      error: error,
       stackTrace: stackTrace,
     );
   }
@@ -36,7 +34,7 @@ class Logger {
     StackTrace? stackTrace,
   }) {
     log(
-      LogLevel.debug,
+      logger.Level.debug,
       message,
       context: context,
       time: time,
@@ -53,7 +51,7 @@ class Logger {
     StackTrace? stackTrace,
   }) {
     log(
-      LogLevel.error,
+      logger.Level.error,
       message,
       context: context,
       time: time,
@@ -70,7 +68,7 @@ class Logger {
     StackTrace? stackTrace,
   }) {
     log(
-      LogLevel.info,
+      logger.Level.info,
       message,
       context: context,
       time: time,
@@ -87,7 +85,7 @@ class Logger {
     StackTrace? stackTrace,
   }) {
     log(
-      LogLevel.warning,
+      logger.Level.warning,
       message,
       context: context,
       time: time,
@@ -104,7 +102,7 @@ class Logger {
     StackTrace? stackTrace,
   }) {
     log(
-      LogLevel.verbose,
+      logger.Level.trace,
       message,
       context: context,
       time: time,
