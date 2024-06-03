@@ -302,7 +302,7 @@ jobs:
           echo storeFile=$ANDROID_KEY_FILE_PATH >> key.properties
         env:
           ANDROID_KEY_STORE_PASSWORD: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
-          ANDROID_KEY_STORE_ALIAS: upload
+          ANDROID_KEY_STORE_ALIAS: release
           ANDROID_KEY_FILE_PATH: key.jks
 
       - name: Setup Flutter

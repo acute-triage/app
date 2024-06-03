@@ -40,7 +40,7 @@ Add the following to your `android/key.properties` file:
 ```properties
 storePassword=<password>
 keyPassword=<password>
-keyAlias=upload
+keyAlias=release
 storeFile=../key.jks
 ```
 
