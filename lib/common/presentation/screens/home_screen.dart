@@ -106,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 playHapticFeedback();
 
                 // select top result
-                if (filteredContactCards.isNotEmpty) {
+                if (filteredContactCards.isNotEmpty && value.isNotEmpty) {
                   AutoRouter.of(context).push(
                     ContactCardRoute(
                       contactCard: filteredContactCards.first,
