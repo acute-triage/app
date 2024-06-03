@@ -5,6 +5,7 @@ import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_starter/common/presentation/widgets/ui/content_padding.dart';
+import 'package:flutter_starter/common/presentation/widgets/ui/progress_bar.dart';
 import 'package:flutter_starter/common/presentation/widgets/ui/text_typography.dart';
 import 'package:flutter_starter/common/util/haptic_feedback.dart';
 import 'package:flutter_starter/features/confirm_dialog/util/show_confirm_dialog.dart';
@@ -119,6 +120,18 @@ class _ContactCardScreenState extends ConsumerState<ContactCardScreen> {
         child: Scaffold(
           backgroundColor: isDone ? currentCode.color : null,
           appBar: AppBar(
+            bottom: isDone
+                ? null
+                : PreferredSize(
+                    preferredSize: const Size(double.infinity, 1.0),
+                    child: ProgressBar(
+                      width: context.sizes.width,
+                      height: 2,
+                      value: widget.contactCard.symptomCategories
+                          .indexOf(currentSymptomCategory!),
+                      max: widget.contactCard.symptomCategories.length,
+                    ),
+                  ),
             title: !isDone
                 ? Text(widget.contactCard.title)
                 : Text(currentCode.description),
