@@ -283,15 +283,20 @@ jobs:
         with:
           java-version: 12.x
 
-      - name: Save keystore to file
-        env:
-          ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
-        run: echo $ANDROID_KEYSTORE | base64 -di > android/app/key.jks
+      # - name: Save keystore to file
+      #   env:
+      #     ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
+      #   run: echo $ANDROID_KEYSTORE | base64 -di > android/app/key.jks
 
       - name: Save Service Account to file
         env:
           GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
         run: echo $GOOGLE_PLAY_SERVICE_ACCOUNT_JSON > android/service_account_key.json
+        
+      - name: Decode Keystore
+        run: |
+          echo "${{secrets.RELEASE_KEYSTORE_FILE}}" > android/key.jks.asc
+          gpg --passphrase "${{secrets.RELEASE_KEYSTORE_PASSPHRASE}}" --batch --yes -o android/key.jks -d android/key.jks.asc
 
       - name: Generate key.properties
         working-directory: android
