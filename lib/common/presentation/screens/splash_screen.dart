@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_starter/common/application/router.gr.dart';
 import 'package:flutter_starter/config.dart';
-import 'package:lottie/lottie.dart';
 
 @RoutePage()
 class SplashScreen extends StatefulWidget {
@@ -89,16 +88,7 @@ class _SplashScreenState extends State<SplashScreen>
           builder: (context, child) {
             return Transform.scale(
               scale: _scaleAnimation.value,
-              child: Lottie.asset(
-                'assets/lottie/splash-screen-animation.json',
-                controller: _controller,
-                onLoaded: (composition) {
-                  _controller
-                    ..duration = composition.duration
-                    ..forward();
-                },
-                fit: BoxFit.contain,
-              ),
+              child: const SizedBox(),
             );
           }),
     );

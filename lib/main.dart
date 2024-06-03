@@ -6,7 +6,6 @@ import 'package:flutter_starter/common/presentation/widgets/main_root_widget.dar
 import 'package:flutter_starter/config.dart';
 import 'package:flutter_starter/firebase_options.dart';
 import 'package:flutter_starter/i18n/strings.g.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -20,8 +19,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  await Hive.initFlutter();
 
   runApp(
     TranslationProvider(
