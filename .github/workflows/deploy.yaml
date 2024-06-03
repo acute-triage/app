@@ -379,8 +379,8 @@ jobs:
     name: Create Github Release
     timeout-minutes: 2
     # if: always()
-    needs: [build_android, build_ios]
-    # needs: [build_android]
+    # needs: [build_android, build_ios]
+    needs: [build_android]
     steps:
       - name: Get release name
         shell: bash
