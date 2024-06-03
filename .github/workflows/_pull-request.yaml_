@@ -1,0 +1,44 @@
+# BLOCKER: https://github.com/zgosalvez/github-actions-analyze-dart/issues/40
+name: Run checks
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+env:
+  FLUTTER_VERSION: "3.13.9"
+  FLUTTER_CHANNEL: "stable"
+  
+jobs:
+  build:
+    name: Run checks
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.draft == false }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2.10.0
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          architecture: x64
+
+      - name: Create .env
+        run: echo "WHY_CANNOT_I_BE_EMPTY" > .env
+      
+      - run: |
+          flutter pub get
+          flutter pub run build_runner build --delete-conflicting-outputs
+
+      - name: Analyze Dart
+        uses: zgosalvez/github-actions-analyze-dart@v3
+        with:
+          line-length: 150
+          # 'fail-on-warnings' should be true, however, https://github.com/zgosalvez/github-actions-analyze-dart/issues/40
+          fail-on-warnings: false
+          fail-on-infos: false

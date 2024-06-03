@@ -1,0 +1,405 @@
+# cd.yml
+name: Publish iOS and Android release
+
+on:
+  release:
+    types: [published]
+
+env:
+  FLUTTER_VERSION: "3.22.1"
+  FLUTTER_CHANNEL: "stable"
+  LANE: "closed_beta"
+  GITHUB_REF: ${{github.ref}}
+  VERSION_CODE: ${{ github.run_number }}
+  INCREMENT_VERSION_CODE: 0
+
+jobs:
+  checks:
+    name: "Build checks"
+    timeout-minutes: 1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Verify version contains v
+        shell: "bash"
+        env:
+          VERSION_WITH_CODE: ${{ steps.getVersion.outputs.version }}
+        run: |
+          RELEASE_NAME=${GITHUB_REF/refs\/tags\//} # release name
+
+          if [[ ${RELEASE_NAME} != *"v"* ]]; then
+              echo "Version should be preceded with a v"
+              echo "E.g.: v$RELEASE_NAME"
+              exit 1;
+          else
+            echo "Version: $RELEASE_NAME"
+          fi
+
+  # Deploy iOS build to TestFlight
+  # build_ios:
+  #   name: Build to TestFlight
+  #   runs-on: macos-14-xlarge
+  #   needs: [checks]
+  #   timeout-minutes: 20
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #       with:
+  #         ref: ${{ github.ref }}
+
+  #     - name: Create .env
+  #       run: echo "WHY_CANNOT_I_BE_EMPTY" > .env
+
+  #     - name: Create Production ios/GoogleService-Info.plist
+  #       shell: bash
+  #       run: |
+  #         cat << EOF > ios/GoogleService-Info.plist
+  #         <?xml version="1.0" encoding="UTF-8"?>
+  #         <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+  #         <plist version="1.0">
+  #         <dict>
+  #           <key>CLIENT_ID</key>
+  #           <string>680485519252-3dn0tlis4fic0oali3ouqh1stqtbannq.apps.googleusercontent.com</string>
+  #           <key>REVERSED_CLIENT_ID</key>
+  #           <string>com.googleusercontent.apps.680485519252-3dn0tlis4fic0oali3ouqh1stqtbannq</string>
+  #           <key>API_KEY</key>
+  #           <string>AIzaSyApAMnJUOOmVyZLuGgz029WgfOnwebRCrs</string>
+  #           <key>GCM_SENDER_ID</key>
+  #           <string>680485519252</string>
+  #           <key>PLIST_VERSION</key>
+  #           <string>1</string>
+  #           <key>BUNDLE_ID</key>
+  #           <string>dk.doubble.dating</string>
+  #           <key>PROJECT_ID</key>
+  #           <string>dev-m-doubble</string>
+  #           <key>STORAGE_BUCKET</key>
+  #           <string>dev-m-doubble.appspot.com</string>
+  #           <key>IS_ADS_ENABLED</key>
+  #           <false></false>
+  #           <key>IS_ANALYTICS_ENABLED</key>
+  #           <false></false>
+  #           <key>IS_APPINVITE_ENABLED</key>
+  #           <true></true>
+  #           <key>IS_GCM_ENABLED</key>
+  #           <true></true>
+  #           <key>IS_SIGNIN_ENABLED</key>
+  #           <true></true>
+  #           <key>GOOGLE_APP_ID</key>
+  #           <string>1:680485519252:ios:216434b9ebbefc932fd981</string>
+  #         </dict>
+  #         </plist>
+  #         EOF
+
+  #     # Without this step, the GoogleService-Info.plist will use the wrong bundle id
+  #     - name: Copy GoogleService-Info.plist to Runner
+  #       shell: bash
+  #       run: cp ios/GoogleService-Info.plist ios/Runner/GoogleService-Info.plist
+
+  #     - name: Create Production ios/firebase_app_id_file.json
+  #       shell: bash
+  #       run: |
+  #         cat << EOF > ios/firebase_app_id_file.json
+  #         {
+  #           "file_generated_by": "FlutterFire CLI",
+  #           "purpose": "FirebaseAppID & ProjectID for this Firebase app in this directory",
+  #           "GOOGLE_APP_ID": "1:680485519252:ios:216434b9ebbefc932fd981",
+  #           "FIREBASE_PROJECT_ID": "dev-m-doubble",
+  #           "GCM_SENDER_ID": "680485519252"
+  #         }
+  #         EOF
+
+  #     - name: Create Production lib/firebase_options.dart
+  #       shell: bash
+  #       run: mv lib/firebase_options.prod.dart lib/firebase_options.dart
+
+  #     - name: Run Flutter tasks
+  #       uses: subosito/flutter-action@v2.10.0
+  #       with:
+  #         flutter-version: ${{ env.FLUTTER_VERSION }}
+  #         channel: ${{ env.FLUTTER_CHANNEL }}
+  #         architecture: arm64
+  #         cache: true
+
+  #     - run: |
+  #         flutter pub get
+  #         flutter pub run build_runner build --delete-conflicting-outputs
+
+  #     - name: Build
+  #       run: |
+  #         RELEASE_NAME=${GITHUB_REF/refs\/tags\//} # release name
+  #         VERSION_NAME=${RELEASE_NAME//v/} # release name without v
+  #         INCREMENTED_VERSION_CODE=$(( $VERSION_CODE + $INCREMENT_VERSION_CODE ))
+  #         flutter build ios --release --no-codesign --build-name $VERSION_NAME --build-number $INCREMENTED_VERSION_CODE
+  #       env:
+  #         GITHUB_REF: ${{github.ref}}
+  #         VERSION_CODE: ${{ github.run_number }}
+
+  #     - name: Deploy iOS Beta to TestFlight via Fastlane
+  #       uses: maierj/fastlane-action@v2.2.0
+  #       with:
+  #         lane: ${{ env.LANE }}
+  #         subdirectory: ios
+  #       env:
+  #         APP_STORE_CONNECT_TEAM_ID: "${{ secrets.APP_STORE_CONNECT_TEAM_ID }}"
+  #         DEVELOPER_APP_ID: "${{ secrets.DEVELOPER_APP_ID }}"
+  #         DEVELOPER_APP_IDENTIFIER: "${{ secrets.DEVELOPER_APP_IDENTIFIER }}"
+  #         DEVELOPER_PORTAL_TEAM_ID: "${{ secrets.DEVELOPER_PORTAL_TEAM_ID }}"
+  #         FASTLANE_APPLE_ID: "${{ secrets.FASTLANE_APPLE_ID }}"
+  #         FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: "${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}"
+  #         MATCH_PASSWORD: "${{ secrets.MATCH_PASSWORD }}"
+  #         GIT_AUTHORIZATION: "${{ secrets.GIT_AUTHORIZATION }}"
+  #         PROVISIONING_PROFILE_SPECIFIER: "${{ secrets.PROVISIONING_PROFILE_SPECIFIER }}"
+  #         TEMP_KEYCHAIN_PASSWORD: "${{ secrets.TEMP_KEYCHAIN_PASSWORD }}"
+  #         TEMP_KEYCHAIN_USER: "${{ secrets.TEMP_KEYCHAIN_USER }}"
+
+  #     - name: Upload release artifact to Github
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: release-ios
+  #         path: /Users/runner/work/app/app/ios/Runner.ipa
+
+  # notify_ios:
+  #   name: Send Slack Notification about iOS build
+  #   needs: [build_ios]
+  #   if: ${{ !cancelled() && (success() || failure()) }}
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 2
+  #   steps:
+  #     - name: Get release name
+  #       shell: bash
+  #       run: echo "::set-output name=branch::${GITHUB_REF/refs\/tags\//}"
+  #       id: getRelease
+
+  #     - name: Send Slack Notification about iOS build
+  #       uses: rtCamp/action-slack-notify@v2
+  #       env:
+  #         SLACK_WEBHOOK: ${{ secrets.SLACK_LOGS_WEBHOOK }}
+  #         SLACK_CHANNEL: logs
+  #         SLACK_USERNAME: Doubble
+  #         SLACK_ICON: "https://github.com/DoubbleDK.png?size=250"
+  #         SLACK_COLOR: "${{ contains(needs.*.result, 'success') && 'good' || 'danger' }}"
+  #         SLACK_TITLE: "${{ contains(needs.*.result, 'success') && 'Successfully released' || 'Error during release of' }} ${{steps.getRelease.outputs.branch}} for iOS to TestFlight"
+  #         SLACK_FOOTER: "Doubble DevOps"
+  #         SLACK_MESSAGE: "${{ contains(needs.*.result, 'success') && 'Released:' || 'Release failed:' }} ${{github.event.head_commit.message}}"
+
+  # Build Android
+  build_android:
+    name: "Build to Google Play"
+    runs-on: ubuntu-latest
+    needs: [checks]
+    timeout-minutes: 40
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Create empty .env
+        run: echo "WHY_CANNOT_I_BE_EMPTY" > .env
+
+      # - name: Create Production Firebase file for Android
+      #   shell: bash
+      #   run: |
+      #     cat << EOF > android/app/google-services.json
+      #     {
+      #       "project_info": {
+      #         "project_number": "680485519252",
+      #         "project_id": "dev-m-doubble",
+      #         "storage_bucket": "dev-m-doubble.appspot.com"
+      #       },
+      #       "client": [
+      #         {
+      #           "client_info": {
+      #             "mobilesdk_app_id": "1:680485519252:android:967d7121d224b4bd2fd981",
+      #             "android_client_info": {
+      #               "package_name": "dk.doubble.dating"
+      #             }
+      #           },
+      #           "oauth_client": [
+      #             {
+      #               "client_id": "680485519252-6uv4jgpnshod7o61bag58d1iljmhe2ni.apps.googleusercontent.com",
+      #               "client_type": 3
+      #             }
+      #           ],
+      #           "api_key": [
+      #             {
+      #               "current_key": "AIzaSyAE4KjQTslxbAzr2lOV-HH6ebDHyXWpGLc"
+      #             }
+      #           ],
+      #           "services": {
+      #             "appinvite_service": {
+      #               "other_platform_oauth_client": [
+      #                 {
+      #                   "client_id": "680485519252-6uv4jgpnshod7o61bag58d1iljmhe2ni.apps.googleusercontent.com",
+      #                   "client_type": 3
+      #                 }
+      #               ]
+      #             }
+      #           }
+      #         }
+      #       ],
+      #       "configuration_version": "1"
+      #     }
+      #     EOF
+
+      # - name: Create Production lib/firebase_options.dart
+      #   shell: bash
+      #   run: mv lib/firebase_options.prod.dart lib/firebase_options.dart
+
+      ###########
+      # BUGFIX: For some reason the --build-name $VERSION_NAME --build-number $VERSION_CODE are not respected when running fastlane afterwards
+      # So we need to update the versionCode here. Only for the Android Build.
+      ###########
+
+      - name: Get version name and build number
+        id: getVersion
+        run: |
+          RELEASE_NAME=${GITHUB_REF/refs\/tags\//} # release name
+          VERSION_NAME=${RELEASE_NAME//v/} # release name without v
+          INCREMENTED_VERSION_CODE=$(( $VERSION_CODE + $INCREMENT_VERSION_CODE ))
+          VERSION_WITH_CODE="${VERSION_NAME}+${INCREMENTED_VERSION_CODE}"
+
+          echo "::set-output name=versionWithCode::$VERSION_WITH_CODE"
+          echo "::set-output name=version::$VERSION_NAME"
+          echo "::set-output name=versionCode::$INCREMENTED_VERSION_CODE"
+
+      - name: Update pubspec.yaml version
+        uses: fjogeleit/yaml-update-action@v0.9.0
+        with:
+          valueFile: "pubspec.yaml"
+          propertyPath: "version"
+          value: ${{ steps.getVersion.outputs.versionWithCode }}
+          updateFile: true
+          commitChange: false
+
+      ##############
+      ##############
+      ##############
+
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 12.x
+
+      - name: Save keystore to file
+        env:
+          ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
+        run: echo $ANDROID_KEYSTORE | base64 -di > android/app/key.jks
+
+      - name: Save Service Account to file
+        env:
+          GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+        run: echo $GOOGLE_PLAY_SERVICE_ACCOUNT_JSON > android/service_account_key.json
+
+      - name: Generate key.properties
+        working-directory: android
+        run: |
+          echo storePassword=$ANDROID_KEY_STORE_PASSWORD >> key.properties
+          echo keyPassword=$ANDROID_KEY_STORE_PASSWORD >> key.properties
+          echo keyAlias=$ANDROID_KEY_STORE_ALIAS >> key.properties
+          echo storeFile=$ANDROID_KEY_FILE_PATH >> key.properties
+        env:
+          ANDROID_KEY_STORE_PASSWORD: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
+          ANDROID_KEY_STORE_ALIAS: upload
+          ANDROID_KEY_FILE_PATH: key.jks
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+
+      - name: Install Flutter dependencies
+        run: |
+          flutter pub get
+          flutter pub run build_runner build --delete-conflicting-outputs
+
+      # TODO: ?
+      # - name: Format files
+      #   run: flutter format . # --set-exit-if-changed (if this is set, you need to run flutter format on your machine prior to publishing)
+
+      # TODO: Analyze
+      # - name: Analyze files
+      #   run: flutter analyze .
+
+      # TODO: Run tests
+      # - name: Run the tests
+      #   run: flutter test
+
+      - name: Build the APK
+        run: |
+          flutter build apk --release --build-name ${{ steps.getVersion.outputs.version }} --build-number ${{ steps.getVersion.outputs.versionCode }}
+
+      # - name: Upload release artifact to Github
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: release-android
+      #     path: ./build/app/outputs/flutter-apk/app-release.apk
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+          bundler-cache: true
+          working-directory: 'android'
+
+      - name: Run Fastlane
+        uses: maierj/fastlane-action@v2.2.0
+        with:
+          lane: ${{ env.LANE }}
+          subdirectory: android
+
+  notify_android:
+    name: Send Android Slack Notification
+    needs: [build_android]
+    if: ${{ (!cancelled()) && ((success()) || (failure())) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Get release name
+        shell: bash
+        run: echo "::set-output name=branch::${GITHUB_REF/refs\/tags\//}"
+        id: getRelease
+      - name: Send Android Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_LOGS_WEBHOOK }}
+          SLACK_CHANNEL: logs
+          SLACK_USERNAME: Doubble
+          SLACK_ICON: "https://github.com/DoubbleDK.png?size=250"
+          SLACK_COLOR: "${{ contains(needs.*.result, 'success') && 'good' || 'danger' }}"
+          SLACK_TITLE: "${{ contains(needs.*.result, 'success') && 'Successfully released' || 'Error during release of' }} ${{steps.getRelease.outputs.branch}} for Android to Google Play"
+          SLACK_FOOTER: "Doubble DevOps"
+          SLACK_MESSAGE: "${{ contains(needs.*.result, 'success') && 'Released:' || 'Release failed:' }} ${{github.event.head_commit.message}}"
+
+  # generate release
+  create_release:
+    runs-on: ubuntu-latest
+    name: Create Github Release
+    timeout-minutes: 2
+    # if: always()
+    needs: [build_android, build_ios]
+    # needs: [build_android]
+    steps:
+      - name: Get release name
+        shell: bash
+        run: echo "::set-output name=branch::${GITHUB_REF/refs\/tags\//}"
+        id: getRelease
+
+      # - uses: actions/download-artifact@v3
+      #   with:
+      #     name: release-ios
+      #     path: ./release-ios
+      # - uses: actions/download-artifact@v3
+      #   with:
+      #     name: release-android
+      #     path: ./release-android.apk
+      - name: Create Github release
+        uses: softprops/action-gh-release@v1
+
+        # with:
+        # fail_on_unmatched_files: false
+        # files: |
+        #   release-android.apk
+        #   release-ios/Runner.ipa
