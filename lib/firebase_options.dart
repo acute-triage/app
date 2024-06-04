@@ -45,7 +45,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBrpp1G9sgSjz0XPFgv8zk__PRjHCzMFmw',
-    appId: '1:90703966559:android:af88578f7e8497d4af06ea',
+    appId: '1:90703966559:android:e90571d956ba31d8af06ea',
     messagingSenderId: '90703966559',
     projectId: 'acutetriage-app',
     storageBucket: 'acutetriage-app.appspot.com',
@@ -53,11 +53,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDd4m1EXg7OwDthzhr8yqm6SfPwsaUtSvM',
-    appId: '1:90703966559:ios:93b3be67843c7580af06ea',
+    appId: '1:90703966559:ios:2c14e362e8c2f125af06ea',
     messagingSenderId: '90703966559',
     projectId: 'acutetriage-app',
     storageBucket: 'acutetriage-app.appspot.com',
-    iosBundleId: 'com.example.flutterStarter',
+    iosBundleId: 'dk.acutetriage.app',
   );
 
   static const FirebaseOptions web = FirebaseOptions(
@@ -77,5 +77,4 @@ class DefaultFirebaseOptions {
     authDomain: 'acutetriage-app.firebaseapp.com',
     storageBucket: 'acutetriage-app.appspot.com',
   );
-
 }

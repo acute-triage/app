@@ -9,6 +9,25 @@
       "client_info": {
         "mobilesdk_app_id": "1:90703966559:android:af88578f7e8497d4af06ea",
         "android_client_info": {
+          "package_name": "com.example.flutter_starter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrpp1G9sgSjz0XPFgv8zk__PRjHCzMFmw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:90703966559:android:e90571d956ba31d8af06ea",
+        "android_client_info": {
           "package_name": "dk.acutetriage.app"
         }
       },
