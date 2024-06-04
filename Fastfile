@@ -52,6 +52,19 @@ lane :test do |options|
 end
 
 
+# Private lane to verify all environment variables are set
+private_lane :verify_env do |options|
+	# array of ENVS to check
+	envs = options.fetch(:envs, [])
+
+	envs.each do |env|
+		if ENV[env].nil? || ENV[env].empty?
+			UI.user_error!("ENV \"#{env}\" is not set. Please set it in your environment variables (e.g. ios/fastlane/.env)")
+		end
+	end
+end
+
+
 # Build number is a unique identifier for each build that is uploaded to the app store.
 # This method will get the latest build number from the app store and increment it by 1.
 # Ensure authenticate_apple_store is called before this method
@@ -60,8 +73,12 @@ def get_build_number()
   return get_new_build_number(
     bundle_identifier: ENV["APP_BUNDLE_ID"], # e.g com.example.yourApp
     package_name: ENV["APP_PACKAGE_NAME"], # e.g com.example.yourapp
-    google_play_json_key_path: ENV["GOOGLE_PLAY_JSON_KEY_PATH"], # path to JSON key for authenticating with Google Play Android Developer API
+    google_play_json_key_path: firebase_service_json_path
   ).to_s
+end
+
+def firebase_service_json_path
+  root_path + '/firebase_app_distribution_service_account.json'
 end
 
 def get_version_from_pubspec

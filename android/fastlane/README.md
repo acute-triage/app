@@ -45,6 +45,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 
+### build
+
+```sh
+[bundle exec] fastlane build
+```
+
+
+
 ### test
 
 ```sh
@@ -58,18 +66,18 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## Android
 
-### android build
+### android build_appbundle
 
 ```sh
-[bundle exec] fastlane android build
+[bundle exec] fastlane android build_appbundle
 ```
 
 
 
-### android closed_beta
+### android upload_play_store
 
 ```sh
-[bundle exec] fastlane android closed_beta
+[bundle exec] fastlane android upload_play_store
 ```
 
 Release to Play Store

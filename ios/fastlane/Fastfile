@@ -32,7 +32,16 @@ platform :ios do
 
 
   desc "Release a new build to Apple Store"
-  lane :release_app_store do |options|
+  lane :upload_app_store do |options|
+    verify_env(envs: [
+      "ASC_KEY_ID",
+      "ASC_ISSUER_ID",
+      "ASC_KEY_P8",
+      "APP_BUNDLE_ID",
+      "MATCH_PASSWORD",
+      "MATCH_GIT_BASIC_AUTHORIZATION",
+    ])
+
     authenticate_apple_store
 
     commit = last_git_commit
