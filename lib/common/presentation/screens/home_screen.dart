@@ -27,6 +27,34 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
+  int sortContactCard(a, b, searchTerm) {
+    String lowerSearchTerm = searchTerm.toLowerCase();
+    String aTitle = a.title.toLowerCase();
+    String bTitle = b.title.toLowerCase();
+
+    if (aTitle.startsWith(lowerSearchTerm) &&
+        !bTitle.startsWith(lowerSearchTerm)) {
+      return -1;
+    } else if (!aTitle.startsWith(lowerSearchTerm) &&
+        bTitle.startsWith(lowerSearchTerm)) {
+      return 1;
+    } else if (a.number.toString().contains(searchTerm) &&
+        !b.number.toString().contains(searchTerm)) {
+      return -1;
+    } else if (!a.number.toString().contains(searchTerm) &&
+        b.number.toString().contains(searchTerm)) {
+      return 1;
+    } else if (aTitle.contains(lowerSearchTerm) &&
+        !bTitle.contains(lowerSearchTerm)) {
+      return -1;
+    } else if (!aTitle.contains(lowerSearchTerm) &&
+        bTitle.contains(lowerSearchTerm)) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -46,9 +74,12 @@ class _HomeScreenState extends State<HomeScreen> {
       inputFocusNode.requestFocus();
     });
 
+    /// Filter list of contact cards based on search term
     _controller.addListener(() {
       final searchTerm = _controller.text.toLowerCase();
       List<ContactReasonCard> results = contactCards
+
+          /// Filter based on search term
           .where(
             (contactCard) =>
                 contactCard.title.toLowerCase().contains(
@@ -62,31 +93,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
           )
           .toList()
+
+        /// Sort based on relevance
         ..sort(
-          (a, b) {
-            // if title starts with search term, it should be first
-            if (a.title.toLowerCase().startsWith(searchTerm) &&
-                !b.title.toLowerCase().startsWith(searchTerm)) {
-              return -1;
-            } else if (!a.title.toLowerCase().startsWith(searchTerm) &&
-                b.title.toLowerCase().startsWith(searchTerm)) {
-              return 1;
-            } else if (a.number.toString().contains(searchTerm) &&
-                !b.number.toString().contains(searchTerm)) {
-              return -1;
-            } else if (!a.number.toString().contains(searchTerm) &&
-                b.number.toString().contains(searchTerm)) {
-              return 1;
-            } else if (a.title.toLowerCase().contains(searchTerm) &&
-                !b.title.toLowerCase().contains(searchTerm)) {
-              return -1;
-            } else if (!a.title.toLowerCase().contains(searchTerm) &&
-                b.title.toLowerCase().contains(searchTerm)) {
-              return 1;
-            } else {
-              return 0;
-            }
-          },
+          (a, b) => sortContactCard(a, b, searchTerm),
         );
 
       setState(() {
