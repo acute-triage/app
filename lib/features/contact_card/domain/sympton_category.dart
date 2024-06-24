@@ -23,26 +23,6 @@ class SymptomCategory with _$SymptomCategory {
     Map<int, Code>? symptomsCountToCode,
   }) = _SymptomCategory;
 
-  /// Returns the code for the symptom category, based on the type
-  Code get code {
-    if (type == SymptomCategoryType.symptomCode) {
-      return symptoms.isEmpty ? Code.green() : symptoms.first.code!;
-    }
-
-    // Sort keys in descending order
-    List<int> orderedSymptomsWithHighestCount =
-        symptomsCountToCode!.keys.toList()..sort((a, b) => b.compareTo(a));
-
-    for (int key in orderedSymptomsWithHighestCount) {
-      if (symptoms.length >= key) {
-        return symptomsCountToCode![key]!;
-      }
-    }
-
-    // Return a default code if none match (optional)
-    return Code.green();
-  }
-
   @override
   int get hashCode => name.hashCode ^ symptoms.hashCode;
 
