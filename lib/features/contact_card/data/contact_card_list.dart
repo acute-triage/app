@@ -25,7 +25,7 @@ import 'package:flutter_starter/features/contact_card/data/contact_card_8.dart';
 import 'package:flutter_starter/features/contact_card/data/contact_card_9.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 
-const List<ContactReasonCard> contactCards = [
+final List<ContactReasonCard> contactCards = [
   contactCard1,
   contactCard2,
   contactCard3,

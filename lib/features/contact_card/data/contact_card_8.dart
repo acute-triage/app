@@ -1,9 +1,10 @@
-import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
 
-const contactCard8 = ContactReasonCard(
+import 'package:flutter_starter/features/contact_card/domain/code.dart';
+
+final contactCard8 = ContactReasonCard(
   title: 'Dehydrering',
   number: 8,
   searchTerms: [],
@@ -12,10 +13,10 @@ const contactCard8 = ContactReasonCard(
       name: 'Symptomer',
       type: SymptomCategoryType.symptomsCountToCode,
       symptomsCountToCode: {
-        2: codeGreen,
-        4: codeYellow,
-        5: codeOrange,
-        6: codeRed,
+        2: Code.green(),
+        4: Code.yellow(),
+        5: Code.orange(),
+        6: Code.red(),
       },
       symptoms: [
         Symptom(

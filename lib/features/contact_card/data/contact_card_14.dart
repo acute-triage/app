@@ -1,9 +1,10 @@
-import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
 
-const contactCard14 = ContactReasonCard(
+import 'package:flutter_starter/features/contact_card/domain/code.dart';
+
+final contactCard14 = ContactReasonCard(
   title: 'Hovedpine',
   number: 14,
   searchTerms: [
@@ -21,7 +22,7 @@ const contactCard14 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -30,7 +31,7 @@ const contactCard14 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -40,7 +41,7 @@ const contactCard14 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -49,7 +50,7 @@ const contactCard14 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -59,7 +60,7 @@ const contactCard14 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -68,7 +69,7 @@ const contactCard14 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -77,7 +78,7 @@ const contactCard14 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -86,7 +87,7 @@ const contactCard14 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -95,7 +96,7 @@ const contactCard14 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),

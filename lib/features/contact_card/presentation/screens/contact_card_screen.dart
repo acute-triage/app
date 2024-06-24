@@ -10,7 +10,7 @@ import 'package:flutter_starter/common/presentation/widgets/ui/progress_bar.dart
 import 'package:flutter_starter/common/presentation/widgets/ui/text_typography.dart';
 import 'package:flutter_starter/common/util/haptic_feedback.dart';
 import 'package:flutter_starter/features/confirm_dialog/util/show_confirm_dialog.dart';
-import 'package:flutter_starter/features/contact_card/data/codes.dart';
+
 import 'package:flutter_starter/features/contact_card/data/contact_card_list.dart';
 import 'package:flutter_starter/features/contact_card/domain/code.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
@@ -26,6 +26,7 @@ import 'package:screenshot/screenshot.dart';
 @RoutePage()
 class ContactCardScreen extends ConsumerStatefulWidget {
   final int id;
+
   const ContactCardScreen({
     super.key,
     @pathParam this.id = 0,
@@ -300,7 +301,7 @@ class TriageResult extends StatelessWidget {
                     )),
             const SizedBox(height: 4.0),
             TextTypography.body(
-              '${contactCard.code.description} - ${contactCard.code == codeRed ? 'Kræver omgående behandling' : 'Påbegynd behandling indenfor: ${contactCard.treatmentTime}'}',
+              '${contactCard.code.description} - ${contactCard.code == Code.red() ? 'Kræver omgående behandling' : 'Påbegynd behandling indenfor: ${contactCard.treatmentTime}'}',
             ),
             SizedBox(height: forPrint ? 4 : 8.0),
           ],
@@ -330,7 +331,7 @@ class TriageResult extends StatelessWidget {
                           color: finding.code.color,
                           borderRadius: BorderRadius.circular(8.0),
                           border: Border.all(
-                            color: contactCard.code == codeOrange
+                            color: contactCard.code == Code.orange()
                                 ? Colors.white
                                 : contactCard.code.contrastColor,
                             width: 1.0,

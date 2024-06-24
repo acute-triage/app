@@ -1,9 +1,10 @@
-import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
 
-const contactCard22 = ContactReasonCard(
+import 'package:flutter_starter/features/contact_card/domain/code.dart';
+
+final contactCard22 = ContactReasonCard(
   title: 'Urinvejssymptomer',
   searchTerms: [
     'ødemer',
@@ -17,11 +18,11 @@ const contactCard22 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Feber (over eller lig 38.0 °C)',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Ingen feber',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -30,11 +31,11 @@ const contactCard22 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Feber (over eller lig 38.0 °C)',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
         Symptom(
           description: 'Ingen feber',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),
@@ -43,7 +44,7 @@ const contactCard22 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),

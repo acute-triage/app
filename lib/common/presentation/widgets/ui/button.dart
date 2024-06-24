@@ -695,7 +695,7 @@ class Button extends StatelessWidget {
       return EdgeInsets.zero;
     }
 
-    EdgeInsetsGeometry padding = Theme.of(context).buttonTheme.padding!;
+    EdgeInsetsGeometry padding = Theme.of(context).buttonTheme.padding;
 
     if (paddingRight != null) {
       padding = padding.add(EdgeInsets.only(right: paddingRight!));

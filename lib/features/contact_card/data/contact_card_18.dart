@@ -1,9 +1,10 @@
-import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
 
-const contactCard18 = ContactReasonCard(
+import 'package:flutter_starter/features/contact_card/domain/code.dart';
+
+final contactCard18 = ContactReasonCard(
   title: 'Mavesmerter (skrigeture)',
   searchTerms: [
     'traume',
@@ -31,11 +32,11 @@ const contactCard18 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Tiltagende abdominalomfang',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'Normalt abdominalomfang',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -44,7 +45,7 @@ const contactCard18 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -53,7 +54,7 @@ const contactCard18 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -62,11 +63,11 @@ const contactCard18 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Alment påvirket',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Alment upåvirket',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -75,7 +76,7 @@ const contactCard18 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -84,7 +85,7 @@ const contactCard18 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -93,11 +94,11 @@ const contactCard18 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ligger forpint og stille i seng',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Bevæger sig frit',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),
@@ -106,7 +107,7 @@ const contactCard18 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -115,7 +116,7 @@ const contactCard18 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -124,7 +125,7 @@ const contactCard18 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -133,11 +134,11 @@ const contactCard18 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Misfarvet eller ømt og hårdt brok',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Brok kan reponeres',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),
@@ -146,11 +147,11 @@ const contactCard18 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Bleg eller alment medtaget',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -159,7 +160,7 @@ const contactCard18 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),

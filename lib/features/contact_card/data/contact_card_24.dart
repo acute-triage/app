@@ -1,9 +1,10 @@
-import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
 
-const contactCard24 = ContactReasonCard(
+import 'package:flutter_starter/features/contact_card/domain/code.dart';
+
+final contactCard24 = ContactReasonCard(
   title: 'Frakturer',
   searchTerms: [
     'compartment-syndrom',
@@ -20,7 +21,7 @@ const contactCard24 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -29,15 +30,15 @@ const contactCard24 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'VAS 10',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'VAS 4-9',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
         Symptom(
           description: 'VAS 1-3',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),
@@ -47,7 +48,7 @@ const contactCard24 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -56,7 +57,7 @@ const contactCard24 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -65,7 +66,7 @@ const contactCard24 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),

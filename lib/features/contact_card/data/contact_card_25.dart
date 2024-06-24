@@ -1,9 +1,10 @@
-import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
 
-const contactCard25 = ContactReasonCard(
+import 'package:flutter_starter/features/contact_card/domain/code.dart';
+
+final contactCard25 = ContactReasonCard(
   title: 'Kontaktårsag der ikke passer til noget kort',
   number: 25,
   searchTerms: [],
@@ -14,19 +15,19 @@ const contactCard25 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Rød',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'Orange',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Gul',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
         Symptom(
           description: 'Grøn',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),

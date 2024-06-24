@@ -1,9 +1,10 @@
-import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
 
-const contactCard2 = ContactReasonCard(
+import 'package:flutter_starter/features/contact_card/domain/code.dart';
+
+final contactCard2 = ContactReasonCard(
   title: 'Træthed og bleghed (anæmi)',
   number: 2,
   searchTerms: [
@@ -25,11 +26,11 @@ const contactCard2 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Med temperatur over eller lig 38.0',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Ingen feber',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -38,7 +39,7 @@ const contactCard2 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -47,7 +48,7 @@ const contactCard2 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -56,7 +57,7 @@ const contactCard2 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -65,7 +66,7 @@ const contactCard2 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -74,7 +75,7 @@ const contactCard2 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),

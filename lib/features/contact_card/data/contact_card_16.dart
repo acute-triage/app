@@ -1,9 +1,10 @@
-import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
 
-const contactCard16 = ContactReasonCard(
+import 'package:flutter_starter/features/contact_card/domain/code.dart';
+
+final contactCard16 = ContactReasonCard(
   title: 'Hudsymptomer (udslæt)',
   number: 16,
   searchTerms: [
@@ -25,15 +26,15 @@ const contactCard16 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Med nakkerygstivhed',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'Feber (over eller lig 38.0)',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Uden feber (under 38.0)',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -42,15 +43,15 @@ const contactCard16 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Med nakkerygstivhed',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'Universelt',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Kun ansigt og hals (hoste, opkastning)',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),
@@ -60,7 +61,7 @@ const contactCard16 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeRed,
+          code: Code.red(),
         ),
       ],
     ),
@@ -70,7 +71,7 @@ const contactCard16 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -80,11 +81,11 @@ const contactCard16 = ContactReasonCard(
         Symptom(
           description:
               'Påvirket syn, smerter ved øjenbevægelser eller frembulende øje',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Upåvirket syn',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -93,11 +94,11 @@ const contactCard16 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Alment påvirket',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
         Symptom(
           description: 'Alment upåvirket',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),
@@ -106,7 +107,7 @@ const contactCard16 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),

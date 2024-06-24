@@ -1,9 +1,10 @@
-import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
 
-const contactCard1 = ContactReasonCard(
+import 'package:flutter_starter/features/contact_card/domain/code.dart';
+
+final contactCard1 = ContactReasonCard(
   title: 'Allergisk reaktion',
   number: 1,
   searchTerms: [
@@ -26,11 +27,11 @@ const contactCard1 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Svær hviledyspnø',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'Hviledyspnø',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -39,11 +40,11 @@ const contactCard1 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Med stridor',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'Uden stridor',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -52,7 +53,7 @@ const contactCard1 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -61,7 +62,7 @@ const contactCard1 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -70,7 +71,7 @@ const contactCard1 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -79,11 +80,11 @@ const contactCard1 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Universelt',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
         Symptom(
           description: 'Lokalt',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),
@@ -92,7 +93,7 @@ const contactCard1 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),

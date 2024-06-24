@@ -1,9 +1,9 @@
-import 'package:flutter_starter/features/contact_card/data/codes.dart';
+import 'package:flutter_starter/features/contact_card/domain/code.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
 
-const contactCard12 = ContactReasonCard(
+final contactCard12 = ContactReasonCard(
   title: 'Forgiftning, røgforgiftning, forbrænding og el-stød',
   number: 12,
   searchTerms: [
@@ -29,7 +29,7 @@ const contactCard12 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeRed,
+          code: Code.red(),
         ),
       ],
     ),
@@ -39,11 +39,11 @@ const contactCard12 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Alment påvirket',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'Upåvirket',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -52,11 +52,11 @@ const contactCard12 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Alment påvirket',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'Upåvirket',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -65,11 +65,11 @@ const contactCard12 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Alment påvirket',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'Upåvirket',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -78,15 +78,15 @@ const contactCard12 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Alment påvirket',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'Upåvirket og tp over 38',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Upåvirket og afebril',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -95,19 +95,19 @@ const contactCard12 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Alment påvirket',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'Upåvirket',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Universelt',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
         Symptom(
           description: 'Lokalt',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),
@@ -116,15 +116,15 @@ const contactCard12 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Besvimelse ved stød',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'Forbrænding eller EKG-forandringer',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Ja',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),

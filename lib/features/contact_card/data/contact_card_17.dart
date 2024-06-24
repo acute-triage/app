@@ -1,9 +1,10 @@
-import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
 
-const contactCard17 = ContactReasonCard(
+import 'package:flutter_starter/features/contact_card/domain/code.dart';
+
+final contactCard17 = ContactReasonCard(
   title: 'Kramper (nu ophørt)',
   number: 17,
   searchTerms: [
@@ -21,7 +22,7 @@ const contactCard17 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -30,7 +31,7 @@ const contactCard17 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -39,7 +40,7 @@ const contactCard17 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -48,7 +49,7 @@ const contactCard17 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -57,15 +58,15 @@ const contactCard17 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Over 15 min',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: '5-15 min',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
         Symptom(
           description: 'Under 5 min',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),
@@ -74,7 +75,7 @@ const contactCard17 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),

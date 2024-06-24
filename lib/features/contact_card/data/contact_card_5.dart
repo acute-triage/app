@@ -1,9 +1,10 @@
-import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
 
-const contactCard5 = ContactReasonCard(
+import 'package:flutter_starter/features/contact_card/domain/code.dart';
+
+final contactCard5 = ContactReasonCard(
   title: 'Bevidsthedspåvirkning',
   number: 5,
   searchTerms: [
@@ -21,7 +22,7 @@ const contactCard5 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeRed,
+          code: Code.red(),
         ),
       ],
     ),
@@ -31,7 +32,7 @@ const contactCard5 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeRed,
+          code: Code.red(),
         ),
       ],
     ),
@@ -40,7 +41,7 @@ const contactCard5 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeRed,
+          code: Code.red(),
         ),
       ],
     ),
@@ -49,7 +50,7 @@ const contactCard5 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeRed,
+          code: Code.red(),
         ),
       ],
     ),
@@ -58,7 +59,7 @@ const contactCard5 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeRed,
+          code: Code.red(),
         ),
       ],
     ),
@@ -67,11 +68,11 @@ const contactCard5 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja (pH under 7.10)',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'Ja (pH over eller lig 7.10)',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -81,7 +82,7 @@ const contactCard5 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeRed,
+          code: Code.red(),
         ),
       ],
     ),
@@ -91,11 +92,11 @@ const contactCard5 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'Nej, ”kun” irritabel (utrøstelig)',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -104,7 +105,7 @@ const contactCard5 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeRed,
+          code: Code.red(),
         ),
       ],
     ),

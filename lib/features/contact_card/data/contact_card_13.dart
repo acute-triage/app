@@ -1,9 +1,10 @@
-import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
 
-const contactCard13 = ContactReasonCard(
+import 'package:flutter_starter/features/contact_card/domain/code.dart';
+
+final contactCard13 = ContactReasonCard(
   title: 'Gastrointestinal blødning',
   searchTerms: [
     'opkast',
@@ -26,7 +27,7 @@ const contactCard13 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -35,7 +36,7 @@ const contactCard13 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -44,7 +45,7 @@ const contactCard13 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -53,7 +54,7 @@ const contactCard13 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja (invagination)',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -62,7 +63,7 @@ const contactCard13 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -72,7 +73,7 @@ const contactCard13 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -81,7 +82,7 @@ const contactCard13 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -90,7 +91,7 @@ const contactCard13 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Upåvirket',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),

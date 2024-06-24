@@ -1,9 +1,10 @@
-import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
 
-const contactCard3 = ContactReasonCard(
+import 'package:flutter_starter/features/contact_card/domain/code.dart';
+
+final contactCard3 = ContactReasonCard(
   title: 'Bevægeapparatsymptomer uden skade',
   number: 3,
   searchTerms: [
@@ -21,19 +22,19 @@ const contactCard3 = ContactReasonCard(
         Symptom(
           description:
               'Hastigt progredierende misfarvning, varme og hævelse eller gasudvikling/stærke smerter i hud',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'Påvirket almentilstand',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Mistanke om dyb sårinfektion eller lymphangitis',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
         Symptom(
           description: 'Overfladisk sårinfektion',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),
@@ -42,11 +43,11 @@ const contactCard3 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Med åndenød og/eller brystsmerter',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Uden åndenød eller brystsmerter',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),
@@ -55,15 +56,15 @@ const contactCard3 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Svære',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Moderate',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
         Symptom(
           description: 'Lette/ingen',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),
@@ -73,7 +74,7 @@ const contactCard3 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -83,11 +84,11 @@ const contactCard3 = ContactReasonCard(
         Symptom(
           description:
               'Med feber (over eller lig 38.0) eller immundefekt eller intravenøst kateter eller bleg og træt',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
         Symptom(
           description: 'Uden feber',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),
@@ -96,7 +97,7 @@ const contactCard3 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),

@@ -1,9 +1,10 @@
-import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
 
-const contactCard23 = ContactReasonCard(
+import 'package:flutter_starter/features/contact_card/domain/code.dart';
+
+final contactCard23 = ContactReasonCard(
   title: 'Vejrtrækningsbesvær',
   searchTerms: [
     'stridor',
@@ -32,21 +33,21 @@ const contactCard23 = ContactReasonCard(
         Symptom(
           description:
               'Kan ikke synke spyt eller dyspnø der forværres liggendemed ødem af ansigt',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'Hævelse i hals/svælg eller grødet stemme',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description:
               'Pludselig stridor og hoste i vågen tilstand, men ikke stridor længere (mistanke om fremmedlegeme)',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
         Symptom(
           description:
               'Stridor er ophørt kombineret med søløvehoste og hæshed (ukompliceret pseudocroup)',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),
@@ -55,20 +56,20 @@ const contactCard23 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Svær hvile/taledyspnø',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description:
               'Nytilkommen hvile/taledyspnø eller forværring af habituel hvile/taledyspnø',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Nytilkommen funktionsdyspnø',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
         Symptom(
           description: 'Let funktionsdyspnø',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),
@@ -79,11 +80,11 @@ const contactCard23 = ContactReasonCard(
         Symptom(
           description:
               'Brand- eller ætsningsskader eller penetrerende traume mod hals/thorax',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'Stumpt traume mod hals eller thorax ',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -92,19 +93,19 @@ const contactCard23 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Kombineret med cyanose (lungeemboli)',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'Svære eller kombineret med dyspnø (lungeemboli)',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Moderate',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
         Symptom(
           description: 'Lette',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),
@@ -114,11 +115,11 @@ const contactCard23 = ContactReasonCard(
         Symptom(
           description:
               'Paradoks respiration eller tilbagevendende apnøer med cyanose eller hypotoni',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'uden farveskift',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -127,7 +128,7 @@ const contactCard23 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'under 3 mdr.',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -136,15 +137,15 @@ const contactCard23 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Hæmoptyse flere gange seneste døgn',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Purulent ekspektoration eller enkelt hæmoptyse',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
         Symptom(
           description: 'Hoste uden ekspektoration',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),

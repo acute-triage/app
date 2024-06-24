@@ -1,9 +1,10 @@
-import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
 
-const contactCard4 = ContactReasonCard(
+import 'package:flutter_starter/features/contact_card/domain/code.dart';
+
+final contactCard4 = ContactReasonCard(
   title: 'Besvimelse (nu vågen)',
   searchTerms: [
     'brystsmerter',
@@ -22,7 +23,7 @@ const contactCard4 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeRed,
+          code: Code.red(),
         ),
       ],
     ),
@@ -31,7 +32,7 @@ const contactCard4 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -40,7 +41,7 @@ const contactCard4 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -49,7 +50,7 @@ const contactCard4 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -58,11 +59,11 @@ const contactCard4 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Nej, er nu ophørt',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -71,11 +72,11 @@ const contactCard4 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Med brystsmerter',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Uden brystsmerter',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -84,11 +85,11 @@ const contactCard4 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Mere end 5-10 sekunder',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Få sekunder og bare mistanke om kortvarig besvimelse',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -98,7 +99,7 @@ const contactCard4 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -107,11 +108,11 @@ const contactCard4 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Uden prodrom',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Med prodrom',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -120,7 +121,7 @@ const contactCard4 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),
@@ -129,7 +130,7 @@ const contactCard4 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),
@@ -138,7 +139,7 @@ const contactCard4 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),

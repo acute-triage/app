@@ -1,4 +1,3 @@
-import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/code.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/finding.dart';
@@ -19,7 +18,7 @@ class PatientContactCard with _$PatientContactCard {
 
   Code get code {
     if (findingsOrderedByPriority.isEmpty) {
-      return codeGreen;
+      return Code.green();
     }
 
     final finding = findingsOrderedByPriority.first;

@@ -1,6 +1,5 @@
 // Class SymptonCategory
 import 'package:collection/collection.dart';
-import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/code.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
@@ -19,7 +18,7 @@ class Finding with _$Finding {
 
   Code get code {
     if (category.type == SymptomCategoryType.symptomCode) {
-      return symptoms.isEmpty ? codeGreen : symptoms.first.code!;
+      return symptoms.isEmpty ? Code.green() : symptoms.first.code!;
     }
 
     // Sort keys in descending order
@@ -33,7 +32,7 @@ class Finding with _$Finding {
     }
 
     // Return a default code if none match (optional)
-    return codeGreen;
+    return Code.green();
   }
 
   @override

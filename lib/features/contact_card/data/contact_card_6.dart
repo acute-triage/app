@@ -1,9 +1,10 @@
-import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
 
-const contactCard6 = ContactReasonCard(
+import 'package:flutter_starter/features/contact_card/domain/code.dart';
+
+final contactCard6 = ContactReasonCard(
   title: 'Brystsmerter',
   searchTerms: [
     'hjertesygdom',
@@ -25,11 +26,11 @@ const contactCard6 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja og svære smerter og dyspnø',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -38,7 +39,7 @@ const contactCard6 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -48,11 +49,11 @@ const contactCard6 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Mistanke om DVT og evt. indtagelse P-piller',
-          code: codeRed,
+          code: Code.red(),
         ),
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -61,7 +62,7 @@ const contactCard6 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -71,7 +72,7 @@ const contactCard6 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -80,15 +81,15 @@ const contactCard6 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Svære smerter eller kombineret med åndenød',
-          code: codeOrange,
+          code: Code.orange(),
         ),
         Symptom(
           description: 'Moderate smerter uden åndenød',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
         Symptom(
           description: 'Lette smerter uden åndenød',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),
@@ -97,7 +98,7 @@ const contactCard6 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -107,7 +108,7 @@ const contactCard6 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -116,7 +117,7 @@ const contactCard6 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -125,7 +126,7 @@ const contactCard6 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -134,7 +135,7 @@ const contactCard6 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -143,7 +144,7 @@ const contactCard6 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeGreen,
+          code: Code.green(),
         ),
       ],
     ),

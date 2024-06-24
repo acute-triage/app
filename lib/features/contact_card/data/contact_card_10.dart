@@ -1,9 +1,10 @@
-import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/contact_reason_card.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
 import 'package:flutter_starter/features/contact_card/domain/sympton_category.dart';
 
-const contactCard10 = ContactReasonCard(
+import 'package:flutter_starter/features/contact_card/domain/code.dart';
+
+final contactCard10 = ContactReasonCard(
   title: 'Diarré og opkastning',
   searchTerms: [
     'diarré',
@@ -34,7 +35,7 @@ const contactCard10 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Under 3 mdr.',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -43,7 +44,7 @@ const contactCard10 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeRed,
+          code: Code.red(),
         ),
       ],
     ),
@@ -52,7 +53,7 @@ const contactCard10 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeRed,
+          code: Code.red(),
         ),
       ],
     ),
@@ -61,7 +62,7 @@ const contactCard10 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeRed,
+          code: Code.red(),
         ),
       ],
     ),
@@ -70,7 +71,7 @@ const contactCard10 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeRed,
+          code: Code.red(),
         ),
       ],
     ),
@@ -79,7 +80,7 @@ const contactCard10 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeRed,
+          code: Code.red(),
         ),
       ],
     ),
@@ -88,7 +89,7 @@ const contactCard10 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeRed,
+          code: Code.red(),
         ),
       ],
     ),
@@ -97,7 +98,7 @@ const contactCard10 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ja',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -106,7 +107,7 @@ const contactCard10 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Ingen sidste 12-24 timer (upåvirket)',
-          code: codeOrange,
+          code: Code.orange(),
         ),
       ],
     ),
@@ -115,7 +116,7 @@ const contactCard10 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Over 5 diarreer per døgn i mere end 2 dage',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
@@ -124,7 +125,7 @@ const contactCard10 = ContactReasonCard(
       symptoms: [
         Symptom(
           description: 'Over 10 seneste 24 timer',
-          code: codeYellow,
+          code: Code.yellow(),
         ),
       ],
     ),
