@@ -58,7 +58,7 @@ class Code {
       name: 'Rød',
       description: 'Livstruende',
       number: 1,
-      maxWaitTime: Duration(minutes: 0),
+      maxWaitTime: Duration.zero,
     );
   }
 

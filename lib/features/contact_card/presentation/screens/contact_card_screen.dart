@@ -301,7 +301,7 @@ class TriageResult extends StatelessWidget {
                     )),
             const SizedBox(height: 4.0),
             TextTypography.body(
-              '${contactCard.code.description} - ${contactCard.code == Code.red() ? 'Kræver omgående behandling' : 'Påbegynd behandling indenfor: ${contactCard.treatmentTime}'}',
+              '${contactCard.code.description} - ${contactCard.code.maxWaitTime == Duration.zero ? 'Kræver omgående behandling' : 'Påbegynd behandling indenfor: ${contactCard.treatmentTime}'}',
             ),
             SizedBox(height: forPrint ? 4 : 8.0),
           ],
@@ -312,6 +312,7 @@ class TriageResult extends StatelessWidget {
                 ),
           ),
           const SizedBox(height: 8.0),
+          // Findings ordered by priority
           ...contactCard.findingsOrderedByPriority.map(
             (finding) {
               return Column(

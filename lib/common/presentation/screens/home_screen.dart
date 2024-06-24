@@ -142,12 +142,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   horizontal: 16.0,
                   vertical: 12.0,
                 ),
-
-                //background color white
                 filled: true,
                 hintStyle: TextStyle(
-                  color:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                  color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                        0.5,
+                      ),
                 ),
                 suffixIcon: _controller.text.isNotEmpty
                     ? Padding(
