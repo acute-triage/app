@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
         );
       }
 
-      // focus search field
+      /// focus search field and show keyboard on screen load
       inputFocusNode.requestFocus();
     });
 
@@ -107,12 +107,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
         title: const Text("Kontaktsårsagskort"),
@@ -203,7 +197,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemCount: filteredContactCards.length,
                       itemBuilder: (context, index) => Padding(
                         padding: EdgeInsets.only(top: index == 0 ? 8.0 : 0),
-
                         child: ListTile(
                           // every second is light grey
                           tileColor: index.isEven
@@ -236,8 +229,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ],
                           ),
-                          // subtitle: Text(
-                          //     filteredContactCards[index].number.toString()),
                           onTap: filteredContactCards[index]
                                   .symptomCategories
                                   .isNotEmpty
@@ -252,67 +243,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 }
                               : null,
                         ),
-
-                        // child: Column(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     SizedBox(
-                        //       width: double.infinity,
-                        //       child: FilledButton(
-                        //         style: ButtonStyle(
-                        //           // left align text
-                        //           alignment: Alignment.centerLeft,
-                        //           shape: MaterialStateProperty.all(
-                        //             RoundedRectangleBorder(
-                        //               // 5px rounded borders
-                        //               borderRadius:
-                        //                   BorderRadius.circular(10.0),
-                        //             ),
-                        //           ),
-                        //           textStyle: MaterialStateProperty.all(
-                        //             const TextStyle(
-                        //               // fontSize: 16.0,
-                        //               overflow: TextOverflow.ellipsis,
-                        //             ),
-                        //           ),
-                        //         ),
-                        //         onPressed: filteredContactCards[index]
-                        //                 .symptomCategories
-                        //                 .isNotEmpty
-                        //             ? () {
-                        //                 playHapticFeedback();
-
-                        //                 AutoRouter.of(context).push(
-                        //                   ContactCardRoute(
-                        //                     contactCard:
-                        //                         filteredContactCards[index],
-                        //                   ),
-                        //                 );
-                        //               }
-                        //             : null,
-                        //         child: Row(
-                        //           mainAxisAlignment:
-                        //               MainAxisAlignment.spaceBetween,
-                        //           children: [
-                        //             SizedBox(
-                        //               width: 30,
-                        //               child: Text(
-                        //                 filteredContactCards[index]
-                        //                     .number
-                        //                     .toString(),
-                        //               ),
-                        //             ),
-                        //             Expanded(
-                        //               child: Text(
-                        //                 filteredContactCards[index].title,
-                        //               ),
-                        //             ),
-                        //           ],
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
                       ),
                     ),
                   ),
