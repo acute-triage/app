@@ -136,7 +136,7 @@ class _$SymptomCategoryImpl extends _SymptomCategory {
   const _$SymptomCategoryImpl(
       {required this.name,
       required final List<Symptom> symptoms,
-      this.type = SymptomCategoryType.single,
+      this.type = SymptomCategoryType.symptomCode,
       final Map<int, Code>? symptomsCountToCode})
       : _symptoms = symptoms,
         _symptomsCountToCode = symptomsCountToCode,

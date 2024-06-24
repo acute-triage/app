@@ -554,7 +554,7 @@ class ChooseSymptomsWidget extends StatelessWidget {
             ),
           ),
           SizedBox(height: context.sizes.height * 0.05),
-          if (category.type == SymptomCategoryType.single) ...[
+          if (category.type == SymptomCategoryType.symptomCode) ...[
             ...category.symptoms.map(
               (symptom) => Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
@@ -591,7 +591,7 @@ class ChooseSymptomsWidget extends StatelessWidget {
               child: const Text('Nej'),
             ),
           ],
-          if (category.type == SymptomCategoryType.multiple) ...[
+          if (category.type == SymptomCategoryType.symptomsCountToCode) ...[
             _MultipleChoiceSymptoms(
               category: category,
               onChooseSymptoms: onChooseSympton,

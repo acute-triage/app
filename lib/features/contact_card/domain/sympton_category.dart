@@ -1,5 +1,3 @@
-// Class SymptonCategory
-import 'package:collection/collection.dart';
 import 'package:flutter_starter/features/contact_card/data/codes.dart';
 import 'package:flutter_starter/features/contact_card/domain/code.dart';
 import 'package:flutter_starter/features/contact_card/domain/symptom.dart';
@@ -8,8 +6,11 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'sympton_category.freezed.dart';
 
 enum SymptomCategoryType {
-  single,
-  multiple,
+  /// The code is determined by the highest priority symptom
+  symptomCode,
+
+  /// The code is determined by the number of symptoms reported
+  symptomsCountToCode,
 }
 
 @freezed
@@ -19,12 +20,13 @@ class SymptomCategory with _$SymptomCategory {
   const factory SymptomCategory({
     required String name,
     required List<Symptom> symptoms,
-    @Default(SymptomCategoryType.single) SymptomCategoryType type,
+    @Default(SymptomCategoryType.symptomCode) SymptomCategoryType type,
     Map<int, Code>? symptomsCountToCode,
   }) = _SymptomCategory;
 
+  /// Returns the code for the symptom category, based on the type
   Code get code {
-    if (type == SymptomCategoryType.single) {
+    if (type == SymptomCategoryType.symptomCode) {
       return symptoms.isEmpty ? codeGreen : symptoms.first.code!;
     }
 

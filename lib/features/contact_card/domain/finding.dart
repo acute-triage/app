@@ -18,7 +18,7 @@ class Finding with _$Finding {
   }) = _SymptomCategory;
 
   Code get code {
-    if (category.type == SymptomCategoryType.single) {
+    if (category.type == SymptomCategoryType.symptomCode) {
       return symptoms.isEmpty ? codeGreen : symptoms.first.code!;
     }
 

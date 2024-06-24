@@ -10,7 +10,7 @@ const contactCard8 = ContactReasonCard(
   symptomCategories: [
     SymptomCategory(
       name: 'Symptomer',
-      type: SymptomCategoryType.multiple,
+      type: SymptomCategoryType.symptomsCountToCode,
       symptomsCountToCode: {
         2: codeGreen,
         4: codeYellow,
