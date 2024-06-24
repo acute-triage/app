@@ -17,11 +17,12 @@ class Finding with _$Finding {
   }) = _SymptomCategory;
 
   Code get code {
+    /// The code is determined by the highest priority symptom
     if (category.type == SymptomCategoryType.symptomCode) {
       return symptoms.isEmpty ? Code.green() : symptoms.first.code!;
     }
 
-    // Sort keys in descending order
+    /// The code is determined by the number of symptoms reported
     List<int> sortedKeys = category.symptomsCountToCode!.keys.toList()
       ..sort((a, b) => b.compareTo(a));
 
