@@ -11,7 +11,7 @@ const contactCard8 = ContactReasonCard(
     SymptomCategory(
       name: 'Symptomer',
       type: SymptomCategoryType.multiple,
-      multiSymptomsToCode: {
+      symptomsCountToCode: {
         2: codeGreen,
         4: codeYellow,
         5: codeOrange,

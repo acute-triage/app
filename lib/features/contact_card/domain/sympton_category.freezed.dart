@@ -19,7 +19,7 @@ mixin _$SymptomCategory {
   String get name => throw _privateConstructorUsedError;
   List<Symptom> get symptoms => throw _privateConstructorUsedError;
   SymptomCategoryType get type => throw _privateConstructorUsedError;
-  Map<int, Code>? get multiSymptomsToCode => throw _privateConstructorUsedError;
+  Map<int, Code>? get symptomsCountToCode => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SymptomCategoryCopyWith<SymptomCategory> get copyWith =>
@@ -36,7 +36,7 @@ abstract class $SymptomCategoryCopyWith<$Res> {
       {String name,
       List<Symptom> symptoms,
       SymptomCategoryType type,
-      Map<int, Code>? multiSymptomsToCode});
+      Map<int, Code>? symptomsCountToCode});
 }
 
 /// @nodoc
@@ -55,7 +55,7 @@ class _$SymptomCategoryCopyWithImpl<$Res, $Val extends SymptomCategory>
     Object? name = null,
     Object? symptoms = null,
     Object? type = null,
-    Object? multiSymptomsToCode = freezed,
+    Object? symptomsCountToCode = freezed,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -70,9 +70,9 @@ class _$SymptomCategoryCopyWithImpl<$Res, $Val extends SymptomCategory>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as SymptomCategoryType,
-      multiSymptomsToCode: freezed == multiSymptomsToCode
-          ? _value.multiSymptomsToCode
-          : multiSymptomsToCode // ignore: cast_nullable_to_non_nullable
+      symptomsCountToCode: freezed == symptomsCountToCode
+          ? _value.symptomsCountToCode
+          : symptomsCountToCode // ignore: cast_nullable_to_non_nullable
               as Map<int, Code>?,
     ) as $Val);
   }
@@ -90,7 +90,7 @@ abstract class _$$SymptomCategoryImplCopyWith<$Res>
       {String name,
       List<Symptom> symptoms,
       SymptomCategoryType type,
-      Map<int, Code>? multiSymptomsToCode});
+      Map<int, Code>? symptomsCountToCode});
 }
 
 /// @nodoc
@@ -107,7 +107,7 @@ class __$$SymptomCategoryImplCopyWithImpl<$Res>
     Object? name = null,
     Object? symptoms = null,
     Object? type = null,
-    Object? multiSymptomsToCode = freezed,
+    Object? symptomsCountToCode = freezed,
   }) {
     return _then(_$SymptomCategoryImpl(
       name: null == name
@@ -122,9 +122,9 @@ class __$$SymptomCategoryImplCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as SymptomCategoryType,
-      multiSymptomsToCode: freezed == multiSymptomsToCode
-          ? _value._multiSymptomsToCode
-          : multiSymptomsToCode // ignore: cast_nullable_to_non_nullable
+      symptomsCountToCode: freezed == symptomsCountToCode
+          ? _value._symptomsCountToCode
+          : symptomsCountToCode // ignore: cast_nullable_to_non_nullable
               as Map<int, Code>?,
     ));
   }
@@ -137,9 +137,9 @@ class _$SymptomCategoryImpl extends _SymptomCategory {
       {required this.name,
       required final List<Symptom> symptoms,
       this.type = SymptomCategoryType.single,
-      final Map<int, Code>? multiSymptomsToCode})
+      final Map<int, Code>? symptomsCountToCode})
       : _symptoms = symptoms,
-        _multiSymptomsToCode = multiSymptomsToCode,
+        _symptomsCountToCode = symptomsCountToCode,
         super._();
 
   @override
@@ -155,20 +155,20 @@ class _$SymptomCategoryImpl extends _SymptomCategory {
   @override
   @JsonKey()
   final SymptomCategoryType type;
-  final Map<int, Code>? _multiSymptomsToCode;
+  final Map<int, Code>? _symptomsCountToCode;
   @override
-  Map<int, Code>? get multiSymptomsToCode {
-    final value = _multiSymptomsToCode;
+  Map<int, Code>? get symptomsCountToCode {
+    final value = _symptomsCountToCode;
     if (value == null) return null;
-    if (_multiSymptomsToCode is EqualUnmodifiableMapView)
-      return _multiSymptomsToCode;
+    if (_symptomsCountToCode is EqualUnmodifiableMapView)
+      return _symptomsCountToCode;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(value);
   }
 
   @override
   String toString() {
-    return 'SymptomCategory(name: $name, symptoms: $symptoms, type: $type, multiSymptomsToCode: $multiSymptomsToCode)';
+    return 'SymptomCategory(name: $name, symptoms: $symptoms, type: $type, symptomsCountToCode: $symptomsCountToCode)';
   }
 
   @JsonKey(ignore: true)
@@ -184,7 +184,7 @@ abstract class _SymptomCategory extends SymptomCategory {
       {required final String name,
       required final List<Symptom> symptoms,
       final SymptomCategoryType type,
-      final Map<int, Code>? multiSymptomsToCode}) = _$SymptomCategoryImpl;
+      final Map<int, Code>? symptomsCountToCode}) = _$SymptomCategoryImpl;
   const _SymptomCategory._() : super._();
 
   @override
@@ -194,7 +194,7 @@ abstract class _SymptomCategory extends SymptomCategory {
   @override
   SymptomCategoryType get type;
   @override
-  Map<int, Code>? get multiSymptomsToCode;
+  Map<int, Code>? get symptomsCountToCode;
   @override
   @JsonKey(ignore: true)
   _$$SymptomCategoryImplCopyWith<_$SymptomCategoryImpl> get copyWith =>

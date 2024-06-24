@@ -20,7 +20,7 @@ class SymptomCategory with _$SymptomCategory {
     required String name,
     required List<Symptom> symptoms,
     @Default(SymptomCategoryType.single) SymptomCategoryType type,
-    Map<int, Code>? multiSymptomsToCode,
+    Map<int, Code>? symptomsCountToCode,
   }) = _SymptomCategory;
 
   Code get code {
@@ -29,12 +29,12 @@ class SymptomCategory with _$SymptomCategory {
     }
 
     // Sort keys in descending order
-    List<int> sortedKeys = multiSymptomsToCode!.keys.toList()
-      ..sort((a, b) => b.compareTo(a));
+    List<int> orderedSymptomsWithHighestCount =
+        symptomsCountToCode!.keys.toList()..sort((a, b) => b.compareTo(a));
 
-    for (int key in sortedKeys) {
+    for (int key in orderedSymptomsWithHighestCount) {
       if (symptoms.length >= key) {
-        return multiSymptomsToCode![key]!;
+        return symptomsCountToCode![key]!;
       }
     }
 

@@ -23,12 +23,12 @@ class Finding with _$Finding {
     }
 
     // Sort keys in descending order
-    List<int> sortedKeys = category.multiSymptomsToCode!.keys.toList()
+    List<int> sortedKeys = category.symptomsCountToCode!.keys.toList()
       ..sort((a, b) => b.compareTo(a));
 
     for (int key in sortedKeys) {
       if (symptoms.length >= key) {
-        return category.multiSymptomsToCode![key]!;
+        return category.symptomsCountToCode![key]!;
       }
     }
 
