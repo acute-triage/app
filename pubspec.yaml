@@ -59,6 +59,7 @@ dependencies:
   logger: ^2.3.0
   firebase_crashlytics: ^3.5.7
   firebase_analytics: ^10.10.7
+  pdf: ^3.10.8
 
 dev_dependencies:
   flutter_test:
