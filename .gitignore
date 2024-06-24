@@ -58,3 +58,5 @@ firebase_app_distribution_service_account.json
 
 # scan temporary files
 **/fastlane/test_output
+
+google_service_account.json
